@@ -1,5 +1,5 @@
 export const ROUTE_PATH = {
-  HOME: '/',
+  ROOT: '/',
   SIGNIN: '/signin',
   SIGNUP: '/signup',
   DASHBOARD: {

@@ -2,7 +2,7 @@ import { Outlet, Navigate } from 'react-router';
 import { useAuthContext } from '@/context/auth-context';
 import { ROUTE_PATH } from '@/common/constants';
 
-const PrivateLayout = () => {
+const AuthenticatedLayout = () => {
   const { accessToken } = useAuthContext();
 
   if (!accessToken) return <Navigate to={ROUTE_PATH.SIGNIN} />;
@@ -14,4 +14,4 @@ const PrivateLayout = () => {
   );
 };
 
-export default PrivateLayout;
+export default AuthenticatedLayout;

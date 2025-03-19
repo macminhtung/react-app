@@ -1,11 +1,11 @@
 import { lazy, Suspense } from 'react';
-import { Route, Routes, BrowserRouter } from 'react-router';
-import { Spinner } from 'flowbite-react';
+import { Route, Routes, BrowserRouter, Navigate } from 'react-router';
 import { ROUTE_PATH } from '@/common/constants';
 import NotFoundPage from '@/pages/not-found';
 import { AuthContext, useAuthContextValue } from '@/context/auth-context';
 import PublicLayout from '@/app-router/public-layout';
-import PrivateLayout from '@/app-router/private-layout';
+import AuthenticatedLayout from '@/app-router/authenticated-layout';
+import { Spinner } from 'flowbite-react';
 
 const SignInPage = lazy(() => import('@/pages/signin'));
 const SignUpPage = lazy(() => import('@/pages/signup'));
@@ -24,7 +24,12 @@ const AppRoutes = () => {
             </Route>
 
             {/* PRIVATE ROUTES */}
-            <Route path={ROUTE_PATH.DASHBOARD.ROOT} element={<PrivateLayout />}>
+            <Route
+              index
+              path={ROUTE_PATH.ROOT}
+              element={<Navigate to={ROUTE_PATH.DASHBOARD.ROOT} />}
+            />
+            <Route path={ROUTE_PATH.DASHBOARD.ROOT} element={<AuthenticatedLayout />}>
               <Route index path={ROUTE_PATH.DASHBOARD.ROOT} element={<DashboardPage />} />
             </Route>
 
