@@ -1,12 +1,11 @@
 import type { Config } from 'tailwindcss';
-import flowbite from 'flowbite-react/tailwind';
 
 const config: Config = {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}', flowbite.content()],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {},
   },
-  plugins: [flowbite.plugin()],
+  plugins: [],
 };
 
 export default config;

@@ -5,7 +5,7 @@ import NotFoundPage from '@/pages/not-found';
 import { AuthContext, useAuthContextValue } from '@/context/auth-context';
 import PublicLayout from '@/app-router/public-layout';
 import AuthenticatedLayout from '@/app-router/authenticated-layout';
-import { Spinner } from 'flowbite-react';
+import { SpinnerC } from '@/components/ui-customize';
 
 const SignInPage = lazy(() => import('@/pages/signin'));
 const SignUpPage = lazy(() => import('@/pages/signup'));
@@ -15,7 +15,13 @@ const AppRoutes = () => {
   return (
     <BrowserRouter>
       <AuthContext.Provider value={useAuthContextValue()}>
-        <Suspense fallback={<Spinner />}>
+        <Suspense
+          fallback={
+            <div className='w-[100vw] h-[100vh] flex items-center justify-center'>
+              <SpinnerC className='size-20' />
+            </div>
+          }
+        >
           <Routes>
             {/* PUBLIC ROUTES */}
             <Route element={<PublicLayout />}>
