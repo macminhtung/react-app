@@ -1,5 +1,5 @@
 import type { ComponentProps, ForwardRefExoticComponent, RefAttributes, ReactNode } from 'react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui';
 import { AvatarImageProps } from '@radix-ui/react-avatar';
 import { cn } from '@/lib/utils';
 

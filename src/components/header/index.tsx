@@ -15,7 +15,7 @@ const Header = () => {
       <AvatarC src='/logo.jpg' />
       <div className='flex-1 bg-gray-200'></div>
       <div className='flex gap-2'>
-        <ButtonC>{t('common.signIn')}</ButtonC>
+        <ButtonC>{t('common.signOut')}</ButtonC>
         <SelectC
           className='w-20'
           options={languageOptions}

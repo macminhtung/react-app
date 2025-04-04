@@ -1,6 +1,7 @@
 export const vnTranslation = {
   common: {
     signIn: 'Đăng nhập',
-    signUp: 'Đăng xuất',
+    signUp: 'Đăng ký',
+    signOut: 'Đăng xuất',
   },
 };
