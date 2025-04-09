@@ -17,7 +17,8 @@ interface ISelectOption {
   disabled?: boolean;
 }
 
-interface IProps extends Omit<ComponentProps<typeof SelectPrimitive.Trigger>, 'onChange'> {
+export interface ISelectProps
+  extends Omit<ComponentProps<typeof SelectPrimitive.Trigger>, 'onChange'> {
   options: ISelectOption[];
   loading?: boolean;
   spinClassName?: string;
@@ -25,7 +26,7 @@ interface IProps extends Omit<ComponentProps<typeof SelectPrimitive.Trigger>, 'o
   onChange: (value: string) => void;
 }
 
-export const SelectC = (props: IProps) => {
+export const SelectC = (props: ISelectProps) => {
   const { options = [], className, placeholder, loading, spinClassName, onChange, ...rest } = props;
 
   return (
