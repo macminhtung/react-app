@@ -1,4 +1,4 @@
-import type { InputHTMLAttributes, ElementType } from 'react';
+import type { ElementType } from 'react';
 import {
   FormControl,
   FormDescription,
@@ -7,22 +7,24 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { InputC } from '@/components/ui-customize';
-import { SelectC, ISelectProps } from '@/components/ui-customize/select';
+import {
+  InputC,
+  TInputCProps,
+  SelectC,
+  ISelectProps,
+  PasswordC,
+  TPasswordCProps,
+} from '@/components/ui-customize';
 import type { Control } from 'react-hook-form';
 import type { FieldPath, FieldValues } from 'react-hook-form';
 import type { ZodObject, objectOutputType, objectInputType, ZodTypeAny, ZodArray } from 'zod';
 import { z } from 'zod';
-
-// eslint-disable-next-line react-refresh/only-export-components
-export enum EItemType {
-  INPUT = 'INPUT',
-  SELECT = 'SELECT',
-}
+import { EItemFieldType } from '@/components/form/enums';
 
 type TItemProps =
-  | { iType: EItemType.INPUT; iProps?: InputHTMLAttributes<HTMLInputElement> }
-  | { iType: EItemType.SELECT; iProps: ISelectProps };
+  | { iType: EItemFieldType.INPUT; iProps?: TInputCProps }
+  | { iType: EItemFieldType.PASSWORD; iProps?: TPasswordCProps }
+  | { iType: EItemFieldType.SELECT; iProps: ISelectProps };
 
 export type TZodSchema =
   | ZodObject<
@@ -35,8 +37,9 @@ export type TZodSchema =
   | ZodArray<ZodTypeAny>;
 
 const ITEM_FIELDS_MAP = {
-  [EItemType.INPUT]: InputC,
-  [EItemType.SELECT]: SelectC,
+  [EItemFieldType.INPUT]: InputC,
+  [EItemFieldType.PASSWORD]: PasswordC,
+  [EItemFieldType.SELECT]: SelectC,
 };
 
 export type TFormField<T extends TZodSchema> = TItemProps & {

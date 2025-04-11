@@ -1,8 +1,19 @@
+import { InputHTMLAttributes, ReactNode } from 'react';
 import { Input } from '@/components/ui';
-import { InputHTMLAttributes } from 'react';
 
-export const InputC = (props: InputHTMLAttributes<HTMLInputElement>) => {
-  const { className, placeholder, onChange, ...rest } = props;
+export type TInputCProps = InputHTMLAttributes<HTMLInputElement> & {
+  startItem?: ReactNode;
+  endItem?: ReactNode;
+};
 
-  return <Input className={className} placeholder={placeholder} onChange={onChange} {...rest} />;
+export const InputC = (props: TInputCProps) => {
+  const { className, startItem, endItem, ...rest } = props;
+
+  return (
+    <div className='relative'>
+      {startItem && <div className='absolute left-0'>{startItem}</div>}
+      <Input className={`${startItem && 'pl-10'} ${endItem && 'pr-10'} ${className}`} {...rest} />
+      {endItem && <div className='absolute right-0'>{endItem}</div>}
+    </div>
+  );
 };

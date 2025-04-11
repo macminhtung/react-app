@@ -35,8 +35,12 @@ const initValues: IAuthContext = {
 export const AuthContext = createContext<IAuthContext>(initValues);
 
 export const useAuthContextValue = (): IAuthContext => {
-  const [accessToken, setAccessToken] = useState<IAuthContext['accessToken']>(initValues.accessToken);
-  const [refreshToken, setRefreshToken] = useState<IAuthContext['refreshToken']>(initValues.refreshToken);
+  const [accessToken, setAccessToken] = useState<IAuthContext['accessToken']>(
+    initValues.accessToken
+  );
+  const [refreshToken, setRefreshToken] = useState<IAuthContext['refreshToken']>(
+    initValues.refreshToken
+  );
   const [authUser, setAuthUser] = useState<IAuthContext['authUser']>(initValues.authUser);
 
   return {

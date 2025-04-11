@@ -1,15 +1,15 @@
 import { lazy, Suspense } from 'react';
 import { Route, Routes, BrowserRouter, Navigate } from 'react-router';
 import { ROUTE_PATH } from '@/common/constants';
-import NotFoundPage from '@/pages/not-found';
-import { AuthContext, useAuthContextValue } from '@/context/auth-context';
+import NotFoundPage from '@/pages/NotFound';
+import { AuthContext, useAuthContextValue } from '@/context/useAuthContext';
 import PublicLayout from '@/app-router/public-layout';
 import AuthenticatedLayout from '@/app-router/authenticated-layout';
 import { SpinnerC } from '@/components/ui-customize';
 
-const SignInPage = lazy(() => import('@/pages/signin'));
-const SignUpPage = lazy(() => import('@/pages/signup'));
-const DashboardPage = lazy(() => import('@/pages/dashboard'));
+const SignInPage = lazy(() => import('@/pages/SignIn'));
+const SignUpPage = lazy(() => import('@/pages/SignUp'));
+const DashboardPage = lazy(() => import('@/pages/Dashboard'));
 
 const AppRoutes = () => {
   return (
