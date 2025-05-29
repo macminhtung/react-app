@@ -22,9 +22,9 @@ const SignInPage = () => {
   }, []);
 
   return (
-    <div className='p-6 w-[600px] flex flex-col items-center bg-amber-100'>
-      <p className='text-4xl font-bold'>{t('common.signIn')}</p>
-      <Form onSubmit={onSubmit}>
+    <div className='p-6 w-full flex flex-col items-center'>
+      <p className='text-4xl font-bold mb-10'>{t('common.signIn')}</p>
+      <Form onSubmit={onSubmit} className='grid gap-6'>
         <ItemField
           iType={EItemFieldType.INPUT}
           fieldName='username'

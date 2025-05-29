@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { InputC, TInputCProps } from '@/components/ui-customize';
+import EyeOpenIcon from '@/common/icons/eye-open.svg?react';
 import EyeCloseIcon from '@/common/icons/eye-close.svg?react';
 
 export type TPasswordCProps = Omit<TInputCProps, 'type' | 'endItem'>;
 
 export const PasswordC = (props: TPasswordCProps) => {
-  const [show] = useState(false);
+  const [show, setShow] = useState(false);
 
   const { className, ...rest } = props;
 
@@ -14,7 +15,9 @@ export const PasswordC = (props: TPasswordCProps) => {
       type={show ? undefined : 'password'}
       className={className}
       {...rest}
-      endItem={EyeCloseIcon}
+      endItem={
+        <div onClick={() => setShow(!show)}>{show ? <EyeOpenIcon /> : <EyeCloseIcon />}</div>
+      }
     />
   );
 };
