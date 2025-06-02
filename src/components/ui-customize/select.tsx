@@ -17,16 +17,15 @@ interface ISelectOption {
   disabled?: boolean;
 }
 
-export interface ISelectProps
-  extends Omit<ComponentProps<typeof SelectPrimitive.Trigger>, 'onChange'> {
+export type TSelectProps = Omit<ComponentProps<typeof SelectPrimitive.Trigger>, 'onChange'> & {
   options: ISelectOption[];
   loading?: boolean;
   spinClassName?: string;
   placeholder?: ReactNode;
   onChange: (value: string) => void;
-}
+};
 
-export const SelectC = (props: ISelectProps) => {
+export const SelectC = (props: TSelectProps) => {
   const { options = [], className, placeholder, loading, spinClassName, onChange, ...rest } = props;
 
   return (

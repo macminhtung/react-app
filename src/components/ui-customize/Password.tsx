@@ -6,9 +6,8 @@ import EyeCloseIcon from '@/common/icons/eye-close.svg?react';
 export type TPasswordCProps = Omit<TInputCProps, 'type' | 'endItem'>;
 
 export const PasswordC = (props: TPasswordCProps) => {
-  const [show, setShow] = useState(false);
-
   const { className, ...rest } = props;
+  const [show, setShow] = useState(false);
 
   return (
     <InputC

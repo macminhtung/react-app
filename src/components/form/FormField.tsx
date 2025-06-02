@@ -11,20 +11,20 @@ import {
   InputC,
   TInputCProps,
   SelectC,
-  ISelectProps,
+  TSelectProps,
   PasswordC,
   TPasswordCProps,
 } from '@/components/ui-customize';
 import type { Control } from 'react-hook-form';
 import type { FieldPath, FieldValues } from 'react-hook-form';
 import type { ZodObject, objectOutputType, objectInputType, ZodTypeAny, ZodArray } from 'zod';
-import { z } from 'zod';
+import { z, ZodType } from 'zod';
 import { EItemFieldType } from '@/components/form/enums';
 
 type TItemProps =
   | { iType: EItemFieldType.INPUT; iProps?: TInputCProps }
   | { iType: EItemFieldType.PASSWORD; iProps?: TPasswordCProps }
-  | { iType: EItemFieldType.SELECT; iProps: ISelectProps };
+  | { iType: EItemFieldType.SELECT; iProps: TSelectProps };
 
 export type TZodSchema =
   | ZodObject<
@@ -34,7 +34,8 @@ export type TZodSchema =
       objectOutputType<FieldValues, ZodTypeAny, 'strip'>,
       objectInputType<FieldValues, ZodTypeAny, 'strip'>
     >
-  | ZodArray<ZodTypeAny>;
+  | ZodArray<ZodTypeAny>
+  | ZodType;
 
 const ITEM_FIELDS_MAP = {
   [EItemFieldType.INPUT]: InputC,

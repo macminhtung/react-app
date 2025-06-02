@@ -1,6 +1,10 @@
 import { useTranslation } from 'react-i18next';
-import { AvatarC, ButtonC, SelectC } from '@/components/ui-customize';
 import { resources } from '@/i18next/i18n';
+import { useNavigate } from 'react-router';
+import { ROUTE_PATH } from '@/common/constants';
+import { cn } from '@/lib/utils';
+import { useAuthContext } from '@/context/useAuthContext';
+import { AvatarC, ButtonC, SelectC } from '@/components/ui-customize';
 
 const languageOptions = Object.keys(resources).map((key) => ({
   label: key.toUpperCase(),
@@ -9,13 +13,20 @@ const languageOptions = Object.keys(resources).map((key) => ({
 
 const Header = () => {
   const { t, i18n } = useTranslation();
+  const { accessToken } = useAuthContext();
+  const navigate = useNavigate();
+  const isLoggedIn = !!accessToken;
 
   return (
-    <div className='flex p-3 gap-2 border border-px border-b-gray-200'>
-      <AvatarC src='/logo.jpg' />
-      <div className='flex-1 bg-gray-200'></div>
-      <div className='flex gap-2'>
-        <ButtonC>{t('common.signOut')}</ButtonC>
+    <div className={cn('flex p-3 gap-2', isLoggedIn && 'border border-px border-b-gray-200')}>
+      <AvatarC
+        src='/logo.jpg'
+        className={'rounded-[0.2rem] cursor-pointer size-10'}
+        onClick={() => navigate(ROUTE_PATH.ROOT)}
+      />
+      {isLoggedIn && <div className='flex-1 bg-gray-200'></div>}
+      <div className='flex gap-2 ml-auto'>
+        {isLoggedIn && <ButtonC>{t('common.signOut')}</ButtonC>}
         <SelectC
           className='w-20'
           options={languageOptions}

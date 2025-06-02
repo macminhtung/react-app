@@ -1,7 +1,8 @@
-import { InputHTMLAttributes, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { Input } from '@/components/ui';
 
-export type TInputCProps = InputHTMLAttributes<HTMLInputElement> & {
+type TOriginInputProps = React.ComponentProps<typeof Input>;
+export type TInputCProps = TOriginInputProps & {
   startItem?: ReactNode;
   endItem?: ReactNode;
 };

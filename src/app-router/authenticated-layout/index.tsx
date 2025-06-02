@@ -8,7 +8,7 @@ const AuthenticatedLayout = () => {
 
   if (!accessToken) return <Navigate to={ROUTE_PATH.SIGNIN} />;
 
-  return <AppWrapper showHeader />;
+  return <AppWrapper />;
 };
 
 export default AuthenticatedLayout;
