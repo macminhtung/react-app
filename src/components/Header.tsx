@@ -7,7 +7,7 @@ import { useAuthContext } from '@/context/useAuthContext';
 import { AvatarC, ButtonC, SelectC } from '@/components/ui-customize';
 
 const languageOptions = Object.keys(resources).map((key) => ({
-  label: key.toUpperCase(),
+  label: <p className='font-semibold'>{key.toUpperCase()}</p>,
   value: key,
 }));
 
@@ -18,13 +18,13 @@ const Header = () => {
   const isLoggedIn = !!accessToken;
 
   return (
-    <div className={cn('flex p-3 gap-2', isLoggedIn && 'border border-px border-b-gray-200')}>
+    <div className={cn('flex p-3 gap-2 border-b-[1px] border-b-gray-900')}>
       <AvatarC
         src='/logo.jpg'
-        className={'rounded-[0.2rem] cursor-pointer size-10'}
+        className={'rounded-[0.2rem] cursor-pointer size-10 transition-all hover:rounded-[50%]'}
         onClick={() => navigate(ROUTE_PATH.ROOT)}
       />
-      {isLoggedIn && <div className='flex-1 bg-gray-200'></div>}
+      {isLoggedIn && <div className='grow-0 bg-gray-200'></div>}
       <div className='flex gap-2 ml-auto'>
         {isLoggedIn && <ButtonC>{t('common.signOut')}</ButtonC>}
         <SelectC
