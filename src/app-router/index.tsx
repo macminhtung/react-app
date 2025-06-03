@@ -7,6 +7,7 @@ import PublicLayout from '@/app-router/public-layout';
 import AuthenticatedLayout from '@/app-router/authenticated-layout';
 import { SpinnerC } from '@/components/ui-customize';
 
+const ComponentsPage = lazy(() => import('@/pages/Components'));
 const SignInPage = lazy(() => import('@/pages/SignIn'));
 const SignUpPage = lazy(() => import('@/pages/SignUp'));
 const DashboardPage = lazy(() => import('@/pages/Dashboard'));
@@ -25,6 +26,7 @@ const AppRoutes = () => {
           <Routes>
             {/* PUBLIC ROUTES */}
             <Route element={<PublicLayout />}>
+              <Route index path={ROUTE_PATH.COMPONENTS} element={<ComponentsPage />} />
               <Route index path={ROUTE_PATH.SIGNIN} element={<SignInPage />} />
               <Route index path={ROUTE_PATH.SIGNUP} element={<SignUpPage />} />
             </Route>

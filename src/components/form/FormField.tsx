@@ -11,7 +11,7 @@ import {
   InputC,
   TInputCProps,
   SelectC,
-  TSelectProps,
+  TMultipleSelectProps,
   PasswordC,
   TPasswordCProps,
 } from '@/components/ui-customize';
@@ -24,7 +24,7 @@ import { EItemFieldType } from '@/components/form/enums';
 type TItemProps =
   | { iType: EItemFieldType.INPUT; iProps?: TInputCProps }
   | { iType: EItemFieldType.PASSWORD; iProps?: TPasswordCProps }
-  | { iType: EItemFieldType.SELECT; iProps: TSelectProps };
+  | { iType: EItemFieldType.SELECT; iProps: TMultipleSelectProps };
 
 export type TZodSchema =
   | ZodObject<
