@@ -36,7 +36,7 @@ export const SelectC = (props: TSelectProps) => {
     >
       <SelectTrigger
         className={cn(
-          'relative w-40',
+          'relative w-40 min-h-10',
           className,
           `${loading && '[&>svg.lucide-chevron-down]:hidden'}`
         )}

@@ -166,7 +166,7 @@ export const MultiSelectC = (props: TMultiSelectCProps) => {
       >
         <Command>
           <CommandInput
-            className='h-10 [&_svg]:scale-[1.2]'
+            className='min-h-10 [&_svg]:scale-[1.2]'
             placeholder='Search...'
             onKeyDown={handleSearching}
           />
