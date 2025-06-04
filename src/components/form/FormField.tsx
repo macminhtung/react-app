@@ -1,4 +1,4 @@
-import type { ElementType } from 'react';
+import type { ElementType, ComponentProps } from 'react';
 import {
   FormControl,
   FormDescription,
@@ -7,14 +7,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import {
-  InputC,
-  TInputCProps,
-  SelectC,
-  TMultipleSelectProps,
-  PasswordC,
-  TPasswordCProps,
-} from '@/components/ui-customize';
+import { InputC, SelectC, MultiSelectC, PasswordC } from '@/components/ui-customize';
 import type { Control } from 'react-hook-form';
 import type { FieldPath, FieldValues } from 'react-hook-form';
 import type { ZodObject, objectOutputType, objectInputType, ZodTypeAny, ZodArray } from 'zod';
@@ -22,9 +15,10 @@ import { z, ZodType } from 'zod';
 import { EItemFieldType } from '@/components/form/enums';
 
 type TItemProps =
-  | { iType: EItemFieldType.INPUT; iProps?: TInputCProps }
-  | { iType: EItemFieldType.PASSWORD; iProps?: TPasswordCProps }
-  | { iType: EItemFieldType.SELECT; iProps: TMultipleSelectProps };
+  | { iType: EItemFieldType.INPUT; iProps?: ComponentProps<typeof InputC> }
+  | { iType: EItemFieldType.PASSWORD; iProps?: ComponentProps<typeof PasswordC> }
+  | { iType: EItemFieldType.SELECT; iProps: ComponentProps<typeof SelectC> }
+  | { iType: EItemFieldType.MULTI_SELECT; iProps: ComponentProps<typeof MultiSelectC> };
 
 export type TZodSchema =
   | ZodObject<
@@ -41,6 +35,7 @@ const ITEM_FIELDS_MAP = {
   [EItemFieldType.INPUT]: InputC,
   [EItemFieldType.PASSWORD]: PasswordC,
   [EItemFieldType.SELECT]: SelectC,
+  [EItemFieldType.MULTI_SELECT]: MultiSelectC,
 };
 
 export type TFormField<T extends TZodSchema> = TItemProps & {

@@ -13,8 +13,11 @@ export const InputC = (props: TInputCProps) => {
   return (
     <div className='relative'>
       {startItem && <div className='absolute left-0'>{startItem}</div>}
-      <Input className={`${startItem && 'pl-10'} ${endItem && 'pr-10'} ${className}`} {...rest} />
-      {endItem && <div className='absolute top-[10px] right-[10px] cursor-pointer'>{endItem}</div>}
+      <Input
+        className={`${startItem && 'pl-10'} ${endItem && 'pr-10'} ${className} h-10`}
+        {...rest}
+      />
+      {endItem && <div className='absolute top-[13px] right-[12px] cursor-pointer'>{endItem}</div>}
     </div>
   );
 };

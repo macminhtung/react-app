@@ -1,4 +1,4 @@
-import { MultiSelect } from '@/components/ui-customize';
+import { MultiSelectC } from '@/components/ui-customize';
 import { useState } from 'react';
 
 const frameworksList = [
@@ -11,15 +11,15 @@ const frameworksList = [
 
 const ComponentsPage = () => {
   const [selectedFrameworks, setSelectedFrameworks] = useState<string[]>(['Option1', 'Option2']);
+  console.log('selectedFrameworks =', selectedFrameworks);
   return (
     <div className='p-6'>
       <p className='font-bold mb-2'>Multiple Select</p>
-      <MultiSelect
+      <MultiSelectC
+        className='min-w-[300px]'
         options={frameworksList}
         defaultValue={selectedFrameworks}
-        onValueChange={setSelectedFrameworks}
-        variant='inverted'
-        className='min-w-[300px]'
+        onChange={setSelectedFrameworks}
       />
     </div>
   );
