@@ -5,3 +5,6 @@ export * from './spinner';
 export * from './input';
 export * from './form';
 export * from './label';
+export * from './table';
+export * from './pagination';
+export * from './checkbox';
