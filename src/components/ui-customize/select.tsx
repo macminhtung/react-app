@@ -11,7 +11,7 @@ import * as SelectPrimitive from '@radix-ui/react-select';
 import { cn } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
 
-interface ISelectOption {
+export interface ISelectOption {
   label: ReactNode;
   value: string;
   disabled?: boolean;
@@ -22,7 +22,7 @@ export type TSelectProps = Omit<ComponentProps<typeof SelectPrimitive.Trigger>, 
   loading?: boolean;
   spinClassName?: string;
   placeholder?: ReactNode;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
 };
 
 export const SelectC = (props: TSelectProps) => {

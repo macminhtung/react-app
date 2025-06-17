@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
+import type { ReactNode, ComponentProps } from 'react';
 import { Input } from '@/components/ui';
 
-type TOriginInputProps = React.ComponentProps<typeof Input>;
+type TOriginInputProps = ComponentProps<typeof Input>;
 export type TInputCProps = TOriginInputProps & {
   startItem?: ReactNode;
   endItem?: ReactNode;

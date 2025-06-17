@@ -1,13 +1,6 @@
 import { useState, type ComponentProps } from 'react';
-import { MultiSelectC, TableC } from '@/components/ui-customize';
-
-const frameworksList = [
-  { value: 'Option1', label: 'Option1' },
-  { value: 'Option2', label: 'Option2' },
-  { value: 'Option3', label: 'Option3' },
-  { value: 'Option4', label: 'Option4' },
-  { value: 'Option5', label: 'Option5' },
-];
+import { TableC, ButtonC } from '@/components/ui-customize';
+import { toast } from 'sonner';
 
 const records = [
   {
@@ -41,7 +34,6 @@ const records = [
 ];
 
 const ComponentsPage = () => {
-  const [selectedFrameworks, setSelectedFrameworks] = useState<string[]>(['Option1', 'Option2']);
   const [pagination, setPagination] = useState<{ page: number; take: number }>({
     page: 1,
     take: 15,
@@ -52,28 +44,35 @@ const ComponentsPage = () => {
 
   return (
     <div className='flex flex-col h-full p-6 gap-6'>
-      <div className=''>
-        <p className='font-bold mb-2'>Multiple Select</p>
-        <MultiSelectC
-          className='md:min-w-[300px]'
-          options={frameworksList}
-          defaultValue={selectedFrameworks}
-          onChange={setSelectedFrameworks}
-        />
+      <div className='flex flex-col'>
+        <ButtonC
+          className='w-fit'
+          onClick={() =>
+            toast('Event has been created', {
+              description: 'Sunday, December 03, 2023 at 9:00 AM',
+              action: {
+                label: 'Close',
+                onClick: () => console.log('Close'),
+              },
+            })
+          }
+        >
+          Show Toast
+        </ButtonC>
       </div>
 
-      <div className='flex flex-col flex-1'>
+      <div className='flex flex-col'>
         <p className='font-bold mb-2'>Table</p>
         <TableC
           headers={[
-            { key: 'id', title: 'ID' },
+            { key: 'id', title: 'ID', width: 150 },
             { key: 'name', title: 'Name' },
             { key: 'category', title: 'Category' },
             { key: 'price', title: 'Price' },
             { key: 'rating', title: 'Rating' },
           ]}
           className='[&>div]:max-h-[200px]'
-          rowKey={'id'}
+          rowKey='id'
           rowRecords={records}
           pagination={{ ...pagination, total: 100, setPagination }}
           selectMode={{ selectedRecords, setSelectedRecords }}

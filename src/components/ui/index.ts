@@ -8,3 +8,8 @@ export * from './label';
 export * from './table';
 export * from './pagination';
 export * from './checkbox';
+export * from './textarea';
+export * from './switch';
+export * from './radio-group';
+export * from './popover';
+export * from './calendar';

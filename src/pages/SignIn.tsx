@@ -11,7 +11,8 @@ const signInSchema = z.object({
   username: z
     .string()
     .min(2, { message: 'Minimum 2 characters' })
-    .max(50, { message: 'Maximum 50 characters' }),
+    .max(50, { message: 'Maximum 50 characters' })
+    .email('Email invalid'),
   password: z
     .string()
     .min(6, { message: 'Minimum 6 characters' })
@@ -58,6 +59,16 @@ const SignInPage = () => {
             className='font-bold text-xl'
           >
             {t('common.signUp')}
+          </ButtonC>
+        </div>
+
+        <div className='flex flex-col gap-2'>
+          <ButtonC
+            onClick={() => navigate(ROUTE_PATH.TEST_FORM)}
+            className='font-bold text-xl'
+            variant={'outline'}
+          >
+            Test Form Fields
           </ButtonC>
         </div>
       </Form>

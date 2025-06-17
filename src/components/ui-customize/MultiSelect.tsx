@@ -32,7 +32,7 @@ export type TMultiSelectCProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, '
     defaultValue?: string[];
     placeholder?: string;
     options: { label: ReactNode; value: string }[];
-    onChange?: Dispatch<SetStateAction<string[]>>;
+    onChange?: Dispatch<SetStateAction<string[]>>; // Use for react-hook-form
     maxCount?: number; // Maximum number of items to display [Optional - Defaults: 3]
     modalPopover?: boolean; // The modality of the popover. When set to true, interaction with outside elements [Optional - Defaults: False]
   };

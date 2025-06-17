@@ -6,15 +6,18 @@ import { AuthContext, useAuthContextValue } from '@/context/useAuthContext';
 import PublicLayout from '@/app-router/public-layout';
 import AuthenticatedLayout from '@/app-router/authenticated-layout';
 import { SpinnerC } from '@/components/ui-customize';
+import { Toaster } from '@/components/ui/sonner';
 
-const ComponentsPage = lazy(() => import('@/pages/Components'));
 const SignInPage = lazy(() => import('@/pages/SignIn'));
 const SignUpPage = lazy(() => import('@/pages/SignUp'));
 const DashboardPage = lazy(() => import('@/pages/Dashboard'));
+const ComponentsPage = lazy(() => import('@/pages/Components'));
+const TestFormPage = lazy(() => import('@/pages/TestForm'));
 
 const AppRoutes = () => {
   return (
     <BrowserRouter>
+      <Toaster position='top-right' />
       <AuthContext.Provider value={useAuthContextValue()}>
         <Suspense
           fallback={
@@ -26,9 +29,10 @@ const AppRoutes = () => {
           <Routes>
             {/* PUBLIC ROUTES */}
             <Route element={<PublicLayout />}>
-              <Route index path={ROUTE_PATH.COMPONENTS} element={<ComponentsPage />} />
               <Route index path={ROUTE_PATH.SIGNIN} element={<SignInPage />} />
               <Route index path={ROUTE_PATH.SIGNUP} element={<SignUpPage />} />
+              <Route index path={ROUTE_PATH.COMPONENTS} element={<ComponentsPage />} />
+              <Route index path={ROUTE_PATH.TEST_FORM} element={<TestFormPage />} />
             </Route>
 
             {/* PRIVATE ROUTES */}
