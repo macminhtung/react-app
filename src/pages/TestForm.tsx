@@ -52,7 +52,7 @@ const TestFormPage = () => {
   }, []);
 
   return (
-    <div className='p-6 size-full flex flex-col items-center'>
+    <div className='flex flex-col items-center'>
       <p className='text-4xl font-bold mb-10'>TEST FORM FIELDS</p>
       <Form onSubmit={onSubmit} className='grid gap-6 w-full max-w-[20rem]'>
         <ItemField

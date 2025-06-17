@@ -37,7 +37,7 @@ const SignUpPage = () => {
   }, []);
 
   return (
-    <div className='p-6 size-full flex flex-col items-center'>
+    <div className='size-full flex flex-col items-center'>
       <p className='text-4xl font-bold mb-10'>{t('common.signUp')}</p>
       <Form onSubmit={onSubmit} className='grid gap-6 w-full max-w-[20rem]'>
         <ItemField

@@ -43,7 +43,7 @@ const ComponentsPage = () => {
   >([]);
 
   return (
-    <div className='flex flex-col h-full p-6 gap-6'>
+    <div className='flex flex-col size-full gap-6'>
       <div className='flex flex-col'>
         <ButtonC
           className='w-fit'

@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next';
 import { resources } from '@/i18next/i18n';
 import { useNavigate } from 'react-router';
 import { ROUTE_PATH } from '@/common/constants';
-import { cn } from '@/lib/utils';
 import { useAuthContext } from '@/context/useAuthContext';
 import { AvatarC, ButtonC, SelectC } from '@/components/ui-customize';
 
@@ -18,7 +17,7 @@ const Header = () => {
   const isLoggedIn = !!accessToken;
 
   return (
-    <div className={cn('flex p-3 gap-2 border-b-[1px] border-b-gray-900')}>
+    <div className={'flex items-center p-3 gap-2 border-b-[1px] border-b-gray-900 h-[66px]'}>
       <AvatarC
         src='/logo.jpg'
         className={'rounded-[0.2rem] cursor-pointer size-10 transition-all hover:rounded-[50%]'}
