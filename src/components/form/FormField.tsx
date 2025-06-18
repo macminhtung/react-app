@@ -82,7 +82,10 @@ export const FormFieldC = <T extends TZodSchema>(props: TFormField<T>) => {
         <FormItem>
           <FormControl>
             <div
-              className={cn('flex gap-2 flex-col', isHorizontal && 'flex-row-reverse justify-end')}
+              className={cn(
+                'flex gap-2 flex-col ',
+                isHorizontal && 'flex-row-reverse justify-end items-center'
+              )}
             >
               <FormLabel>{label}</FormLabel>
               <ItemField {...field} {...iProps} />

@@ -52,83 +52,80 @@ const TestFormPage = () => {
   }, []);
 
   return (
-    <div className='flex flex-col items-center'>
+    <div className='flex flex-col items-center w-full max-w-[800px]'>
       <p className='text-4xl font-bold mb-10'>TEST FORM FIELDS</p>
-      <Form onSubmit={onSubmit} className='grid gap-6 w-full max-w-[20rem]'>
-        <ItemField
-          control={methods.control}
-          iType={EItemFieldType.INPUT}
-          label={'INPUT'}
-          fieldName='input'
-        />
-
-        <ItemField
-          control={methods.control}
-          iType={EItemFieldType.PASSWORD}
-          label={'PASSWORD'}
-          fieldName='password'
-        />
-
-        <ItemField
-          control={methods.control}
-          iType={EItemFieldType.TEXTAREA}
-          label={'TEXTAREA'}
-          fieldName='textarea'
-        />
-
-        <ItemField
-          control={methods.control}
-          iType={EItemFieldType.SELECT}
-          label={'SELECT'}
-          fieldName='select'
-          iProps={{ options, placeholder: 'Select option', className: 'w-full' }}
-        />
-
-        <ItemField
-          control={methods.control}
-          iType={EItemFieldType.MULTI_SELECT}
-          label={'MULTI_SELECT'}
-          fieldName='multiSelect'
-          iProps={{ options }}
-        />
-
-        <ItemField
-          control={methods.control}
-          iType={EItemFieldType.CHECK_BOX}
-          label={'CHECK_BOX'}
-          fieldName='checkbox'
-        />
-
-        <ItemField
-          control={methods.control}
-          iType={EItemFieldType.SWITCH}
-          label={'SWITCH'}
-          fieldName='switch'
-        />
-
-        <ItemField
-          control={methods.control}
-          iType={EItemFieldType.RADIO_GROUP}
-          label={'RADIO_GROUP'}
-          fieldName='radioGroup'
-          iProps={{ options }}
-        />
-
-        <ItemField
-          control={methods.control}
-          iType={EItemFieldType.DATE_PICKER}
-          label={'DATE_PICKER'}
-          fieldName='datePicker'
-          iProps={{ className: 'w-full' }}
-        />
-
-        <ItemField
-          control={methods.control}
-          iType={EItemFieldType.RANGE_DATE_PICKER}
-          label={'RANGE_DATE_PICKER'}
-          fieldName='rangeDatePicker'
-          iProps={{ className: 'w-full' }}
-        />
+      <Form onSubmit={onSubmit} className='grid gap-6 w-full'>
+        <div className='grid grid-cols-2 gap-6 max-md:grid-cols-1'>
+          <div className='grid gap-6'>
+            <ItemField
+              control={methods.control}
+              iType={EItemFieldType.INPUT}
+              label={'INPUT'}
+              fieldName='input'
+            />
+            <ItemField
+              control={methods.control}
+              iType={EItemFieldType.PASSWORD}
+              label={'PASSWORD'}
+              fieldName='password'
+            />
+            <ItemField
+              control={methods.control}
+              iType={EItemFieldType.TEXTAREA}
+              label={'TEXTAREA'}
+              fieldName='textarea'
+            />
+            <ItemField
+              control={methods.control}
+              iType={EItemFieldType.SELECT}
+              label={'SELECT'}
+              fieldName='select'
+              iProps={{ options, placeholder: 'Select option', className: 'w-full' }}
+            />
+            <ItemField
+              control={methods.control}
+              iType={EItemFieldType.MULTI_SELECT}
+              label={'MULTI_SELECT'}
+              fieldName='multiSelect'
+              iProps={{ options }}
+            />
+          </div>
+          <div className='grid gap-6'>
+            <ItemField
+              control={methods.control}
+              iType={EItemFieldType.CHECK_BOX}
+              label={'CHECK_BOX'}
+              fieldName='checkbox'
+            />
+            <ItemField
+              control={methods.control}
+              iType={EItemFieldType.SWITCH}
+              label={'SWITCH'}
+              fieldName='switch'
+            />
+            <ItemField
+              control={methods.control}
+              iType={EItemFieldType.RADIO_GROUP}
+              label={'RADIO_GROUP'}
+              fieldName='radioGroup'
+              iProps={{ options }}
+            />
+            <ItemField
+              control={methods.control}
+              iType={EItemFieldType.DATE_PICKER}
+              label={'DATE_PICKER'}
+              fieldName='datePicker'
+              iProps={{ className: 'w-full' }}
+            />
+            <ItemField
+              control={methods.control}
+              iType={EItemFieldType.RANGE_DATE_PICKER}
+              label={'RANGE_DATE_PICKER'}
+              fieldName='rangeDatePicker'
+              iProps={{ className: 'w-full' }}
+            />
+          </div>
+        </div>
 
         <ButtonC type='submit'>{t('common.submit')}</ButtonC>
 
