@@ -3,6 +3,7 @@ import * as LabelPrimitive from '@radix-ui/react-label';
 import { Slot } from '@radix-ui/react-slot';
 import {
   Controller,
+  FieldError,
   FormProvider,
   useFormContext,
   useFormState,
@@ -118,7 +119,12 @@ function FormDescription({ className, ...props }: React.ComponentProps<'p'>) {
 
 function FormMessage({ className, ...props }: React.ComponentProps<'p'>) {
   const { error, formMessageId } = useFormField();
-  const body = error ? String(error?.message ?? '') : props.children;
+  const errorFormatted: (FieldError & { from?: FieldError; to?: FieldError }) | undefined = error;
+  const body = error
+    ? String(
+        errorFormatted?.message || errorFormatted?.from?.message || errorFormatted?.to?.message
+      )
+    : props.children;
 
   if (!body) {
     return null;
