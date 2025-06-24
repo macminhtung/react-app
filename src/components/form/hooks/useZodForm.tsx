@@ -19,8 +19,8 @@ type TFormProps<T extends TZodSchema> = Omit<
 > & { onSubmit: (values: z.infer<T>) => void };
 
 export const useZodForm = <T extends TZodSchema>(props: TUseFormC<T>) => {
-  const { schema, ...rest } = props;
-  const methods = useForm({ resolver: zodResolver(schema), ...rest });
+  const { schema, mode = 'onBlur', ...rest } = props;
+  const methods = useForm({ resolver: zodResolver(schema), mode, ...rest });
 
   const ItemField = useCallback(
     (props: TFormField<T>) => FormFieldC({ ...props, control: methods.control }),

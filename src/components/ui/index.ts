@@ -13,3 +13,7 @@ export * from './switch';
 export * from './radio-group';
 export * from './popover';
 export * from './calendar';
+export * from './drawer';
+export * from './dialog';
+export * from './tabs';
+export * from './tooltip';

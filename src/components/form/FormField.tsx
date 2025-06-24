@@ -1,7 +1,7 @@
 import type { ElementType, ComponentProps } from 'react';
 import { z, ZodType } from 'zod';
 import type { ZodObject, objectOutputType, objectInputType, ZodTypeAny, ZodArray } from 'zod';
-import type { Control, FieldPath, FieldValues } from 'react-hook-form';
+import { type Control, FieldPath, FieldValues } from 'react-hook-form';
 import {
   FormControl,
   FormDescription,
@@ -88,7 +88,7 @@ export const FormFieldC = <T extends TZodSchema>(props: TFormField<T>) => {
               )}
             >
               <FormLabel>{label}</FormLabel>
-              <ItemField {...field} {...iProps} />
+              <ItemField {...field} {...iProps} onBlur={() => field.onBlur()} />
             </div>
           </FormControl>
           {itemFieldDescription && <FormDescription>{itemFieldDescription}</FormDescription>}
