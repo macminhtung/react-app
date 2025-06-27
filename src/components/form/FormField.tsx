@@ -79,7 +79,7 @@ type TFormFieldC<T extends TZodSchema> = TItemFieldC<T> & {
   schema: TZodSchema;
 };
 
-const checkIsRequired = (schema: TZodSchema | undefined, fieldName: string) =>
+const checkIsRequired = (schema: TZodSchema, fieldName: string) =>
   (schema instanceof ZodObject && !schema.shape[fieldName].isOptional()) ||
   (schema instanceof ZodArray && !schema.element.shape[fieldName].isOptional()) ||
   (schema instanceof ZodEffects && !schema._def.schema.shape[fieldName].isOptional());
