@@ -1,6 +1,14 @@
 import type { ElementType, ComponentProps } from 'react';
-import { z, ZodType } from 'zod';
-import type { ZodObject, objectOutputType, objectInputType, ZodTypeAny, ZodArray } from 'zod';
+import {
+  ZodObject,
+  objectOutputType,
+  objectInputType,
+  ZodTypeAny,
+  ZodArray,
+  z,
+  ZodType,
+  ZodEffects,
+} from 'zod';
 import { type Control, FieldPath, FieldValues } from 'react-hook-form';
 import {
   FormControl,
@@ -37,16 +45,15 @@ type TItemProps =
   | { iType: EItemFieldType.DATE_PICKER; iProps?: ComponentProps<typeof DatePickerC> }
   | { iType: EItemFieldType.RANGE_DATE_PICKER; iProps?: ComponentProps<typeof RangeDatePickerC> };
 
-export type TZodSchema =
-  | ZodObject<
-      FieldValues,
-      'strip',
-      ZodTypeAny,
-      objectOutputType<FieldValues, ZodTypeAny, 'strip'>,
-      objectInputType<FieldValues, ZodTypeAny, 'strip'>
-    >
-  | ZodArray<ZodTypeAny>
-  | ZodType;
+type TZodO = ZodObject<
+  FieldValues,
+  'strip',
+  ZodTypeAny,
+  objectOutputType<FieldValues, ZodTypeAny, 'strip'>,
+  objectInputType<FieldValues, ZodTypeAny, 'strip'>
+>;
+
+export type TZodSchema = TZodO | ZodArray<ZodTypeAny> | ZodEffects<TZodO, unknown> | ZodType;
 
 const ITEM_FIELDS_MAP = {
   [EItemFieldType.INPUT]: InputC,
@@ -61,15 +68,24 @@ const ITEM_FIELDS_MAP = {
   [EItemFieldType.RANGE_DATE_PICKER]: RangeDatePickerC,
 };
 
-export type TFormField<T extends TZodSchema> = TItemProps & {
-  control: Control<FieldValues, unknown, FieldValues>;
+export type TItemFieldC<T extends TZodSchema> = TItemProps & {
   fieldName: FieldPath<z.infer<T>>;
   label: string;
   itemFieldDescription?: string;
 };
 
-export const FormFieldC = <T extends TZodSchema>(props: TFormField<T>) => {
-  const { iType, control, fieldName, label, iProps, itemFieldDescription } = props;
+type TFormFieldC<T extends TZodSchema> = TItemFieldC<T> & {
+  control: Control<FieldValues, unknown, FieldValues>;
+  schema: TZodSchema;
+};
+
+const checkIsRequired = (schema: TZodSchema | undefined, fieldName: string) =>
+  (schema instanceof ZodObject && !schema.shape[fieldName].isOptional()) ||
+  (schema instanceof ZodArray && !schema.element.shape[fieldName].isOptional()) ||
+  (schema instanceof ZodEffects && !schema._def.schema.shape[fieldName].isOptional());
+
+export const FormFieldC = <T extends TZodSchema>(props: TFormFieldC<T>) => {
+  const { iType, control, schema, fieldName, label, iProps, itemFieldDescription } = props;
 
   const ItemField: ElementType = ITEM_FIELDS_MAP[iType];
   const isHorizontal = [EItemFieldType.CHECK_BOX, EItemFieldType.SWITCH].includes(iType);
@@ -87,7 +103,10 @@ export const FormFieldC = <T extends TZodSchema>(props: TFormField<T>) => {
                 isHorizontal && 'flex-row-reverse justify-end items-center'
               )}
             >
-              <FormLabel>{label}</FormLabel>
+              <FormLabel>
+                {label}{' '}
+                {checkIsRequired(schema, field.name) && <span className='text-red-500'>*</span>}
+              </FormLabel>
               <ItemField {...field} {...iProps} onBlur={() => field.onBlur()} />
             </div>
           </FormControl>

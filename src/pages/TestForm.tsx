@@ -14,12 +14,9 @@ const options = [
 ];
 
 const signInSchema = z.object({
-  input: z.string(),
-  password: z
-    .string()
-    .min(6, { message: 'Minimum 6 characters' })
-    .max(20, { message: 'Maximum 20 characters' }),
-  textarea: z.string(),
+  input: z.string().optional(),
+  password: z.string().optional(),
+  textarea: z.string().optional(),
   checkbox: z.boolean(),
   switch: z.boolean(),
   select: z.string(),
@@ -32,7 +29,7 @@ const signInSchema = z.object({
 const TestFormPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { methods, Form, ItemField } = useZodForm({
+  const { Form, ItemField } = useZodForm({
     schema: signInSchema,
     defaultValues: {
       input: '',
@@ -57,33 +54,16 @@ const TestFormPage = () => {
       <Form onSubmit={onSubmit} className='grid gap-6 w-full'>
         <div className='grid grid-cols-2 gap-6 max-md:grid-cols-1'>
           <div className='grid gap-6'>
+            <ItemField iType={EItemFieldType.INPUT} label={'INPUT'} fieldName='input' />
+            <ItemField iType={EItemFieldType.PASSWORD} label={'PASSWORD'} fieldName='password' />
+            <ItemField iType={EItemFieldType.TEXTAREA} label={'TEXTAREA'} fieldName='textarea' />
             <ItemField
-              control={methods.control}
-              iType={EItemFieldType.INPUT}
-              label={'INPUT'}
-              fieldName='input'
-            />
-            <ItemField
-              control={methods.control}
-              iType={EItemFieldType.PASSWORD}
-              label={'PASSWORD'}
-              fieldName='password'
-            />
-            <ItemField
-              control={methods.control}
-              iType={EItemFieldType.TEXTAREA}
-              label={'TEXTAREA'}
-              fieldName='textarea'
-            />
-            <ItemField
-              control={methods.control}
               iType={EItemFieldType.SELECT}
               label={'SELECT'}
               fieldName='select'
               iProps={{ options, placeholder: 'Select option', className: 'w-full' }}
             />
             <ItemField
-              control={methods.control}
               iType={EItemFieldType.MULTI_SELECT}
               label={'MULTI_SELECT'}
               fieldName='multiSelect'
@@ -91,34 +71,21 @@ const TestFormPage = () => {
             />
           </div>
           <div className='grid gap-6'>
+            <ItemField iType={EItemFieldType.CHECK_BOX} label={'CHECK_BOX'} fieldName='checkbox' />
+            <ItemField iType={EItemFieldType.SWITCH} label={'SWITCH'} fieldName='switch' />
             <ItemField
-              control={methods.control}
-              iType={EItemFieldType.CHECK_BOX}
-              label={'CHECK_BOX'}
-              fieldName='checkbox'
-            />
-            <ItemField
-              control={methods.control}
-              iType={EItemFieldType.SWITCH}
-              label={'SWITCH'}
-              fieldName='switch'
-            />
-            <ItemField
-              control={methods.control}
               iType={EItemFieldType.RADIO_GROUP}
               label={'RADIO_GROUP'}
               fieldName='radioGroup'
               iProps={{ options }}
             />
             <ItemField
-              control={methods.control}
               iType={EItemFieldType.DATE_PICKER}
               label={'DATE_PICKER'}
               fieldName='datePicker'
               iProps={{ className: 'w-full' }}
             />
             <ItemField
-              control={methods.control}
               iType={EItemFieldType.RANGE_DATE_PICKER}
               label={'RANGE_DATE_PICKER'}
               fieldName='rangeDatePicker'

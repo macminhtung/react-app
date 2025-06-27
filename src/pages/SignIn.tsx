@@ -22,7 +22,7 @@ const signInSchema = z.object({
 const SignInPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { methods, Form, ItemField } = useZodForm({
+  const { Form, ItemField } = useZodForm({
     schema: signInSchema,
     defaultValues: { username: '', password: '' },
   });
@@ -35,15 +35,9 @@ const SignInPage = () => {
     <div className='size-full flex flex-col items-center'>
       <p className='text-4xl font-bold mb-10'>{t('common.signIn')}</p>
       <Form onSubmit={onSubmit} className='grid gap-6 w-full max-w-[20rem]'>
-        <ItemField
-          control={methods.control}
-          iType={EItemFieldType.INPUT}
-          label={t('common.username')}
-          fieldName='username'
-        />
+        <ItemField iType={EItemFieldType.INPUT} label={t('common.username')} fieldName='username' />
 
         <ItemField
-          control={methods.control}
           iType={EItemFieldType.PASSWORD}
           label={t('common.password')}
           fieldName='password'

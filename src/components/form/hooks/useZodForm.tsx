@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import type { DefaultValues, UseFormProps } from 'react-hook-form';
 import { FormProvider } from '@/components/ui';
-import { FormFieldC, TFormField, TZodSchema } from '@/components/form';
+import { FormFieldC, TItemFieldC, TZodSchema } from '@/components/form';
 import { z } from 'zod';
 
 type TUseFormC<T extends TZodSchema> = {
@@ -23,8 +23,8 @@ export const useZodForm = <T extends TZodSchema>(props: TUseFormC<T>) => {
   const methods = useForm({ resolver: zodResolver(schema), mode, ...rest });
 
   const ItemField = useCallback(
-    (props: TFormField<T>) => FormFieldC({ ...props, control: methods.control }),
-    [methods.control]
+    (props: TItemFieldC<T>) => FormFieldC({ ...props, control: methods.control, schema }),
+    [methods.control, schema]
   );
 
   const Form = useCallback(
