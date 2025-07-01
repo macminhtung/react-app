@@ -6,9 +6,10 @@ import { ROUTE_PATH } from '@/common/constants';
 import { useZodForm } from '@/components/form/hooks';
 import { EItemFieldType } from '@/components/form/enums';
 import { ButtonC } from '@/components/ui-customize';
+import { useSignInMutation } from '@/react-query/auth/useSignInMutation';
 
 const signInSchema = z.object({
-  username: z
+  email: z
     .string()
     .min(2, { message: 'Minimum 2 characters' })
     .max(50, { message: 'Maximum 50 characters' })
@@ -24,18 +25,23 @@ const SignInPage = () => {
   const navigate = useNavigate();
   const { Form, ItemField } = useZodForm({
     schema: signInSchema,
-    defaultValues: { username: '', password: '' },
+    defaultValues: { email: '', password: '' },
   });
 
-  const onSubmit = useCallback((values: z.infer<typeof signInSchema>) => {
-    console.log(values);
-  }, []);
+  const { mutateAsync, isPending } = useSignInMutation();
+
+  const onSubmit = useCallback(
+    (values: z.infer<typeof signInSchema>) => {
+      mutateAsync({ payload: values }).then((data) => console.log('data =', data));
+    },
+    [mutateAsync]
+  );
 
   return (
     <div className='size-full flex flex-col items-center'>
       <p className='text-4xl font-bold mb-10'>{t('common.signIn')}</p>
       <Form onSubmit={onSubmit} className='grid gap-6 w-full max-w-[20rem]'>
-        <ItemField iType={EItemFieldType.INPUT} label={t('common.username')} fieldName='username' />
+        <ItemField iType={EItemFieldType.INPUT} label={t('common.username')} fieldName='email' />
 
         <ItemField
           iType={EItemFieldType.PASSWORD}
@@ -43,7 +49,9 @@ const SignInPage = () => {
           fieldName='password'
         />
 
-        <ButtonC type='submit'>{t('common.submit')}</ButtonC>
+        <ButtonC type='submit' loading={isPending}>
+          {t('common.submit')}
+        </ButtonC>
 
         <div className='text-center'>
           <span>{t("common.Don't have an account?")}</span>

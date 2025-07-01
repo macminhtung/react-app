@@ -1,0 +1,3766 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+input AddPaymentMethodDto {
+  customerId: String
+  paymentMethodId: String!
+}
+
+type AddressEntity {
+  businessCompanyId: String
+  cityName: String
+  countryName: String
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: String!
+  phoneNumber: String
+  postalCode: String
+  stateName: String
+  street: String!
+  updatedAt: DateTime
+  userId: String
+  vendorId: String!
+}
+
+type AgentServiceEntity {
+  agentId: String!
+  airports: [AirportEntity!]
+  categoryId: String!
+  createdAt: DateTime!
+  currency: ECurrency!
+  deletedAt: DateTime
+  fees: FeeAttributes
+  id: String!
+  rates: [RateAttributes!]
+  rule: RuleAttributes
+  serviceModel: EAgentServiceModel!
+  serviceType: EFlightSegmentType!
+  updatedAt: DateTime
+  vendorId: String!
+}
+
+type AgentServiceHistoryDto {
+  currency: ECurrency!
+  pricing: ServicePricingHistory!
+  rule: RuleAttributes!
+  serviceModel: EAgentServiceModel!
+}
+
+type AgentServiceResponseDto {
+  agent: UserEntity!
+  agentId: String!
+  airports: [AirportEntity!]!
+  category: CategoryEntity!
+  categoryId: String!
+  createdAt: DateTime!
+  currency: ECurrency!
+  deletedAt: DateTime
+  fees: FeeAttributes
+  id: String!
+  rates: [RateAttributes!]
+  rule: RuleAttributes
+  serviceModel: EAgentServiceModel!
+  serviceType: EFlightSegmentType!
+  updatedAt: DateTime
+  vendorId: String!
+}
+
+type AgentServicesPaginationResponseDto {
+  data: [AgentServiceResponseDto!]!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  page: Int!
+  pageCount: Int!
+  take: Int!
+  total: Int!
+}
+
+type AgentToAssignRequestResponseDto {
+  available: Boolean
+  email: String!
+  firstname: String
+  id: String!
+  lastname: String
+}
+
+type AgentWorkingScheduleEntity {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  fri: DayWorkingSchedule!
+  id: String!
+  mon: DayWorkingSchedule!
+  sat: DayWorkingSchedule!
+  sun: DayWorkingSchedule!
+  thu: DayWorkingSchedule!
+  tue: DayWorkingSchedule!
+  updatedAt: DateTime
+  userId: String!
+  vendorId: String!
+  wed: DayWorkingSchedule!
+}
+
+type Airline {
+  active: Boolean!
+  fs: String!
+  iata: String!
+  icao: String!
+  name: String!
+}
+
+type AirlineAttributesDto {
+  airlineCode: String
+  airlineFsCode: String
+  airlineIataCode: String
+  baggageLink: String
+  checkinLink: String
+  termsOfCarriageLink: String
+}
+
+input AirlineInput {
+  active: Boolean!
+  fs: String!
+  iata: String!
+  icao: String!
+  name: String!
+}
+
+type AirportEntity {
+  cityId: String
+  code: String!
+  countryId: String!
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: String!
+  name: String!
+  updatedAt: DateTime
+}
+
+type AirportResponseDto {
+  airportServices: [AirportServiceResponseDto!]
+  city: CityEntity
+  cityId: String
+  code: String!
+  country: CountryEntity
+  countryId: String!
+  createdAt: DateTime!
+  deletedAt: DateTime
+  holidays: [HolidayEntity!]
+  id: String!
+  name: String!
+  updatedAt: DateTime
+}
+
+input AirportServiceAttributesInput {
+  airportId: String!
+  cancelation: [CancelationInput!]
+  currency: ECurrency!
+  description: String
+  fees: FeeAttributesInput
+  highlights: [String!]!
+  name: String!
+  primaryCategory: ECategory!
+  primaryCategoryName: String!
+  rates: [RateAttributesInput!]!
+  referralAirportServiceSettings: AirportServiceSettingsInput
+  rule: RuleAttributesInput!
+  serviceModel: EServiceModel! = FLAT_RATE_PRICING
+  serviceType: EFlightSegmentType!
+  timeLimit: TimeLimitAttributesInput!
+}
+
+type AirportServiceEntity {
+  airportId: String!
+  cancelation: [Cancelation!]
+  createdAt: DateTime!
+  currency: ECurrency!
+  customerContractId: String
+  deletedAt: DateTime
+  description: String
+  fees: FeeAttributes!
+  highlights: [String!]
+  id: String!
+  mappingAirportServiceId: String
+  mappingCategoryName: String
+  name: String!
+  offereeCustomerId: String
+  offereeVendorId: String
+  primaryCategoryId: String!
+  primaryVendorId: String!
+  rates: [RateAttributes!]!
+  referralAirportServiceSettings: AirportServiceSettings
+  rule: RuleAttributes!
+  serviceModel: EServiceModel!
+  serviceType: EFlightSegmentType!
+  timeLimit: TimeLimitAttributes!
+  updatedAt: DateTime
+  vendorContractId: String
+}
+
+type AirportServiceHistoryDto {
+  category: ECategory!
+  categoryName: String!
+  currency: ECurrency!
+  name: String!
+  pricing: ServicePricingHistory!
+  rule: RuleAttributes!
+  serviceModel: EServiceModel!
+  timeLimit: TimeLimitAttributes!
+}
+
+type AirportServiceResponseDto {
+  airport: AirportEntity!
+  airportId: String!
+  cancelation: [Cancelation!]
+  createdAt: DateTime!
+  currency: ECurrency!
+  customerContract: ContractResponseDto
+  customerContractId: String
+  deletedAt: DateTime
+  description: String
+  fees: FeeAttributes!
+  highlights: [String!]
+  id: String!
+  mappingAirportService: AirportServiceResponseDto
+  mappingAirportServiceId: String
+  mappingCategoryName: String
+  name: String!
+  offereeCustomerId: String
+  offereeVendor: VendorEntity
+  offereeVendorId: String
+  primaryCategory: CategoryEntity!
+  primaryCategoryId: String!
+  primaryVendor: PrimaryVendorDto
+  primaryVendorId: String!
+  rates: [RateAttributes!]!
+  referralAirportServiceSettings: AirportServiceSettings
+  rule: RuleAttributes!
+  serviceModel: EServiceModel!
+  serviceType: EFlightSegmentType!
+  timeLimit: TimeLimitAttributes!
+  updatedAt: DateTime
+  vendorContract: ContractResponseDto
+  vendorContractId: String
+}
+
+type AirportServiceSettings {
+  cancelation: [Cancelation!]
+  description: String
+  fees: FeeAttributes
+  highlights: [String!]!
+  rates: [RateAttributes!]!
+  rule: RuleAttributes!
+  timeLimit: TimeLimitAttributes!
+}
+
+input AirportServiceSettingsInput {
+  cancelation: [CancelationInput!]
+  description: String
+  fees: FeeAttributesInput
+  highlights: [String!]!
+  rates: [RateAttributesInput!]!
+  rule: RuleAttributesInput!
+  timeLimit: TimeLimitAttributesInput!
+}
+
+type AirportServicesPaginationResponseDto {
+  data: [AirportServiceResponseDto!]!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  page: Int!
+  pageCount: Int!
+  take: Int!
+  total: Int!
+}
+
+type AirportsPaginationResponseDto {
+  data: [AirportResponseDto!]!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  page: Int!
+  pageCount: Int!
+  take: Int!
+  total: Int!
+}
+
+type AlertEntity {
+  airline: AirlineAttributesDto
+  alertSetting: String!
+  baggage: BaggageAttributesDto
+  connectionTime: ConnectionAttributesTimeDto
+  createdAt: DateTime!
+  dateTime: String!
+  delay: DelayAttributesDto
+  deletedAt: DateTime
+  flightIndex: Float
+  gate: GateAttributesDto
+  id: String!
+  inboundFlightIndex: Float
+  legIndex: Float
+  legs: [LegAttributesDto!]
+  minimumConnectTime: Float
+  minutesBeforeArrival: Float
+  minutesBeforeDeparture: Float
+  minutesLate: Float
+  outboundFlightIndex: Float
+  terminal: TerminalAttributesDto
+  tripId: String!
+  type: EAlertType!
+  updatedAt: DateTime
+  waiver: WaiverAttributesDto
+}
+
+type AlertResponseDto {
+  airline: AirlineAttributesDto
+  alertSetting: String!
+  baggage: BaggageAttributesDto
+  connectionTime: ConnectionAttributesTimeDto
+  createdAt: DateTime!
+  dateTime: String!
+  delay: DelayAttributesDto
+  deletedAt: DateTime
+  flightIndex: Float
+  gate: GateAttributesDto
+  id: String!
+  inboundFlightIndex: Float
+  legIndex: Float
+  legs: [LegAttributesDto!]
+  minimumConnectTime: Float
+  minutesBeforeArrival: Float
+  minutesBeforeDeparture: Float
+  minutesLate: Float
+  outboundFlightIndex: Float
+  terminal: TerminalAttributesDto
+  trip: TripResponseDto!
+  tripId: String!
+  type: EAlertType!
+  updatedAt: DateTime
+  waiver: WaiverAttributesDto
+}
+
+type AlertsPaginationResponseDto {
+  data: [AlertResponseDto!]!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  page: Int!
+  pageCount: Int!
+  take: Int!
+  total: Int!
+}
+
+type AppendixDto {
+  airlines: [Airline!]!
+}
+
+input ApprovedAgentWithdrawalDto {
+  approvedAgentId: String!
+  bookingItemId: String!
+  withdrawReason: String!
+}
+
+input ArrangeBookingItemChecklistsDto {
+  arrangeItems: [ArrangeItemDto!]!
+  bookingItemId: String!
+}
+
+input ArrangeItemDto {
+  id: String!
+  index: Float!
+}
+
+type ArrivalAttributesDto {
+  airportCode: String
+  airportFsCode: String
+  airportIataCode: String
+  dateTime: String
+}
+
+type ArrivalFlightStatusAttributesDto {
+  actualGateDateTime: String
+  actualRunwayDateTime: String
+  airportCode: String
+  airportFsCode: String
+  airportIataCode: String
+  estimatedGateDateTime: String
+  estimatedRunwayDateTime: String
+  gate: String
+  scheduledGateDateTime: String
+  scheduledRunwayDateTime: String
+  terminal: String
+}
+
+type AssignRequestEntity {
+  assignAgent: UserEntity!
+  assignAgentId: String!
+  bookingItemId: String!
+  clockIn: DateTime
+  clockOut: DateTime
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: String!
+  status: EAssignRequestStatus!
+  updatedAt: DateTime
+  vendorId: String!
+  withdrawReason: String
+}
+
+type AssignRequestsResponseDto {
+  assignAgent: UserResponseDto!
+  assignAgentId: String!
+  bookingItemId: String!
+  clockIn: DateTime
+  clockOut: DateTime
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: String!
+  status: EAssignRequestStatus!
+  updatedAt: DateTime
+  vendorId: String!
+  withdrawReason: String
+}
+
+type BaggageAttributesDto {
+  current: String
+  previous: String
+}
+
+type BookingEntity {
+  bookingPaymentStatus: EBookingPaymentStatus!
+  completedAt: DateTime
+  createdAt: DateTime!
+  currency: ECurrency
+  customerId: String!
+  deletedAt: DateTime
+  discountId: String
+  displayId: String!
+  holdFundExpirationDate: DateTime
+  id: String!
+  passengerQuantity: Float!
+  paymentMethodInfo: PaymentMethodInfo
+  total: Float!
+  updatedAt: DateTime
+  vendorId: String!
+}
+
+type BookingItemChecklistEntity {
+  bookingItemId: String!
+  checklistId: Int
+  checklistNoteId: String
+  completedAt: DateTime
+  createdAt: DateTime!
+  customChecklist: CustomChecklist
+  deletedAt: DateTime
+  id: String!
+  index: Float!
+  notApplicable: Boolean!
+  updatedAt: DateTime
+  vendorId: String!
+}
+
+type BookingItemChecklistResponseDto {
+  bookingItem: BookingItemEntity!
+  bookingItemId: String!
+  checklistId: Int
+  checklistItem: ChecklistEntity
+  checklistNote: BookingItemNoteEntity
+  checklistNoteId: String
+  completedAt: DateTime
+  createdAt: DateTime!
+  customChecklist: CustomChecklist
+  deletedAt: DateTime
+  id: String!
+  index: Float!
+  notApplicable: Boolean!
+  updatedAt: DateTime
+  vendorId: String!
+}
+
+type BookingItemDetailResponseDto {
+  airportService: AirportServiceResponseDto
+  airportServiceId: String!
+  approvedAgent: UserEntity
+  approvedAgentId: String
+  arrivalDateTime: DateTime
+  arrivalFlightSchedule: FlightSchedule
+  assignRequests: [AssignRequestsResponseDto!]
+  autoConfirmAssignRequest: Boolean!
+  autoConfirmTransferRequest: Boolean!
+  booking: BookingEntity!
+  bookingId: String!
+  bookingItemChecklists: [BookingItemChecklistEntity!]!
+  bookingItemExpenses: [BookingItemExpenseEntity!]
+  childBookingItem: BookingItemResponseDto
+  childBookingItemId: String
+  completedAt: DateTime
+  completedById: String
+  createdAt: DateTime!
+  currency: ECurrency
+  customer: UserResponseDto!
+  customerId: String!
+  deletedAt: DateTime
+  departureDateTime: DateTime
+  departureFlightSchedule: FlightSchedule
+  displayId: String!
+  emergencyContacts: [EmergencyContact!]
+  expiredReason: String
+  id: String!
+  invoiceItem: InvoiceItemEntity!
+  isViewed: Boolean!
+  lastChildBookingItem: BookingItemResponseDto
+  lastChildBookingItemId: String
+  level: Float!
+  parentBookingItem: BookingItemResponseDto
+  parentBookingItemId: String
+  passengers: [PassengerEntity!]
+  price: Float!
+  priceCalculationHistory: PriceCalculationHistoryDto!
+  rating: Float!
+  rootBookingItem: BookingItemResponseDto
+  rootBookingItemId: String
+  status: EBookingItemStatus!
+  transactionId: String
+  transferRequests: [TransferRequestResponseDto!]
+  transportInformation: TransportInformation
+  trip: TripResponseDto
+  tripId: String
+  type: EFlightSegmentType!
+  updatedAt: DateTime
+  vendor: VendorEntity!
+  vendorId: String!
+  withdrawReason: String
+  withdrawnById: String
+  withdrawnParentBookingItem: BookingItemResponseDto
+  withdrawnParentBookingItemId: String
+}
+
+type BookingItemEntity {
+  airportServiceId: String!
+  approvedAgentId: String
+  arrivalDateTime: DateTime
+  arrivalFlightSchedule: FlightSchedule
+  autoConfirmAssignRequest: Boolean!
+  autoConfirmTransferRequest: Boolean!
+  bookingId: String!
+  childBookingItemId: String
+  completedAt: DateTime
+  completedById: String
+  createdAt: DateTime!
+  currency: ECurrency
+  customerId: String!
+  deletedAt: DateTime
+  departureDateTime: DateTime
+  departureFlightSchedule: FlightSchedule
+  displayId: String!
+  emergencyContacts: [EmergencyContact!]
+  expiredReason: String
+  id: String!
+  isViewed: Boolean!
+  lastChildBookingItemId: String
+  level: Float!
+  parentBookingItemId: String
+  price: Float!
+  priceCalculationHistory: PriceCalculationHistoryDto!
+  rating: Float!
+  rootBookingItemId: String
+  status: EBookingItemStatus!
+  transactionId: String
+  transportInformation: TransportInformation
+  tripId: String
+  type: EFlightSegmentType!
+  updatedAt: DateTime
+  vendorId: String!
+  withdrawReason: String
+  withdrawnById: String
+  withdrawnParentBookingItemId: String
+}
+
+type BookingItemExpenseEntity {
+  bookingItemId: String!
+  completedAt: DateTime
+  createdAt: DateTime!
+  createdById: String!
+  createdByRole: EExpenseRole!
+  currency: ECurrency
+  deletedAt: DateTime
+  hours: Float
+  id: String!
+  images: [String!]
+  noteId: String
+  passengers: Int
+  price: Float!
+  rootExpenseId: String
+  type: ETypeExpense!
+  updatedAt: DateTime
+  vendorId: String!
+}
+
+type BookingItemExpenseResponseDto {
+  bookingItem: BookingItemDetailResponseDto!
+  bookingItemId: String!
+  completedAt: DateTime
+  createdAt: DateTime!
+  createdById: String!
+  createdByRole: EExpenseRole!
+  currency: ECurrency
+  deletedAt: DateTime
+  hours: Float
+  id: String!
+  images: [String!]
+  note: BookingItemNoteEntity
+  noteId: String
+  passengers: Int
+  price: Float!
+  rootExpenseId: String
+  type: ETypeExpense!
+  updatedAt: DateTime
+  vendorId: String!
+}
+
+type BookingItemNoteEntity {
+  bookingItemId: String
+  createdAt: DateTime!
+  createdById: String!
+  deletedAt: DateTime
+  id: String!
+  note: String
+  type: ENoteType!
+  updatedAt: DateTime
+  updatedById: String
+  vendorId: String!
+}
+
+type BookingItemNoteResponseDto {
+  bookingItem: BookingItemResponseDto
+  bookingItemChecklist: BookingItemChecklistResponseDto
+  bookingItemExpense: BookingItemExpenseResponseDto
+  bookingItemId: String
+  createdAt: DateTime!
+  createdBy: UserResponseDto!
+  createdById: String!
+  deletedAt: DateTime
+  id: String!
+  note: String
+  type: ENoteType!
+  updatedAt: DateTime
+  updatedBy: UserResponseDto
+  updatedById: String
+  vendorId: String!
+}
+
+type BookingItemResponseDto {
+  airportService: AirportServiceResponseDto
+  airportServiceId: String!
+  approvedAgent: UserEntity
+  approvedAgentId: String
+  arrivalDateTime: DateTime
+  arrivalFlightSchedule: FlightSchedule
+  assignRequests: [AssignRequestsResponseDto!]
+  autoConfirmAssignRequest: Boolean!
+  autoConfirmTransferRequest: Boolean!
+  booking: BookingEntity!
+  bookingId: String!
+  bookingItemExpenses: [BookingItemExpenseEntity!]
+  childBookingItem: BookingItemResponseDto
+  childBookingItemId: String
+  completedAt: DateTime
+  completedById: String
+  createdAt: DateTime!
+  currency: ECurrency
+  customer: UserResponseDto
+  customerId: String!
+  deletedAt: DateTime
+  departureDateTime: DateTime
+  departureFlightSchedule: FlightSchedule
+  displayId: String!
+  emergencyContacts: [EmergencyContact!]
+  expiredReason: String
+  id: String!
+  invoiceItem: InvoiceItemEntity
+  isViewed: Boolean!
+  lastChildBookingItemId: String
+  level: Float!
+  parentBookingItem: BookingItemResponseDto
+  parentBookingItemId: String
+  passengers: [PassengerEntity!]
+  price: Float!
+  priceCalculationHistory: PriceCalculationHistoryDto!
+  rating: Float!
+  rootBookingItemId: String
+  status: EBookingItemStatus!
+  transactionId: String
+  transferRequests: [TransferRequestResponseDto!]
+  transportInformation: TransportInformation
+  tripId: String
+  type: EFlightSegmentType!
+  updatedAt: DateTime
+  vendor: VendorResponseDto
+  vendorId: String!
+  withdrawReason: String
+  withdrawnById: String
+  withdrawnParentBookingItem: BookingItemResponseDto
+  withdrawnParentBookingItemId: String
+}
+
+type BookingItemStatsResponseDto {
+  arrival: Float!
+  connection: Float!
+  departure: Float!
+  transferred: Float!
+  withdraw: Float!
+}
+
+type BookingItemsPaginationResponseDto {
+  data: [BookingItemDetailResponseDto!]!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  page: Int!
+  pageCount: Int!
+  take: Int!
+  total: Int!
+}
+
+type BusinessCompanyEntity {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  email: String!
+  id: String!
+  image: String
+  name: String!
+  primaryContact: UserEntity
+  primaryContactId: String!
+  updatedAt: DateTime
+  vendorId: String!
+  website: String
+}
+
+type BusinessCompanyResponseDto {
+  addresses: [AddressEntity!]!
+  createdAt: DateTime!
+  deletedAt: DateTime
+  email: String!
+  id: String!
+  image: String
+  name: String!
+  primaryContact: UserEntity
+  primaryContactId: String!
+  updatedAt: DateTime
+  vendorId: String!
+  website: String
+}
+
+type Cancelation {
+  from: Float!
+  to: Float!
+  type: EFeeType!
+  value: Float!
+}
+
+input CancelationInput {
+  from: Float!
+  to: Float!
+  type: EFeeType!
+  value: Float!
+}
+
+type CardAssignmentEntity {
+  brand: String!
+  businessCompanyId: String!
+  createdAt: DateTime!
+  createdById: String!
+  deletedAt: DateTime
+  expMonth: String!
+  expYear: Float!
+  id: String!
+  last4: String!
+  paymentMethodId: String!
+  providerName: EProviderName!
+  updatedAt: DateTime
+  userId: String!
+  vendorId: String!
+}
+
+type CardAssignmentsPaginationResponseDto {
+  data: [CardAssignmentEntity!]!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  page: Int!
+  pageCount: Int!
+  take: Int!
+  total: Int!
+}
+
+type CategoriesResponseDto {
+  data: [CategoryEntity!]!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  page: Int!
+  pageCount: Int!
+  take: Int!
+  total: Int!
+}
+
+type CategoryEntity {
+  category: ECategory!
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: String!
+  name: String!
+  updatedAt: DateTime
+  vendorId: String!
+}
+
+input CheckExistCurrencyBySymbolDto {
+  symbols: [ECurrency!]!
+}
+
+type ChecklistEntity {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  flightSegmentType: EFlightSegmentType!
+  id: Int!
+  instructions: String!
+  key: String!
+  name: String!
+  updatedAt: DateTime
+}
+
+type CitiesPaginationResponseDto {
+  data: [CityEntity!]!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  page: Int!
+  pageCount: Int!
+  take: Int!
+  total: Int!
+}
+
+type CityEntity {
+  cityCode: String
+  cityName: String!
+  countryId: String!
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: String!
+  timezone: String
+  updatedAt: DateTime
+}
+
+input ConfirmAccountDto {
+  token: String!
+}
+
+type ConnectionAttributesTimeDto {
+  current: Float
+  previous: Float
+}
+
+input ConnectionFlightDto {
+  flightNumber: String!
+}
+
+type ConnectionFlightRoute {
+  airlineName: String!
+  airplaneName: String
+  arrivalAirportFsCode: String!
+  arrivalAirportName: String!
+  arrivalAirportTimezone: String!
+  arrivalCity: String!
+  arrivalTerminal: String
+  arrivalTime: String
+  carrierFsCode: String!
+  departureAirportFsCode: String!
+  departureAirportName: String!
+  departureAirportTimezone: String!
+  departureCity: String!
+  departureTerminal: String
+  departureTime: String
+  flightNumber: String!
+  stops: Int!
+}
+
+type ContactTransportInformation {
+  driver: String
+  phone: String
+}
+
+input ContactTransportInformationInput {
+  driver: String
+  phone: String
+}
+
+input ContractAirportServicesDto {
+  airportServiceId: String!
+  mappingAirportServiceId: String!
+}
+
+type ContractEntity {
+  airportId: String!
+  autoRenewal: Boolean!
+  cancelationNotice: Int!
+  cancelationPenalty: Int!
+  createdAt: DateTime!
+  deletedAt: DateTime
+  endDate: DateTime!
+  id: String!
+  offereeSignedUserId: String
+  offereeVendorId: String
+  offerorSignedUserId: String
+  offerorVendorId: String!
+  startDate: DateTime!
+  status: EContractStatus!
+  updatedAt: DateTime
+}
+
+type ContractResponseDto {
+  airport: AirportEntity!
+  airportId: String!
+  autoRenewal: Boolean!
+  cancelationNotice: Int!
+  cancelationPenalty: Int!
+  createdAt: DateTime!
+  deletedAt: DateTime
+  endDate: DateTime!
+  id: String!
+  offereeSignedUser: UserEntity
+  offereeSignedUserId: String
+  offereeVendor: VendorEntity
+  offereeVendorId: String
+  offerorSignedUser: UserEntity
+  offerorSignedUserId: String
+  offerorVendor: VendorEntity!
+  offerorVendorId: String!
+  startDate: DateTime!
+  status: EContractStatus!
+  updatedAt: DateTime
+  vendorAirportServices: [AirportServiceResponseDto!]
+}
+
+type ContractsPaginationResponseDto {
+  data: [ContractResponseDto!]!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  page: Int!
+  pageCount: Int!
+  take: Int!
+  total: Int!
+}
+
+type CountriesPaginationResponseDto {
+  data: [CountryEntity!]!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  page: Int!
+  pageCount: Int!
+  take: Int!
+  total: Int!
+}
+
+type CountryEntity {
+  countryCode: String!
+  countryName: String!
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: String!
+  updatedAt: DateTime
+}
+
+input CreateAddressDto {
+  addressType: EAddressType
+  cityName: String
+  countryName: String!
+  phoneNumber: String
+  postalCode: String
+  stateName: String
+  street: String!
+}
+
+input CreateAgentServiceDto {
+  agentId: String!
+  airportIds: [String!]!
+  category: ECategory!
+  categoryName: String!
+  currency: ECurrency!
+  fees: FeeAttributesInput
+  rates: [RateAttributesInput!]
+  rule: RuleAttributesInput
+  serviceModel: EAgentServiceModel!
+  serviceType: EFlightSegmentType!
+}
+
+input CreateAirportServicesDto {
+  airportServices: [AirportServiceAttributesInput!]!
+  contractId: String
+  offereeCustomerId: String
+  offereeVendorId: String
+}
+
+input CreateAssignRequestsDto {
+  assignedAgentIds: [String!]!
+  autoConfirmAssignRequest: Boolean!
+  bookingItemId: String!
+}
+
+input CreateBookingDto {
+  bookingItems: [CreateBookingItemDto!]!
+  company: CreateBusinessCompanyWithOutEmailDto
+  companyAddress: CreateAddressDto
+  customerId: String
+  discountId: String
+  emergencyContacts: [EmergencyContactInput!]
+  flightScheduleIds: [String!]
+  passengers: [CreatePassengerDto!]!
+  paymentMethodId: String
+  requestQuotes: [RequestQuoteAttributesDto!]
+  transportInformation: TransportInformationInput
+  unregisteredCustomer: RegisterCustomerDto
+}
+
+input CreateBookingItemChecklistDto {
+  bookingItemId: String!
+  checklistId: Float
+  customChecklist: CustomChecklistDto
+}
+
+input CreateBookingItemDto {
+  airportFsCode: String!
+  airportServiceId: String!
+  arrivalFlightInfo: ManualFlightInfoDto
+  departureFlightInfo: ManualFlightInfoDto
+  segmentType: EFlightSegmentType!
+}
+
+input CreateBookingItemExpenseDto {
+  bookingItemId: String!
+  hours: Float
+  images: [String!]
+  note: String
+  passengers: Int
+  price: Float!
+  type: ETypeExpense!
+}
+
+input CreateBusinessCompanyDto {
+  email: String!
+  image: String
+  name: String!
+  website: String
+}
+
+input CreateBusinessCompanyWithOutEmailDto {
+  image: String
+  name: String!
+  website: String
+}
+
+input CreateCardAssignmentDto {
+  paymentMethodId: String!
+  userId: String!
+}
+
+input CreateCategoryDto {
+  category: ECategory!
+  name: String!
+}
+
+input CreateContractDto {
+  airportId: String!
+  autoRenewal: Boolean
+  cancelationNotice: Int!
+  cancelationPenalty: Int!
+  endDate: DateTime!
+  startDate: DateTime!
+}
+
+input CreateCredentialDto {
+  aad: String!
+  authTag: String!
+  cacheKey: String!
+  ciphertext: String!
+  clientECDHPublicKey: String!
+  id: String
+  initVector: String!
+  providerAccountId: String!
+  providerName: EProviderName!
+}
+
+input CreateCustomNoteDto {
+  bookingItemId: String!
+  note: String!
+}
+
+input CreateDiscountDto {
+  allowUserIds: [String!]
+  amount: Float
+  code: String!
+  expiredAt: DateTime
+  maxUseQuantity: Float
+  name: String!
+  percent: Float
+  range: EDiscountRange!
+  startedAt: DateTime!
+  type: EDiscountType!
+}
+
+input CreateExchangeRatesDto {
+  currencies: [CreateExchangeRateyDto!]!
+}
+
+input CreateExchangeRateyDto {
+  rate: Float!
+  symbol: ECurrency!
+}
+
+input CreateHolidayDto {
+  airportIds: [String!]
+  belongToCountryId: String
+  cityIds: [String!]
+  countryIds: [String!]
+  coverageLevel: ECoverageLevel!
+  description: String
+  fromDate: DateTime
+  isAnnual: Boolean!
+  isRange: Boolean!
+  name: String!
+  toDate: DateTime
+}
+
+input CreateInvoiceDto {
+  invoiceItemIds: [String!]!
+  invoiceMessage: String
+  paymentInfo: String
+  paymentMethod: EPaymentMethodType!
+  receiverVendorId: String
+  type: EInvoiceType!
+}
+
+input CreatePassengerDto {
+  alias: String
+  carryOnLuggage: Int
+  checkedLuggage: Int
+  classOfService: EClassOfService
+  contactNumber: String
+  firstName: String!
+  flightReservationNumber: String
+  isPrimary: Boolean
+  lastName: String!
+  noShow: Boolean
+  specialServices: [SpecialServices!]
+  specificLanguage: String
+  title: String!
+}
+
+input CreateRequestQuotesDto {
+  email: String!
+  firstName: String
+  lastName: String
+  message: String
+  requestQuotes: [RequestQuoteAttributesDto!]!
+}
+
+input CreateTransferRequestsDto {
+  autoConfirmTransferRequest: Boolean!
+  bookingItemId: String!
+  transferAirportServiceIds: [String!]
+}
+
+input CreateUserInvitationsDto {
+  emails: [String!]!
+  roleId: ERoleTypes!
+}
+
+type CurrenciesDataResponseDto {
+  abbreviation: ECurrency!
+  name: String!
+  symbol: String!
+}
+
+type CustomChecklist {
+  instructions: String!
+  name: String!
+}
+
+input CustomChecklistDto {
+  instructions: String!
+  name: String!
+}
+
+input CustomerWithdrawBookingItemDto {
+  id: String!
+  withdrawReason: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type DayWorkingSchedule {
+  end: Float!
+  start: Float!
+}
+
+input DayWorkingScheduleInput {
+  end: Float!
+  start: Float!
+}
+
+type DelayAttributesDto {
+  current: Float
+  previous: Float
+}
+
+input DeleteAddressDto {
+  addressType: EAddressType
+  id: String!
+}
+
+input DeleteAssignRequestsDto {
+  assignRequestIds: [String!]
+  bookingItemId: String!
+}
+
+input DeleteTransferRequestsDto {
+  bookingItemId: String!
+  transferRequestIds: [String!]
+}
+
+input DenyConnectionByTokenDto {
+  token: String!
+}
+
+type DepartureAttributesDto {
+  airportCode: String
+  airportFsCode: String
+  airportIataCode: String
+  dateTime: String
+}
+
+type DepartureFlightStatusAttributesDto {
+  actualGateDateTime: String
+  actualRunwayDateTime: String
+  airportCode: String
+  airportFsCode: String
+  airportIataCode: String
+  estimatedGateDateTime: String
+  estimatedRunwayDateTime: String
+  gate: String
+  scheduledGateDateTime: String
+  scheduledRunwayDateTime: String
+  terminal: String
+}
+
+type DiscountEntity {
+  amount: Float
+  code: String!
+  createdAt: DateTime!
+  currentUseQuantity: Float!
+  deletedAt: DateTime
+  expiredAt: DateTime
+  id: String!
+  maxUseQuantity: Float
+  name: String!
+  percent: Float
+  range: EDiscountRange!
+  startedAt: DateTime!
+  type: EDiscountType!
+  updatedAt: DateTime
+  vendorId: String!
+}
+
+type DiscountHistoryDto {
+  amount: Float
+  percent: Float
+  type: EDiscountType!
+}
+
+type DiscountsPaginationResponseDto {
+  data: [DiscountEntity!]!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  page: Int!
+  pageCount: Int!
+  take: Int!
+  total: Int!
+}
+
+type DivertedFlightStatusAttributesDto {
+  airportCode: String
+  airportFsCode: String
+  airportIataCode: String
+}
+
+enum EAddressType {
+  BUSINESS_COMPANY
+  VENDOR
+}
+
+enum EAgentServiceModel {
+  FLAT_RATE_PRICING
+  SALARY_PRICING
+  TIER_PRICING
+}
+
+enum EAlertType {
+  ActualConnectionProblem
+  ConnectionInfo
+  EstimatedConnectionProblem
+  FlightArrivalDelay
+  FlightArrivalGateChange
+  FlightArrived
+  FlightArrivedLate
+  FlightBaggageChange
+  FlightCancellation
+  FlightDeparted
+  FlightDepartedLate
+  FlightDepartureDelay
+  FlightDepartureGateChange
+  FlightDiversion
+  FlightReinstated
+  LegArrivalDelay
+  LegArrivalGateChange
+  LegArrivalInfo
+  LegArrived
+  LegBaggageChange
+  LegDeparted
+  LegDepartureDelay
+  LegDepartureGateChange
+  LegDepartureInfo
+  WaiverMatch
+}
+
+enum EAssignRequestStatus {
+  ACCEPTED
+  APPROVED
+  DENIED
+  PENDING
+  WITHDRAWN
+}
+
+enum EBookingItemStatus {
+  ACKNOWLEDGED
+  AGENT_COMPLETE
+  COMPLETE
+  CONFIRMED
+  EXPIRED
+  IN_PROGRESS
+  VENDOR_COMPLETE
+  WITHDRAWN
+}
+
+enum EBookingPaymentStatus {
+  CANCELED
+  ISSUED
+  PAID
+}
+
+enum ECategory {
+  BODY_GUARD
+  MEET
+  TRANSPORTATION
+}
+
+enum EChecklistItemStatus {
+  COMPLETE
+  PENDING
+}
+
+enum EClassOfService {
+  BUSINESS_CLASS
+  ECONOMY_CLASS
+  FIRST_CLASS
+}
+
+enum EContractStatus {
+  APPROVED
+  DENIED
+  DRAFT
+  SENT
+}
+
+enum ECoverageLevel {
+  AIRPORT
+  CITY
+  COUNTRY
+  GLOBAL
+}
+
+enum ECurrency {
+  AED
+  AFN
+  ALL
+  AMD
+  ANG
+  AOA
+  ARS
+  AUD
+  AWG
+  AZN
+  BAM
+  BBD
+  BDT
+  BGN
+  BIF
+  BMD
+  BND
+  BOB
+  BRL
+  BSD
+  BWP
+  BYN
+  BZD
+  CAD
+  CDF
+  CHF
+  CLP
+  CNY
+  COP
+  CRC
+  CVE
+  CZK
+  DJF
+  DKK
+  DOP
+  DZD
+  EGP
+  ETB
+  EUR
+  FJD
+  FKP
+  GBP
+  GEL
+  GIP
+  GMD
+  GNF
+  GTQ
+  GYD
+  HKD
+  HNL
+  HTG
+  HUF
+  IDR
+  ILS
+  INR
+  ISK
+  JMD
+  JPY
+  KES
+  KGS
+  KHR
+  KMF
+  KRW
+  KYD
+  KZT
+  LAK
+  LBP
+  LKR
+  LRD
+  LSL
+  MAD
+  MDL
+  MGA
+  MKD
+  MMK
+  MNT
+  MOP
+  MUR
+  MVR
+  MWK
+  MXN
+  MYR
+  MZN
+  NAD
+  NGN
+  NIO
+  NOK
+  NPR
+  NZD
+  PAB
+  PEN
+  PGK
+  PHP
+  PKR
+  PLN
+  PYG
+  QAR
+  RON
+  RSD
+  RUB
+  RWF
+  SAR
+  SBD
+  SCR
+  SEK
+  SGD
+  SHP
+  SLE
+  SOS
+  SRD
+  STD
+  SZL
+  THB
+  TJS
+  TOP
+  TRY
+  TTD
+  TWD
+  TZS
+  UAH
+  UGX
+  USD
+  UYU
+  UZS
+  VND
+  VUV
+  WST
+  XAF
+  XCD
+  XOF
+  XPF
+  YER
+  ZAR
+  ZMW
+}
+
+enum EDiscountRange {
+  GLOBAL_COUPON
+  RESTRICTION_COUPON
+}
+
+enum EDiscountType {
+  FIX_AMOUNT
+  PERCENTAGE
+}
+
+enum EEventLogType {
+  AGENT_ACCEPT_ASSIGNMENT_REQUEST
+  AGENT_COMPLETE_BOOKING_ITEM
+  AGENT_DENY_ASSIGNMENT_REQUEST
+  AGENT_START_SERVICE_DELIVERY
+  AGENT_WITHDRAW_ASSIGNMENT_REQUEST
+  CUSTOMER_WITHDRAW_BOOKING_ITEM
+  NEW_BOOKING_ITEM
+  OWNER_VENDOR_APPROVE_TRANSFER_REQUEST
+  OWNER_VENDOR_CANCEL_TRANSFER_REQUEST
+  OWNER_VENDOR_CREATE_TRANSFER_REQUEST
+  OWNER_VENDOR_WITHDRAW_APPROVED_TRANSFER_VENDOR
+  UPDATE_EMERGENCY_CONTACTS_INFORMATION
+  UPDATE_FLIGHT_SCHEDULE
+  UPDATE_PASSENGER_INFORMATION
+  UPDATE_TRANSPORTATION_INFORMATION
+  VENDOR_ACCEPT_TRANSFER_REQUEST
+  VENDOR_APPROVE_ASSIGNMENT_REQUEST
+  VENDOR_CANCEL_ASSIGNMENT_REQUEST
+  VENDOR_COMPLETE_BOOKING_ITEM
+  VENDOR_CREATE_ASSIGNMENT_REQUEST
+  VENDOR_DENY_TRANSFER_REQUEST
+  VENDOR_REMOVE_APPROVED_AGENT
+  VENDOR_WITHDRAW_TRANSFER_REQUEST
+}
+
+enum EExpenseRole {
+  AGENT
+  PRIMARY_VENDOR
+  VENDOR
+}
+
+enum EFeeType {
+  FIX_AMOUNT
+  PERCENTAGE
+}
+
+enum EFilterType {
+  ALL_BOOKING
+  BY_ALL_AGENT
+}
+
+enum EFlightSegmentType {
+  ARRIVAL
+  CONNECTION
+  DEPARTURE
+}
+
+enum EFlightStatus {
+  ARRIVED
+  CANCELED
+  DELAYED
+  DEPARTED
+  EARLIER
+  ON_TIME
+}
+
+enum EFsFlightStatus {
+  ACTIVE
+  CANCELED
+  DATA_SOURCE_NEEDED
+  DIVERTED
+  LANDED
+  NOT_OPERATIONAL
+  REDIRECTED
+  SCHEDULED
+  UNKNOWN
+}
+
+enum EHolidayStatus {
+  ACTIVE
+  EXPIRED
+}
+
+enum EHolidayType {
+  FIXED
+  VARIABLE
+}
+
+enum EInvoiceItemStatus {
+  DECLINED
+  EXPIRED
+  ISSUED
+  PAID
+}
+
+enum EInvoiceStatus {
+  APPROVED
+  CANCELED
+  DECLINED
+  ISSUED
+  PAID
+}
+
+enum EInvoiceType {
+  AGENT
+  CUSTOMER
+  VENDOR
+}
+
+type ELAssignRequestsResponseDto {
+  assignAgent: UserResponseDto
+  assignAgentId: String!
+  bookingItemId: String!
+  clockIn: DateTime
+  clockOut: DateTime
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: String!
+  status: EAssignRequestStatus!
+  updatedAt: DateTime
+  vendorId: String!
+  withdrawReason: String
+}
+
+type ELTransferRequestsResponseDto {
+  bookingItemId: String!
+  createdAt: DateTime!
+  createdBy: UserResponseDto!
+  createdById: String!
+  currency: ECurrency!
+  deletedAt: DateTime
+  id: String!
+  price: Float!
+  receiverVendor: VendorEntity
+  receiverVendorId: String!
+  status: ETransferRequestStatus!
+  transferAirportServiceId: String!
+  updatedAt: DateTime
+  vendorId: String!
+  withdrawReason: String
+}
+
+enum ENoteType {
+  CHECKLIST
+  CUSTOM_NOTE
+  EXPENSE
+}
+
+enum EPaymentMethodType {
+  BANK_TRANSFER
+  CREDIT_CARD
+}
+
+enum EProviderName {
+  PAYA
+  STRIPE
+}
+
+enum EQueryType {
+  BASE
+  CONTRACT
+  CUSTOMER
+  MAPPING
+}
+
+enum ERoleTypes {
+  BUSINESS_ADMIN
+  BUSINESS_STAFF
+  CUSTOMER
+  VENDOR_ADMIN
+  VENDOR_AGENT
+  VENDOR_STAFF
+}
+
+enum EServiceModel {
+  FLAT_RATE_PRICING
+  TIER_PRICING
+}
+
+enum ESubPath {
+  BUSINESS
+  USER
+  VENDOR
+}
+
+enum ETimeRange {
+  CURRENT_MONTH
+  CURRENT_YEAR
+  FIRST_HAFT_YEAR
+  LAST_3_MONTHS
+  LAST_HAFT_YEAR
+  LAST_MONTH
+  LAST_YEAR
+}
+
+enum ETransferRequestStatus {
+  ACCEPTED
+  APPROVED
+  DENIED
+  PENDING
+  WITHDRAWN
+}
+
+enum ETypeExpense {
+  ADDITIONAL_HOURS
+  ADDITIONAL_PASSENGERS
+  EXCESS_LUGGAGE
+  FOOD_BEVERAGE
+  LOUNGE
+  OTHER
+  PORTER_TIP
+}
+
+enum EVendorConnectionStatus {
+  ACCEPTED
+  DENY
+  REQUESTING
+}
+
+enum EVendorConnectionType {
+  ALL
+  MAPPING_SERVICE
+  RECEIVE
+  SEND
+}
+
+type EmergencyContact {
+  name: String!
+  phone: String!
+}
+
+input EmergencyContactInput {
+  name: String!
+  phone: String!
+}
+
+type EvenLogsPaginationResponseDto {
+  data: [EventLogResponseDto!]!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  page: Int!
+  pageCount: Int!
+  take: Int!
+  total: Int!
+}
+
+type EventLogDataDto {
+  approvedAgent: UserResponseDto
+  arrivalFlightSchedule: FlightSchedule
+  assignRequests: [ELAssignRequestsResponseDto!]
+  completedBy: UserResponseDto
+  departureFlightSchedule: FlightSchedule
+  emergencyContacts: [EmergencyContact!]
+  passenger: [PassengerDto!]
+  status: EBookingItemStatus
+  transferRequests: [ELTransferRequestsResponseDto!]
+  transportInformation: TransportInformation
+  vendor: VendorResponseDto
+  withdrawReason: String
+  withdrawnBy: UserResponseDto
+}
+
+type EventLogResponseDto {
+  bookingItem: BookingItemResponseDto!
+  bookingItemId: UUID!
+  createdAt: DateTime!
+  createdBy: UserResponseDto!
+  createdById: UUID!
+  deletedAt: DateTime
+  id: UUID!
+  newData: EventLogDataDto
+  oldData: EventLogDataDto
+  receiver: UserResponseDto
+  removedAgentId: UUID
+  type: EEventLogType!
+  updatedAt: DateTime
+  vendorId: String!
+}
+
+type ExchangeRatePaginationResponseDto {
+  data: [ExchangeRateyResponseDto!]!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  page: Int!
+  pageCount: Int!
+  take: Int!
+  total: Int!
+}
+
+type ExchangeRateyResponseDto {
+  baseCurrency: ECurrency!
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: String!
+  name: String!
+  rate: Float!
+  symbol: ECurrency!
+  updatedAt: DateTime
+  vendor: VendorResponseDto
+  vendorId: String!
+}
+
+type FeeAttributes {
+  additionalHour: FeeDetail
+  additionalPassenger: FeeDetail
+  holiday: FeeDetail
+  noShow: FeeDetail
+  sameDayRequest: FeeDetail
+  serviceBuffer: FeeDetail
+}
+
+input FeeAttributesInput {
+  additionalHour: FeeDetailInput
+  additionalPassenger: FeeDetailInput
+  holiday: FeeDetailInput
+  noShow: FeeDetailInput
+  sameDayRequest: FeeDetailInput
+  serviceBuffer: FeeDetailInput
+}
+
+type FeeDetail {
+  type: EFeeType
+  value: Float
+}
+
+input FeeDetailInput {
+  type: EFeeType
+  value: Float
+}
+
+type FlightAttributesDto {
+  arrival: ArrivalAttributesDto
+  bookedAirlineCode: String
+  bookedAirlineFsCode: String
+  bookedAirlineIataCode: String
+  departure: DepartureAttributesDto
+  flightIndex: Float
+  flightNumber: String
+  flightStatuses: [FlightStatusAttributesDto!]
+}
+
+type FlightSchedule {
+  airlineName: String
+  arrivalAirportFsCode: String!
+  arrivalAirportName: String
+  arrivalCityName: String
+  arrivalCountryCode: String!
+  arrivalTerminal: String
+  arrivalTime: String!
+  arrivalTimeZone: String
+  carrierFsCode: String!
+  departureAirportFsCode: String!
+  departureAirportName: String
+  departureCityName: String
+  departureCountryCode: String!
+  departureTerminal: String
+  departureTime: String!
+  departureTimeZone: String
+  flightNumber: String!
+  timeZone: String!
+}
+
+input FlightScheduleInput {
+  airlineName: String
+  arrivalAirportFsCode: String!
+  arrivalAirportName: String
+  arrivalCityName: String
+  arrivalCountryCode: String!
+  arrivalTerminal: String
+  arrivalTime: String!
+  arrivalTimeZone: String
+  carrierFsCode: String!
+  departureAirportFsCode: String!
+  departureAirportName: String
+  departureCityName: String
+  departureCountryCode: String!
+  departureTerminal: String
+  departureTime: String!
+  departureTimeZone: String
+  flightNumber: String!
+  timeZone: String!
+}
+
+type FlightScheduleResponse {
+  connectingFlightRoutes: [ConnectionFlightRoute!]!
+  id: String!
+  isValidConnection: Boolean
+  isValidTravelTime: Boolean
+  stops: Int!
+}
+
+type FlightSchedulesPaginationResponseDto {
+  data: [FlightScheduleResponse!]!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  page: Int!
+  pageCount: Int!
+  take: Int!
+  total: Int!
+}
+
+type FlightSegment {
+  arrivalAirportFsCode: String!
+  arrivalTerminal: String
+  arrivalTime: String
+  carrierFsCode: String!
+  departureAirportFsCode: String!
+  departureTerminal: String
+  departureTime: String
+  flightEquipmentIataCode: String
+  flightNumber: String!
+  referenceCode: String
+  serviceClasses: [String!]
+  serviceType: String
+  stops: Int
+  trafficRestrictions: [String!]
+}
+
+input FlightSegmentInput {
+  arrivalAirportFsCode: String!
+  arrivalTerminal: String
+  arrivalTime: String
+  carrierFsCode: String!
+  departureAirportFsCode: String!
+  departureTerminal: String
+  departureTime: String
+  flightEquipmentIataCode: String
+  flightNumber: String!
+  referenceCode: String
+  serviceClasses: [String!] = []
+  serviceType: String
+  stops: Int
+  trafficRestrictions: [String!]
+}
+
+type FlightSegmentServiceResponseDto {
+  airportCity: String!
+  airportFsCode: String!
+  flightScheduleId: String
+  keyRoute: String
+  meetAndAssists: [MeetAndAssistDto!]!
+  reason: String
+  segment: SubFlightSegmentServiceDto!
+  segmentType: EFlightSegmentType!
+}
+
+type FlightStatusAttributesDto {
+  arrival: ArrivalFlightStatusAttributesDto
+  departure: DepartureFlightStatusAttributesDto
+  diverted: DivertedFlightStatusAttributesDto
+  flightNumber: String
+  id: Float
+  operatingAirlineCode: String
+  operatingAirlineFsCode: String
+  operatingAirlineIataCode: String
+  primaryMarketingAirlineCode: String
+  primaryMarketingAirlineFsCode: String
+  primaryMarketingAirlineIataCode: String
+  status: EFsFlightStatus
+}
+
+type FlightStatusHistoryDto {
+  arrivalFlightStatus: EFlightStatus
+  createdAt: String
+  departureFlightStatus: EFlightStatus
+}
+
+type GateAttributesDto {
+  current: String
+  previous: String
+}
+
+input GetAgentServicesByQueryDto {
+  agentId: String
+  category: ECategory
+  createdFrom: String
+  createdTo: String
+  excludeIds: [String!]
+  includeIds: [String!]
+  isDeleted: Boolean
+  isSelectAll: Boolean
+  keySearch: String
+  order: String
+  page: Float
+  serviceType: EFlightSegmentType
+  take: Float
+}
+
+input GetAgentsToAssignRequestDto {
+  bookingItemId: String!
+  createdFrom: String
+  createdTo: String
+  excludeIds: [String!]
+  includeIds: [String!]
+  isDeleted: Boolean
+  isSelectAll: Boolean
+  keySearch: String
+  order: String
+  page: Float
+  take: Float
+}
+
+input GetAirportServicesByQuery {
+  airportId: String
+  category: ECategory
+  categoryName: String
+  contractId: String
+  createdFrom: String
+  createdTo: String
+  excludeIds: [String!]
+  friendVendorId: String
+  includeIds: [String!]
+  isDeleted: Boolean
+  isSelectAll: Boolean
+  keySearch: String
+  order: String
+  page: Float
+  queryType: EQueryType!
+  serviceType: EFlightSegmentType
+  take: Float
+}
+
+input GetAirportsByQueryDto {
+  countryId: String
+  createdFrom: String
+  createdTo: String
+  excludeIds: [String!]
+  includeIds: [String!]
+  isDeleted: Boolean
+  isSelectAll: Boolean
+  keySearch: String
+  mappingConditions: MappingConditionsDto
+  order: String
+  page: Float
+  take: Float
+}
+
+input GetAirportsForVendorByQuery {
+  countryCode: String
+  createdFrom: String
+  createdTo: String
+  excludeIds: [String!]
+  includeIds: [String!]
+  isDeleted: Boolean
+  isSelectAll: Boolean
+  keySearch: String
+  order: String
+  page: Float
+  take: Float
+}
+
+input GetAlertsByQuery {
+  bookingItemId: String
+  createdFrom: String
+  createdTo: String
+  excludeIds: [String!]
+  includeIds: [String!]
+  isDeleted: Boolean
+  isSelectAll: Boolean
+  keySearch: String
+  order: String
+  page: Float
+  take: Float
+}
+
+input GetAllBookingItemChecklistsDto {
+  id: String!
+}
+
+input GetBookingItemNotesDto {
+  bookingItemId: String!
+}
+
+input GetBookingItemStatsDto {
+  date: DateTime
+  isRevenue: Boolean
+  timeRange: ETimeRange
+  type: EFilterType!
+}
+
+input GetBookingItemsByQueryDto {
+  createdFrom: String
+  createdTo: String
+  excludeIds: [String!]
+  includeIds: [String!]
+  isDeleted: Boolean
+  isSelectAll: Boolean
+  keySearch: String
+  order: String
+  page: Float
+  statuses: [EBookingItemStatus!]
+  take: Float
+}
+
+input GetCategoriesByQueryDto {
+  category: ECategory!
+  createdFrom: String
+  createdTo: String
+  excludeIds: [String!]
+  includeIds: [String!]
+  isDeleted: Boolean
+  isSelectAll: Boolean
+  keySearch: String
+  order: String
+  page: Float
+  take: Float
+  vendorId: String!
+}
+
+input GetChecklistsByFlightSegmentTypeDto {
+  flightSegmentType: EFlightSegmentType!
+}
+
+input GetCitiesByQueryDto {
+  countryId: String
+  createdFrom: String
+  createdTo: String
+  excludeIds: [String!]
+  includeIds: [String!]
+  isDeleted: Boolean
+  isSelectAll: Boolean
+  keySearch: String
+  order: String
+  page: Float
+  take: Float
+}
+
+input GetContractsByQuery {
+  airportId: String!
+  createdFrom: String
+  createdTo: String
+  excludeIds: [String!]
+  includeIds: [String!]
+  isDeleted: Boolean
+  isSelectAll: Boolean
+  keySearch: String
+  order: String
+  page: Float
+  statuses: [EContractStatus!]
+  take: Float
+}
+
+input GetDiscountByCodeDto {
+  code: String!
+}
+
+input GetDiscountsByQueryDto {
+  createdFrom: String
+  createdTo: String
+  excludeIds: [String!]
+  includeIds: [String!]
+  isDeleted: Boolean
+  isSelectAll: Boolean
+  keySearch: String
+  order: String
+  page: Float
+  take: Float
+  typeRange: EDiscountRange
+}
+
+input GetEventLogsByQuery {
+  bookingItemId: String
+  createdFrom: String
+  createdTo: String
+  excludeIds: [String!]
+  includeIds: [String!]
+  isDeleted: Boolean
+  isSelectAll: Boolean
+  keySearch: String
+  order: String
+  page: Float
+  take: Float
+}
+
+input GetExchangeRatesByQueryDto {
+  createdFrom: String
+  createdTo: String
+  excludeIds: [String!]
+  includeIds: [String!]
+  isDeleted: Boolean
+  isSelectAll: Boolean
+  keySearch: String
+  order: String
+  page: Float
+  symbol: ECurrency
+  take: Float
+}
+
+input GetFlightSchedulesByQueryDto {
+  cityFrom: String
+  cityTo: String
+  connectionFlights: [ConnectionFlightDto!]
+  createdFrom: String
+  createdTo: String
+  excludeIds: [String!]
+  flightNumber: String
+  includeIds: [String!]
+  isDeleted: Boolean
+  isSelectAll: Boolean
+  keySearch: String
+  order: String
+  page: Float
+  take: Float
+  travelDate: DateTime!
+}
+
+input GetHolidaysByQueryDto {
+  airportId: String
+  coverageLevel: ECoverageLevel
+  coverageLevelIds: [String!]
+  createdFrom: String
+  createdTo: String
+  endDate: DateTime
+  excludeIds: [String!]
+  includeIds: [String!]
+  isAnnual: Boolean
+  isDeleted: Boolean
+  isSelectAll: Boolean
+  keySearch: String
+  order: String
+  page: Float
+  startDate: DateTime
+  statuses: [EHolidayStatus!]!
+  take: Float
+  types: [EHolidayType!]!
+}
+
+input GetInvoicesByQueryDto {
+  amountMax: Float
+  amountMin: Float
+  completedAt: DateTime
+  createdAt: DateTime
+  createdFrom: String
+  createdTo: String
+  excludeIds: [String!]
+  includeIds: [String!]
+  isDeleted: Boolean
+  isSelectAll: Boolean
+  keySearch: String
+  keySearchPrimaryPassenger: String
+  order: String
+  page: Float
+  receiverVendorId: String
+  senderVendorId: String
+  statuses: [EInvoiceStatus!]
+  take: Float
+  type: EInvoiceType!
+}
+
+input GetOfferorAirportServicesByQuery {
+  bookingItemId: String!
+  createdFrom: String
+  createdTo: String
+  excludeIds: [String!]
+  includeIds: [String!]
+  isDeleted: Boolean
+  isSelectAll: Boolean
+  keySearch: String
+  order: String
+  page: Float
+  take: Float
+}
+
+input GetPaymentMethodsDto {
+  customerId: String
+}
+
+input GetPaymentTransactionsByQueryDto {
+  bookingId: String
+  createdFrom: String
+  createdTo: String
+  excludeIds: [String!]
+  includeIds: [String!]
+  isDeleted: Boolean
+  isSelectAll: Boolean
+  keySearch: String
+  order: String
+  page: Float
+  paymentCustomerId: String
+  take: Float
+  transactionId: String
+}
+
+input GetRecordsPaginationDto {
+  createdFrom: String
+  createdTo: String
+  excludeIds: [String!]
+  includeIds: [String!]
+  isDeleted: Boolean
+  isSelectAll: Boolean
+  keySearch: String
+  order: String
+  page: Float
+  take: Float
+}
+
+input GetRequestQuotesByQueryDto {
+  airportCode: String
+  createdFrom: String
+  createdTo: String
+  excludeIds: [String!]
+  flightSegmentType: EFlightSegmentType
+  includeIds: [String!]
+  isDeleted: Boolean
+  isSelectAll: Boolean
+  keySearch: String
+  order: String
+  page: Float
+  take: Float
+}
+
+input GetServicesByFlightNumberDto {
+  connectionFlights: [ConnectionFlightDto!]
+  flightNumber: String
+  passengerQuantity: Float!
+  travelDate: DateTime!
+}
+
+input GetServicesByFlightScheduleIdDto {
+  passengerQuantity: Float!
+  scheduleId: String!
+}
+
+input GetServicesByManualInfoDto {
+  arrivalAirportCode: String!
+  arrivalDateTime: DateTime!
+  connectionFlights: [ManualConnectionFlightDto!]
+  departureAirportCode: String!
+  departureDateTime: DateTime!
+  flightNumber: String
+  passengerQuantity: Float!
+}
+
+input GetSignedUrlDto {
+  filename: String!
+  filetype: String
+  subPath: ESubPath!
+}
+
+input GetUnbilledInvoiceItemsByQueryDto {
+  amountMax: Float
+  amountMin: Float
+  createdFrom: String
+  createdTo: String
+  excludeIds: [String!]
+  includeIds: [String!]
+  isDeleted: Boolean
+  isIncludeDisableItems: Boolean
+  isSelectAll: Boolean
+  keySearch: String
+  keySearchPrimaryPassenger: String
+  order: String
+  page: Float
+  receiverVendorId: String
+  take: Float
+  type: EInvoiceType!
+}
+
+input GetUserInvitationsByQueryDto {
+  createdFrom: String
+  createdTo: String
+  excludeIds: [String!]
+  includeIds: [String!]
+  isDeleted: Boolean
+  isSelectAll: Boolean
+  keySearch: String
+  order: String
+  page: Float
+  roleIds: [ERoleTypes!]!
+  take: Float
+}
+
+input GetUsersByQueryDto {
+  countryName: String
+  createdFrom: String
+  createdTo: String
+  excludeIds: [String!]
+  includeIds: [String!]
+  isDeleted: Boolean
+  isSelectAll: Boolean
+  keySearch: String
+  order: String
+  page: Float
+  roleIds: [ERoleTypes!]
+  take: Float
+}
+
+input GetVendorConnectionsByQuery {
+  airportId: String
+  category: ECategory
+  createdFrom: String
+  createdTo: String
+  excludeIds: [String!]
+  includeIds: [String!]
+  isDeleted: Boolean
+  isSelectAll: Boolean
+  keySearch: String
+  order: String
+  page: Float
+  statuses: [EVendorConnectionStatus!]
+  take: Float
+  type: EVendorConnectionType!
+}
+
+input GetWithdrawPriceInfoDto {
+  bookingId: String!
+}
+
+type HolidayEntity {
+  airports: [AirportEntity!]
+  belongToCountryId: String
+  cities: [CityEntity!]
+  countries: [CountryEntity!]
+  coverageLevel: ECoverageLevel!
+  createdAt: DateTime!
+  deletedAt: DateTime
+  description: String
+  fromDate: String
+  id: String!
+  isAnnual: Boolean!
+  isRange: Boolean!
+  name: String!
+  rule: String
+  status: EHolidayStatus!
+  toDate: String
+  type: EHolidayType!
+  updatedAt: DateTime
+  vendorId: String!
+}
+
+type HolidayHistoryDto {
+  fromDate: String
+  name: String!
+  toDate: String
+}
+
+type HolidaysResponseDto {
+  data: [HolidayEntity!]!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  page: Int!
+  pageCount: Int!
+  take: Int!
+  total: Int!
+}
+
+input InviteVendorsDto {
+  emails: [String!]!
+}
+
+type InvoiceEntity {
+  bookingId: String
+  completedAt: DateTime
+  createdAt: DateTime!
+  createdById: String!
+  currency: ECurrency
+  deletedAt: DateTime
+  displayId: String!
+  id: String!
+  invoiceMessage: String
+  paymentInfo: String
+  paymentMethod: EPaymentMethodType!
+  receiverCustomerId: String
+  receiverVendorId: String
+  senderAgentId: String
+  senderVendorId: String
+  status: EInvoiceStatus!
+  total: Float!
+  type: EInvoiceType!
+  updatedAt: DateTime
+}
+
+type InvoiceItemEntity {
+  agentPrice: Float!
+  bookingItemId: String!
+  createdAt: DateTime!
+  currency: ECurrency
+  deletedAt: DateTime
+  id: String!
+  price: Float!
+  status: EInvoiceItemStatus!
+  updatedAt: DateTime
+  vendorId: String!
+}
+
+type InvoiceItemResponseDto {
+  agentPrice: Float!
+  bookingItem: BookingItemResponseDto!
+  bookingItemId: String!
+  createdAt: DateTime!
+  currency: ECurrency
+  deletedAt: DateTime
+  id: String!
+  price: Float!
+  status: EInvoiceItemStatus!
+  updatedAt: DateTime
+  vendorId: String!
+}
+
+type InvoiceItemsPaginationResponseDto {
+  data: [InvoiceItemResponseDto!]!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  page: Int!
+  pageCount: Int!
+  take: Int!
+  total: Int!
+}
+
+type InvoiceResponseDto {
+  booking: SubBookingDto
+  bookingId: String
+  completedAt: DateTime
+  createdAt: DateTime!
+  createdById: String!
+  currency: ECurrency
+  deletedAt: DateTime
+  displayId: String!
+  id: String!
+  invoiceItems: [InvoiceItemResponseDto!]
+  invoiceMessage: String
+  paymentInfo: String
+  paymentMethod: EPaymentMethodType!
+  receiverCustomerId: String
+  receiverVendor: VendorEntity
+  receiverVendorId: String
+  senderAgentId: String
+  senderVendor: VendorEntity
+  senderVendorId: String
+  status: EInvoiceStatus!
+  total: Float!
+  type: EInvoiceType!
+  updatedAt: DateTime
+}
+
+type InvoicesPaginationResponseDto {
+  data: [InvoiceResponseDto!]!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  page: Int!
+  pageCount: Int!
+  take: Int!
+  total: Int!
+}
+
+type LegAttributesDto {
+  flights: [FlightAttributesDto!]
+  legIndex: Float
+}
+
+input LinkPaymentProviderCustomerDto {
+  customerId: String
+}
+
+input ManageAssignRequestStatusDto {
+  assignRequestId: String!
+  status: EAssignRequestStatus!
+}
+
+input ManageBookingItemStatusDto {
+  expiredReason: String
+  id: String!
+  status: EBookingItemStatus!
+  withdrawReason: String
+}
+
+input ManageChecklistItemStatusAndAddNoteDto {
+  id: String!
+  note: String!
+  status: EChecklistItemStatus!
+}
+
+input ManageContractStatusDto {
+  contractAirportServices: [ContractAirportServicesDto!]
+  id: String!
+  status: EContractStatus!
+}
+
+input ManageInvoiceStatusDto {
+  invoiceId: String!
+  status: EInvoiceStatus!
+}
+
+input ManageTransferRequestStatusDto {
+  status: ETransferRequestStatus!
+  transferRequestId: String!
+}
+
+input ManualConnectionFlightDto {
+  arrivalAirportCode: String!
+  arrivalDateTime: DateTime!
+  departureDateTime: DateTime!
+  flightNumber: String!
+}
+
+input ManualFlightInfoDto {
+  arrivalAirportCode: String
+  arrivalDateTime: DateTime
+  carrierFsCode: String!
+  departureAirportCode: String
+  departureDateTime: DateTime
+  flightNumber: String!
+}
+
+input MappingConditionsDto {
+  agentId: String!
+  category: ECategory!
+  categoryName: String!
+  serviceType: EFlightSegmentType!
+}
+
+input MappingContractAirportServiceDto {
+  id: String!
+  mappingAirportServiceId: String!
+}
+
+input MarkChecklistItemApplicableOrNotDto {
+  id: String!
+  note: String!
+}
+
+type MeetAndAssistDto {
+  description: [String!]!
+  flightType: String
+  id: String!
+  isValidConnection: Boolean
+  isValidTravelTime: Boolean
+  policy: Policy!
+  price: Float!
+  serviceConditions: ServiceConditions!
+  serviceCurrency: ECurrency!
+  serviceModel: EServiceModel!
+  serviceType: String!
+}
+
+type Mutation {
+  activateBookingItemChecklist(payload: RecordIdDto!): String!
+  activateUser(id: String!): String!
+  addPaymentMethod(payload: AddPaymentMethodDto!): String!
+  approveAssignRequest(payload: RecordIdDto!): AssignRequestEntity!
+  approveTransferRequest(payload: RecordIdDto!): TransferRequestEntity!
+  approvedAgentWithdraw(payload: ApprovedAgentWithdrawalDto!): Int!
+  arrangeBookingItemChecklists(payload: ArrangeBookingItemChecklistsDto!): [BookingItemChecklistEntity!]!
+  confirmAccount(payload: ConfirmAccountDto!): Float!
+  confirmInvoiceWasPaid(payload: RecordIdDto!): InvoiceEntity!
+  createAddress(payload: CreateAddressDto!): AddressEntity!
+  createAgentService(payload: CreateAgentServiceDto!): AgentServiceEntity!
+  createAirportServices(payload: CreateAirportServicesDto!): [AirportServiceEntity!]!
+  createAssignRequests(payload: CreateAssignRequestsDto!): [AssignRequestEntity!]!
+  createBooking(payload: CreateBookingDto!): BookingEntity!
+  createBookingItemChecklist(payload: CreateBookingItemChecklistDto!): BookingItemChecklistEntity!
+  createBookingItemExpense(payload: CreateBookingItemExpenseDto!): BookingItemExpenseEntity!
+  createCardAssignment(payload: CreateCardAssignmentDto!): CardAssignmentEntity!
+  createCategory(payload: CreateCategoryDto!): CategoryEntity!
+  createContract(payload: CreateContractDto!): ContractEntity!
+  createCustomNote(payload: CreateCustomNoteDto!): Int!
+  createDiscount(payload: CreateDiscountDto!): DiscountEntity!
+  createExchangeRates(payload: CreateExchangeRatesDto!): Int!
+  createHoliday(payload: CreateHolidayDto!): HolidayEntity!
+  createInvoice(payload: CreateInvoiceDto!): InvoiceEntity!
+  createPaymentCredential(payload: CreateCredentialDto!): Float!
+  createRequestQuotes(payload: CreateRequestQuotesDto!): [RequestQuoteEntity!]!
+  createTransferRequests(payload: CreateTransferRequestsDto!): Int!
+  createUserInvitations(payload: CreateUserInvitationsDto!): Float!
+  customerWithdrawBookingItem(payload: CustomerWithdrawBookingItemDto!): BookingItemResponseDto!
+  deactivateAuthAccount: String!
+  deactivateUser(id: String!): String!
+  deleteAddress(payload: DeleteAddressDto!): String!
+  deleteAgentService(payload: RecordIdDto!): String!
+  deleteAirportService(payload: RecordIdDto!): String!
+  deleteAssignRequests(payload: DeleteAssignRequestsDto!): Int!
+  deleteBookingItemChecklist(payload: RecordIdDto!): String!
+  deleteBookingItemExpense(payload: RecordIdDto!): String!
+  deleteCardAssignment(payload: RecordIdDto!): String!
+  deleteCategory(payload: RecordIdDto!): String!
+  deleteContract(payload: RecordIdDto!): String!
+  deleteCustomNote(payload: RecordIdDto!): Int!
+  deleteDiscount(payload: RecordIdDto!): String!
+  deleteExchangeRate(payload: RecordIdDto!): String!
+  deleteHoliday(payload: RecordIdDto!): String!
+  deleteInvoice(payload: RecordIdDto!): String!
+  deletePaymentCredential(payload: RecordIdDto!): String!
+  deleteTransferRequests(payload: DeleteTransferRequestsDto!): Int!
+  deleteUserInvitation(payload: RecordIdDto!): Float!
+  deleteVendorConnection(payload: RecordIdDto!): String!
+  denyVendorConnectionsByToken(payload: DenyConnectionByTokenDto!): Float!
+  inviteVendors(payload: InviteVendorsDto!): [String!]!
+  linkPaymentProviderCustomer(payload: LinkPaymentProviderCustomerDto!): Float!
+  manageAssignRequestStatus(payload: ManageAssignRequestStatusDto!): AssignRequestEntity!
+  manageBookingItemStatus(payload: ManageBookingItemStatusDto!): BookingItemResponseDto!
+  manageCheckListItemStatusAndAddNote(payload: ManageChecklistItemStatusAndAddNoteDto!): String!
+  manageContractStatus(payload: ManageContractStatusDto!): ContractEntity!
+  manageInvoiceStatus(payload: ManageInvoiceStatusDto!): InvoiceEntity!
+  manageTransferRequestStatus(payload: ManageTransferRequestStatusDto!): TransferRequestEntity!
+  manageVendorConnectionStatus(payload: UpdateVendorConnectionStatusDto!): VendorConnectionEntity!
+  markBookingItemAsAgentCompleted(payload: RecordIdDto!): BookingItemResponseDto!
+  markChildBookingItemComplete(payload: RecordIdDto!): BookingItemResponseDto!
+  markOrUnMarkCheckListItemAsNotApplicable(payload: MarkChecklistItemApplicableOrNotDto!): String!
+  preparePublicKeys(payload: PreparePublicKeysDto!): ResponsePublicKeysDto!
+  refreshToken(payload: RefreshTokenDto!): SignInResponseDto!
+  registerBusinessCompany(payload: RegisterBusinessCompanyDto!): UserEntity!
+  registerCustomer(payload: RegisterCustomerDto!): UserEntity!
+  registerInvitationAccount(payload: RegisterInvitationAccountDto!): UserEntity!
+  registerVendorAndAccount(payload: RegisterVendorAndAccountDto!): UserResponseDto!
+  remarkCheckListItemAsIncomplete(payload: RecordIdDto!): String!
+  removeApprovedAgent(payload: RemoveApprovedAgentDto!): Int!
+  removeApprovedVendor(payload: RemoveApprovedVendorDto!): Int!
+  removePaymentMethod(payload: RemovePaymentMethodDto!): Float!
+  resendEmailVerifyAccount(email: String!): String!
+  resendInviteVendor(payload: ResendInviteVendorDto!): String!
+  resendUserInvitation(payload: RecordIdDto!): Float!
+  resetPassword(payload: ResetPasswordDto!): Float!
+  sendEmailToResetPassword(email: String!): Float!
+  setPaymentMethodAsDefault(payload: SetPaymentMethodAsDefaultDto!): Float!
+  signIn(payload: SignInDto!): SignInResponseDto!
+  updateAddress(payload: UpdateAddressDto!): AddressEntity!
+  updateAgentService(payload: UpdateAgentServiceDto!): AgentServiceEntity!
+  updateAgentWorkingSchedule(payload: UpdateWorkingScheduleDto!): AgentWorkingScheduleEntity!
+  updateAirportService(payload: UpdateAirportServiceDto!): AirportServiceEntity!
+  updateAuthProfile(payload: UpdateAuthProfileDto!): UserEntity!
+  updateBookingItem(payload: UpdateBookingItemDto!): BookingItemResponseDto!
+  updateBookingItemExpense(payload: UpdateBookingItemExpenseDto!): BookingItemExpenseEntity!
+  updateBookingItemNote(payload: UpdateBookingItemNoteDto!): Int!
+  updateBookingItemRating(payload: UpdateBookingItemRatingDto!): Float!
+  updateBookingItemSchedule(payload: UpdateBookingItemScheduleDto!): Float!
+  updateBusinessCompany(payload: UpdateBusinessCompanyDto!): BusinessCompanyEntity!
+  updateCategory(payload: UpdateCategoryDto!): CategoryEntity!
+  updateContractAirportServiceMappings(payload: UpdateContractAirportServiceMappingsDto!): String!
+  updateDiscount(payload: UpdateDiscountDto!): DiscountEntity!
+  updateExchangeRate(payload: UpdateExchangeRateDto!): Int!
+  updateHoliday(payload: UpdateHolidayDto!): HolidayEntity!
+  updateInvoice(payload: UpdateInvoiceDto!): InvoiceEntity!
+  updatePassword(payload: UpdatePasswordDto!): SignInResponseDto!
+  updateUser(id: String!, payload: UpdateUserDto!): UserEntity!
+  updateVendor(payload: UpdateVendorDto!): VendorEntity!
+  withdrawApprovedTransferRequest(payload: WithdrawApprovedTransferRequestDto!): Int!
+  withdrawBooking(payload: WithdrawBookingDto!): BookingEntity!
+}
+
+type NationalHolidayResponseDto {
+  date: String!
+  name: String!
+  rule: String
+}
+
+type PassengerDto {
+  alias: String
+  carryOnLuggage: String
+  checkedLuggage: String
+  classOfService: EClassOfService
+  contactNumber: String
+  firstName: String!
+  flightReservationNumber: String
+  isPrimary: Boolean
+  lastName: String!
+  specialServices: [SpecialServices!]
+  specificLanguage: String
+  title: String!
+}
+
+type PassengerEntity {
+  alias: String
+  bookingItemId: String!
+  carryOnLuggage: Float
+  checkedLuggage: Float
+  classOfService: EClassOfService
+  contactNumber: String
+  createdAt: DateTime!
+  deletedAt: DateTime
+  firstName: String!
+  flightReservationNumber: String
+  id: String!
+  isPrimary: Boolean!
+  lastName: String!
+  noShow: Boolean!
+  specialServices: [SpecialServices!]
+  specificLanguage: String
+  title: String!
+  updatedAt: DateTime
+  vendorId: String!
+}
+
+type PaymentCredentialEntity {
+  createdAt: DateTime!
+  createdById: String!
+  deletedAt: DateTime
+  deletedById: String
+  id: String!
+  providerName: EProviderName!
+  updatedAt: DateTime
+  vendorId: String!
+}
+
+type PaymentMethodInfo {
+  brand: String!
+  last4: String!
+  providerName: EProviderName!
+}
+
+type PaymentMethodResponseDto {
+  brand: String!
+  expMonth: Float!
+  expYear: Float!
+  id: String!
+  isDefault: Boolean!
+  last4: String!
+  providerName: EProviderName!
+}
+
+type PaymentMethodsResponseDto {
+  isExistCustomer: Boolean!
+  paymentMethods: [PaymentMethodResponseDto!]
+}
+
+type PaymentTransactionEntity {
+  amount: Float!
+  amountCaptured: Float!
+  bookingId: String!
+  captureMethod: String
+  createdAt: DateTime!
+  currency: String!
+  deletedAt: DateTime
+  description: String
+  id: String!
+  paymentCredentialId: String
+  paymentCustomerId: String!
+  paymentMethod: String!
+  providerName: EProviderName!
+  status: String!
+  transactionId: String!
+  updatedAt: DateTime
+  vendorId: String!
+}
+
+type PaymentTransactionsPaginationResponseDto {
+  data: [PaymentTransactionEntity!]!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  page: Int!
+  pageCount: Int!
+  take: Int!
+  total: Int!
+}
+
+type Policy {
+  pricing: ServicePricing!
+  rule: RuleAttributes!
+}
+
+input PreparePublicKeysDto {
+  nonceBase64: String!
+}
+
+type PriceCalculationHistoryDto {
+  agentServiceHistory: AgentServiceHistoryDto
+  airportServiceHistory: AirportServiceHistoryDto!
+  discountHistory: DiscountHistoryDto
+  holiday: HolidayHistoryDto
+  scheduleHistories: [ScheduleHistoryDto!]
+}
+
+type PrimaryVendorDto {
+  addresses: [AddressEntity!]
+  createdAt: DateTime!
+  deletedAt: DateTime
+  email: String!
+  id: String!
+  image: String
+  name: String!
+  paymentCredentialId: String
+  price: Float
+  primaryContactId: String
+  subdomain: String!
+  updatedAt: DateTime
+  vendorCurrency: ECurrency!
+  website: String
+}
+
+type Query {
+  checkExistCurrencyBySymbol(args: CheckExistCurrencyBySymbolDto!): [ExchangeRateyResponseDto!]!
+  checkExistVendorSubdomain(subdomain: String!): Int!
+  checkVendorInvitationTokenIsValid(token: String!): Float!
+  countPendingContracts: Float!
+  getAgentServicesByQuery(args: GetAgentServicesByQueryDto!): AgentServicesPaginationResponseDto!
+  getAgentWorkingSchedule: AgentWorkingScheduleEntity!
+  getAgentsToAssignRequest(args: GetAgentsToAssignRequestDto!): [AgentToAssignRequestResponseDto!]!
+  getAirportServicesByQuery(args: GetAirportServicesByQuery!): AirportServicesPaginationResponseDto!
+  getAirportsByQuery(args: GetAirportsByQueryDto!): AirportsPaginationResponseDto!
+  getAirportsForVendorByQuery(args: GetAirportsForVendorByQuery!): AirportsPaginationResponseDto!
+  getAlertsByQuery(args: GetAlertsByQuery!): AlertsPaginationResponseDto!
+  getAuthProfile: UserResponseDto!
+  getBookingItemDetail(payload: RecordIdDto!): BookingItemDetailResponseDto!
+  getBookingItemEventLogsByQuery(args: GetEventLogsByQuery!): EvenLogsPaginationResponseDto!
+  getBookingItemNoteDetail(payload: RecordIdDto!): BookingItemNoteResponseDto!
+  getBookingItemNotes(payload: GetBookingItemNotesDto!): [BookingItemNoteResponseDto!]!
+  getBookingItemStats(args: GetBookingItemStatsDto!): BookingItemStatsResponseDto!
+  getBookingItemsByQuery(args: GetBookingItemsByQueryDto!): BookingItemsPaginationResponseDto!
+  getCardAssignmentsByQuery(args: GetRecordsPaginationDto!): CardAssignmentsPaginationResponseDto!
+  getCategoriesByQuery(args: GetCategoriesByQueryDto!): CategoriesResponseDto!
+  getCheckListByBookingItemId(payload: GetAllBookingItemChecklistsDto!): [BookingItemChecklistResponseDto!]!
+  getCheckListItemDetail(payload: RecordIdDto!): BookingItemChecklistResponseDto!
+  getCheckListsByFlightSegmentType(payload: GetChecklistsByFlightSegmentTypeDto!): [ChecklistEntity!]!
+  getCitiesByQuery(args: GetCitiesByQueryDto!): CitiesPaginationResponseDto!
+  getContractsByQuery(args: GetContractsByQuery!): ContractsPaginationResponseDto!
+  getCountriesByQuery(args: GetRecordsPaginationDto!): CountriesPaginationResponseDto!
+  getCurrenciesData: [CurrenciesDataResponseDto!]!
+  getCurrencyDetail(payload: RecordIdDto!): ExchangeRateyResponseDto!
+  getCustomersForCreateBookingByQuery(params: GetRecordsPaginationDto!): UsersPaginationResponseDto!
+  getDiscountByCode(payload: GetDiscountByCodeDto!): DiscountEntity!
+  getDiscountsByQuery(args: GetDiscountsByQueryDto!): DiscountsPaginationResponseDto!
+  getExchangeRatesByQuery(args: GetExchangeRatesByQueryDto!): ExchangeRatePaginationResponseDto!
+  getExpensesByBookingItemId(payload: RecordIdDto!): [BookingItemExpenseResponseDto!]!
+  getHolidaysByQuery(params: GetHolidaysByQueryDto!): HolidaysResponseDto!
+  getInvoicesByQuery(args: GetInvoicesByQueryDto!): InvoicesPaginationResponseDto!
+  getNationalHolidaysByCountryId(id: String!): [NationalHolidayResponseDto!]!
+  getOfferorAirportServicesByQuery(args: GetOfferorAirportServicesByQuery!): AirportServicesPaginationResponseDto!
+  getPassengersByBookingItemId(payload: RecordIdDto!): [PassengerEntity!]!
+  getPayaAccountFormLink: String!
+  getPaymentCredentials(vendorId: String!): [PaymentCredentialEntity!]!
+  getPaymentMethods(payload: GetPaymentMethodsDto!): PaymentMethodsResponseDto!
+  getPaymentTransactionsByQuery(payload: GetPaymentTransactionsByQueryDto!): PaymentTransactionsPaginationResponseDto!
+  getRequestQuotesByQuery(args: GetRequestQuotesByQueryDto!): RequestQuotesPaginationResponseDto!
+  getServicesByFlightNumber(query: GetServicesByFlightNumberDto!): [FlightSegmentServiceResponseDto!]!
+  getServicesByManual(query: GetServicesByFlightScheduleIdDto!): [FlightSegmentServiceResponseDto!]!
+  getServicesByScheduleId(query: GetServicesByFlightScheduleIdDto!): [FlightSegmentServiceResponseDto!]!
+  getServicesByUserInfo(query: GetServicesByManualInfoDto!): [FlightSegmentServiceResponseDto!]!
+  getSignedUrl(payload: GetSignedUrlDto!): String!
+  getStripePublicKey: String!
+  getUnbilledInvoiceItemsByQuery(args: GetUnbilledInvoiceItemsByQueryDto!): InvoiceItemsPaginationResponseDto!
+  getUserInvitationsByQuery(params: GetUserInvitationsByQueryDto!): UserInvitationsPaginationResponseDto!
+  getUsersByQuery(params: GetUsersByQueryDto!): UsersPaginationResponseDto!
+  getVendorConnectionsByQuery(args: GetVendorConnectionsByQuery!): VendorConnectionsPaginationResponseDto!
+  getVendorInformation: VendorInformationResponseDto!
+  getWithdrawPriceInfo(payload: GetWithdrawPriceInfoDto!): [WithdrawPriceInfoResponseDto!]!
+  searchFlightSchedules(query: GetFlightSchedulesByQueryDto!): FlightSchedulesPaginationResponseDto!
+}
+
+type RateAttributes {
+  from: Float!
+  offHours: Float!
+  offHoursInternational: Float!
+  regular: Float!
+  regularInternational: Float!
+  to: Float!
+}
+
+input RateAttributesInput {
+  from: Float!
+  offHours: Float!
+  offHoursInternational: Float!
+  regular: Float!
+  regularInternational: Float!
+  to: Float!
+}
+
+input RecordIdDto {
+  id: String!
+}
+
+input RefreshTokenDto {
+  refreshToken: String!
+}
+
+input RegisterBusinessCompanyDto {
+  company: CreateBusinessCompanyDto!
+  companyAddress: CreateAddressDto!
+  paymentMethodId: String
+  user: UserAttributesDto!
+  userAddress: CreateAddressDto!
+}
+
+input RegisterCustomerDto {
+  address: CreateAddressDto
+  paymentMethodId: String!
+  user: UserAttributesDto!
+}
+
+input RegisterInvitationAccountDto {
+  token: String!
+  user: UserAttributesMissingEmailDto!
+  userAddress: CreateAddressDto
+}
+
+input RegisterVendorAndAccountDto {
+  token: String!
+  user: UserAttributesMissingEmailDto!
+  userAddress: CreateAddressDto
+  vendor: RegisterVendorDto
+  vendorAddress: CreateAddressDto
+}
+
+input RegisterVendorDto {
+  image: String
+  name: String!
+  subdomain: String!
+  vendorCurrency: ECurrency
+  website: String
+}
+
+input RemoveApprovedAgentDto {
+  approvedAgentId: String!
+  bookingItemId: String!
+}
+
+input RemoveApprovedVendorDto {
+  transferRequestId: String!
+}
+
+input RemovePaymentMethodDto {
+  paymentMethodId: String!
+}
+
+input RequestQuoteAttributesDto {
+  airportCode: String!
+  arrivalFlightSchedule: FlightScheduleInput
+  cityName: String!
+  departureFlightSchedule: FlightScheduleInput
+  flightSegmentType: EFlightSegmentType!
+}
+
+type RequestQuoteEntity {
+  airportCode: String!
+  arrivalFlightSchedule: FlightSchedule
+  createdAt: DateTime!
+  deletedAt: DateTime
+  departureFlightSchedule: FlightSchedule
+  email: String!
+  firstName: String
+  flightSegmentType: EFlightSegmentType!
+  id: String!
+  lastName: String
+  message: String!
+  updatedAt: DateTime
+  vendorId: String!
+}
+
+type RequestQuotesPaginationResponseDto {
+  data: [RequestQuoteEntity!]!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  page: Int!
+  pageCount: Int!
+  take: Int!
+  total: Int!
+}
+
+input ResendInviteVendorDto {
+  email: String!
+}
+
+input ResetPasswordDto {
+  password: String!
+  token: String!
+}
+
+type ResponsePublicKeysDto {
+  cacheKey: String!
+  ecdhPublicKey: String!
+  ecdsaPublicKey: String!
+  signature: String!
+}
+
+type RoleEntity {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: Int!
+  name: String!
+  scopes: [ScopeEntity!]
+  updatedAt: DateTime
+}
+
+type RuleAttributes {
+  hoursAllowance: Int!
+  offHoursFrom: Int!
+  offHoursTo: Int!
+  passengerAllowance: Int
+  passengerPerAgentMax: Int!
+}
+
+input RuleAttributesInput {
+  hoursAllowance: Int!
+  offHoursFrom: Int!
+  offHoursTo: Int!
+  passengerAllowance: Int
+  passengerPerAgentMax: Int!
+}
+
+type ScheduleHistoryDto {
+  arrival: TimeScheduleDto
+  createdAt: String
+  departure: TimeScheduleDto
+  note: String
+}
+
+type ScopeEntity {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  description: String!
+  id: String!
+  name: String!
+  updatedAt: DateTime
+}
+
+type ServiceConditions {
+  isHoliday: Boolean
+  isInternational: Boolean
+  isMaxPassengerPerAgentExceeded: Boolean
+  isOffHours: Boolean
+  isPassengerAllowanceExceeded: Boolean
+}
+
+type ServicePricing {
+  fees: FeeAttributes!
+  rates: [RateAttributes!]!
+}
+
+type ServicePricingHistory {
+  cancelation: [Cancelation!]!
+  fees: FeeAttributes!
+  rates: [RateAttributes!]!
+}
+
+input SetPaymentMethodAsDefaultDto {
+  paymentMethodId: String!
+}
+
+input SignInDto {
+  email: String!
+  password: String!
+}
+
+type SignInResponseDto {
+  accessToken: String!
+  refreshToken: String!
+}
+
+enum SpecialServices {
+  AGENT_WITH_SPECIFIC_LANGUAGE
+  AIRLINE_LOUNGE_ACCESS
+  ANIMAL
+  FIREARM
+  GOLF_CART
+  SIGN_LANGUAGE_HELP
+  VAT_ASSISTANCE
+  WHEELCHAIR
+}
+
+type SubBookingDto {
+  bookingItems: [SubBookingItemDto!]!
+  bookingPaymentStatus: EBookingPaymentStatus!
+  completedAt: DateTime
+  createdAt: DateTime!
+  currency: ECurrency
+  customer: UserResponseDto!
+  customerId: String!
+  deletedAt: DateTime
+  discountId: String
+  displayId: String!
+  holdFundExpirationDate: DateTime
+  id: String!
+  passengerQuantity: Float!
+  paymentMethodInfo: PaymentMethodInfo
+  total: Float!
+  updatedAt: DateTime
+  vendorId: String!
+}
+
+type SubBookingItemDto {
+  airportServiceId: String!
+  approvedAgentId: String
+  arrivalDateTime: DateTime
+  arrivalFlightSchedule: FlightSchedule
+  autoConfirmAssignRequest: Boolean!
+  autoConfirmTransferRequest: Boolean!
+  bookingId: String!
+  bookingItemExpenses: [BookingItemExpenseEntity!]!
+  childBookingItemId: String
+  completedAt: DateTime
+  completedById: String
+  createdAt: DateTime!
+  currency: ECurrency
+  customerId: String!
+  deletedAt: DateTime
+  departureDateTime: DateTime
+  departureFlightSchedule: FlightSchedule
+  displayId: String!
+  emergencyContacts: [EmergencyContact!]
+  expiredReason: String
+  id: String!
+  invoiceItem: InvoiceItemEntity!
+  isViewed: Boolean!
+  lastChildBookingItemId: String
+  level: Float!
+  parentBookingItemId: String
+  passengers: [PassengerEntity!]!
+  price: Float!
+  priceCalculationHistory: PriceCalculationHistoryDto!
+  rating: Float!
+  rootBookingItemId: String
+  status: EBookingItemStatus!
+  transactionId: String
+  transportInformation: TransportInformation
+  tripId: String
+  type: EFlightSegmentType!
+  updatedAt: DateTime
+  vendorId: String!
+  withdrawReason: String
+  withdrawnById: String
+  withdrawnParentBookingItemId: String
+}
+
+type SubFlightSegmentServiceDto {
+  airlineCode: String!
+  airlineName: String!
+  airplaneName: String
+  arrivalAirportCode: String!
+  arrivalAirportName: String!
+  arrivalAirportTimezone: String!
+  arrivalCity: String!
+  arrivalCountryCode: String!
+  arrivalTerminal: String
+  arrivalTime: DateTime!
+  departureAirportCode: String!
+  departureAirportName: String!
+  departureAirportTimezone: String!
+  departureCity: String!
+  departureCountryCode: String!
+  departureTerminal: String
+  departureTime: DateTime!
+  flight: String!
+  flightNumber: String!
+  stops: Float!
+}
+
+type TerminalAttributesDto {
+  current: String
+  previous: String
+}
+
+type TimeLimitAttributes {
+  agentWithdrawal: Float!
+  connectionLimitMax: Int!
+  connectionLimitMin: Int!
+  sameDayLimit: Int!
+}
+
+input TimeLimitAttributesInput {
+  agentWithdrawal: Float! = 0
+  connectionLimitMax: Int!
+  connectionLimitMin: Int!
+  sameDayLimit: Int!
+}
+
+type TimeScheduleDto {
+  arrivalDateTime: String
+  departureDateTime: String
+}
+
+type TransferRequestEntity {
+  bookingItemId: String!
+  createdAt: DateTime!
+  createdById: String!
+  currency: ECurrency!
+  deletedAt: DateTime
+  id: String!
+  price: Float!
+  receiverVendorId: String!
+  status: ETransferRequestStatus!
+  transferAirportServiceId: String!
+  updatedAt: DateTime
+  vendorId: String!
+  withdrawReason: String
+}
+
+type TransferRequestResponseDto {
+  bookingItemId: String!
+  createdAt: DateTime!
+  createdBy: UserResponseDto!
+  createdById: String!
+  currency: ECurrency!
+  deletedAt: DateTime
+  id: String!
+  price: Float!
+  receiverVendor: VendorEntity!
+  receiverVendorId: String!
+  status: ETransferRequestStatus!
+  transferAirportServiceId: String!
+  updatedAt: DateTime
+  vendorId: String!
+  withdrawReason: String
+}
+
+type TransportInformation {
+  arrangedBy: String!
+  carMaker: String
+  carModal: String
+  carPlates: String
+  carType: String
+  companyName: String
+  confirmationNumber: String
+  contact: [ContactTransportInformation!]!
+  phone: String!
+}
+
+input TransportInformationInput {
+  arrangedBy: String!
+  carMaker: String
+  carModal: String
+  carPlates: String
+  carType: String
+  companyName: String
+  confirmationNumber: String
+  contact: [ContactTransportInformationInput!]!
+  phone: String!
+}
+
+type TripResponseDto {
+  alerts: [AlertEntity!]!
+  arrivalActualGateDateTime: String
+  arrivalBaggage: String
+  arrivalFlightStatus: EFlightStatus!
+  arrivalGate: String
+  bookingItems: [BookingItemEntity!]!
+  createdAt: DateTime!
+  deletedAt: DateTime
+  departureActualGateDateTime: String
+  departureFlightStatus: EFlightStatus!
+  departureGate: String
+  flightStatusHistories: [FlightStatusHistoryDto!]!
+  id: String!
+  importNotes: [String!]
+  updatedAt: DateTime
+}
+
+"""
+A field whose value is a generic Universally Unique Identifier: https://en.wikipedia.org/wiki/Universally_unique_identifier.
+"""
+scalar UUID
+
+input UpdateAddressDto {
+  addressType: EAddressType
+  cityName: String
+  countryName: String!
+  id: String!
+  phoneNumber: String
+  postalCode: String
+  stateName: String
+  street: String!
+}
+
+input UpdateAgentServiceDto {
+  airportIds: [String!]!
+  currency: ECurrency!
+  fees: FeeAttributesInput
+  id: String!
+  rates: [RateAttributesInput!]
+  rule: RuleAttributesInput
+  serviceModel: EAgentServiceModel!
+}
+
+input UpdateAirportServiceDto {
+  airportId: String!
+  cancelation: [CancelationInput!]
+  currency: ECurrency!
+  description: String
+  fees: FeeAttributesInput!
+  highlights: [String!]!
+  id: String!
+  name: String!
+  primaryCategory: ECategory!
+  primaryCategoryName: String!
+  rates: [RateAttributesInput!]!
+  rule: RuleAttributesInput!
+  serviceModel: EServiceModel!
+  serviceType: EFlightSegmentType!
+  timeLimit: TimeLimitAttributesInput!
+}
+
+input UpdateAuthProfileDto {
+  address: CreateAddressDto
+  user: UpdateUserDto!
+}
+
+input UpdateBookingItemDto {
+  emergencyContacts: [EmergencyContactInput!]
+  id: String!
+  passengers: [UpdatePassengerDto!]
+  transportInformation: TransportInformationInput
+}
+
+input UpdateBookingItemExpenseDto {
+  hours: Float
+  id: String!
+  images: [String!]
+  note: String
+  passengers: Int
+  price: Float!
+  type: ETypeExpense!
+}
+
+input UpdateBookingItemNoteDto {
+  bookingItemChecklistId: String
+  bookingItemExpenseId: String
+  id: String!
+  note: String!
+  type: ENoteType!
+}
+
+input UpdateBookingItemRatingDto {
+  id: String!
+}
+
+input UpdateBookingItemScheduleDto {
+  arrivalSchedule: UpdateFlightScheduleDto
+  departureSchedule: UpdateFlightScheduleDto
+  id: String!
+  note: String!
+  type: EFlightSegmentType!
+}
+
+input UpdateBusinessCompanyDto {
+  address: CreateAddressDto
+  image: String
+  website: String
+}
+
+input UpdateCategoryDto {
+  category: ECategory!
+  id: String!
+  name: String!
+}
+
+input UpdateContractAirportServiceMappingsDto {
+  updateContractAirportServiceMappings: [MappingContractAirportServiceDto!]!
+}
+
+input UpdateDiscountDto {
+  allowUserIds: [String!]
+  amount: Float
+  code: String!
+  expiredAt: DateTime
+  id: String!
+  maxUseQuantity: Float
+  name: String!
+  percent: Float
+  range: EDiscountRange!
+  startedAt: DateTime!
+  type: EDiscountType!
+}
+
+input UpdateExchangeRateDto {
+  id: String!
+  rate: Float!
+}
+
+input UpdateFlightScheduleDto {
+  arrivalDateTime: String
+  departureDateTime: String
+}
+
+input UpdateHolidayDto {
+  airportIds: [String!]
+  belongToCountryId: String
+  cityIds: [String!]
+  countryIds: [String!]
+  coverageLevel: ECoverageLevel!
+  description: String
+  fromDate: DateTime
+  id: String!
+  isAnnual: Boolean!
+  isRange: Boolean!
+  name: String!
+  toDate: DateTime
+}
+
+input UpdateInvoiceDto {
+  id: String!
+  invoiceMessage: String
+  paymentInfo: String
+  paymentMethod: EPaymentMethodType!
+}
+
+input UpdatePassengerDto {
+  alias: String
+  carryOnLuggage: Int
+  checkedLuggage: Int
+  classOfService: EClassOfService
+  contactNumber: String
+  firstName: String!
+  flightReservationNumber: String
+  id: String
+  isPrimary: Boolean
+  lastName: String!
+  noShow: Boolean
+  specialServices: [SpecialServices!]
+  specificLanguage: String
+  title: String!
+}
+
+input UpdatePasswordDto {
+  newPassword: String!
+  oldPassword: String!
+}
+
+input UpdateUserDto {
+  avatar: String
+  firstName: String
+  lastName: String
+  paymentMethodIds: [String!]
+}
+
+input UpdateVendorConnectionStatusDto {
+  id: String!
+  status: EVendorConnectionStatus!
+}
+
+input UpdateVendorDto {
+  address: CreateAddressDto
+  image: String
+  paymentCredentialId: String
+  vendorCurrency: ECurrency
+  website: String
+}
+
+input UpdateWorkingScheduleDto {
+  fri: DayWorkingScheduleInput!
+  mon: DayWorkingScheduleInput!
+  sat: DayWorkingScheduleInput!
+  sun: DayWorkingScheduleInput!
+  thu: DayWorkingScheduleInput!
+  tue: DayWorkingScheduleInput!
+  wed: DayWorkingScheduleInput!
+}
+
+input UserAttributesDto {
+  email: String!
+  firstName: String!
+  lastName: String!
+  password: String!
+}
+
+input UserAttributesMissingEmailDto {
+  firstName: String!
+  lastName: String!
+  password: String!
+}
+
+type UserEntity {
+  avatar: String
+  businessCompanyId: String
+  createdAt: DateTime!
+  deletedAt: DateTime
+  email: String!
+  firstName: String!
+  id: String!
+  isEmailVerified: Boolean!
+  lastName: String!
+  rating: Float!
+  role: RoleEntity!
+  roleId: Int!
+  totalBookingItemCompleted: Float!
+  totalBookingItemRating: Float!
+  totalRating: Float!
+  updatedAt: DateTime
+  vendorId: String!
+}
+
+type UserInvitationEntity {
+  businessCompanyId: String
+  createdAt: DateTime!
+  createdBy: UserEntity!
+  createdById: String!
+  deletedAt: DateTime
+  email: String!
+  id: String!
+  roleId: Int!
+  updatedAt: DateTime
+  vendorId: String!
+}
+
+type UserInvitationsPaginationResponseDto {
+  data: [UserInvitationEntity!]!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  page: Int!
+  pageCount: Int!
+  take: Int!
+  total: Int!
+}
+
+type UserResponseDto {
+  addresses: [AddressEntity!]
+  agentServices: [AgentServiceResponseDto!]
+  avatar: String
+  businessCompany: BusinessCompanyResponseDto
+  businessCompanyId: String
+  cardAssignments: [CardAssignmentEntity!]
+  createdAt: DateTime!
+  deletedAt: DateTime
+  email: String!
+  firstName: String!
+  id: String!
+  isEmailVerified: Boolean!
+  lastName: String!
+  rating: Float!
+  role: RoleEntity!
+  roleId: Int!
+  totalBookingItemCompleted: Float!
+  totalBookingItemRating: Float!
+  totalRating: Float!
+  updatedAt: DateTime
+  vendor: VendorResponseDto
+  vendorId: String!
+}
+
+type UsersPaginationResponseDto {
+  data: [UserResponseDto!]!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  page: Int!
+  pageCount: Int!
+  take: Int!
+  total: Int!
+}
+
+type VendorConnectionEntity {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: String!
+  isFavoriteReceiver: Boolean!
+  isFavoriteSender: Boolean!
+  receiverVendorEmail: String
+  receiverVendorId: String
+  senderVendorId: String!
+  status: EVendorConnectionStatus!
+  tokenTimestamp: String
+  updatedAt: DateTime
+}
+
+type VendorConnectionResponseDto {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: String!
+  isFavoriteReceiver: Boolean!
+  isFavoriteSender: Boolean!
+  receiverVendor: VendorResponseDto
+  receiverVendorEmail: String
+  receiverVendorId: String
+  senderVendor: VendorResponseDto!
+  senderVendorId: String!
+  status: EVendorConnectionStatus!
+  tokenTimestamp: String
+  updatedAt: DateTime
+}
+
+type VendorConnectionsPaginationResponseDto {
+  data: [VendorConnectionResponseDto!]!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  page: Int!
+  pageCount: Int!
+  take: Int!
+  total: Int!
+}
+
+type VendorEntity {
+  addresses: [AddressEntity!]
+  createdAt: DateTime!
+  deletedAt: DateTime
+  email: String!
+  id: String!
+  image: String
+  name: String!
+  paymentCredentialId: String
+  primaryContactId: String
+  subdomain: String!
+  updatedAt: DateTime
+  vendorCurrency: ECurrency!
+  website: String
+}
+
+type VendorInformationResponseDto {
+  activePaymentCredential: PaymentCredentialEntity
+  addresses: [AddressEntity!]
+  createdAt: DateTime!
+  deletedAt: DateTime
+  email: String!
+  id: String!
+  image: String
+  name: String!
+  paymentCredentialId: String
+  primaryContactId: String
+  subdomain: String!
+  updatedAt: DateTime
+  vendorCurrency: ECurrency!
+  website: String
+}
+
+type VendorResponseDto {
+  addresses: [AddressEntity!]
+  airportServices: [AirportServiceResponseDto!]
+  createdAt: DateTime!
+  deletedAt: DateTime
+  email: String!
+  id: String!
+  image: String
+  name: String!
+  paymentCredentialId: String
+  primaryContact: UserEntity!
+  primaryContactId: String
+  subdomain: String!
+  updatedAt: DateTime
+  vendorCurrency: ECurrency!
+  website: String
+}
+
+type WaiverAttributesDto {
+  issuingAirlineCode: String
+  issuingAirlineFsCode: String
+  issuingAirlineIataCode: String
+  waiverType: String
+}
+
+input WithdrawApprovedTransferRequestDto {
+  bookingItemId: String!
+  withdrawReason: String!
+}
+
+input WithdrawBookingDto {
+  id: String!
+  withdrawReason: String
+}
+
+type WithdrawPriceInfoResponseDto {
+  arrivalFlightSchedule: FlightSchedule
+  departureFlightSchedule: FlightSchedule
+  displayId: String!
+  price: Float!
+  type: EFlightSegmentType!
+  withdrawPrice: Float!
+}
