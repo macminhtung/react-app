@@ -13,6 +13,11 @@ export const showToastError = (error: ClientError) =>
     actionButtonStyle: { backgroundColor: 'transparent' },
   });
 
+export const clearTokensAndRefreshPage = () => {
+  manageTokens({ type: EManageTokenType.SET, refreshToken: '', accessToken: '' });
+  window.location.reload();
+};
+
 export enum EManageTokenType {
   GET = 'GET',
   SET = 'SET',

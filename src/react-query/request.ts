@@ -5,10 +5,20 @@ import {
   ClientError,
   gql,
 } from 'graphql-request';
-import { showToastError, manageTokens, EManageTokenType } from '@/common/funcs';
+import {
+  showToastError,
+  manageTokens,
+  EManageTokenType,
+  clearTokensAndRefreshPage,
+} from '@/common/funcs';
 import type { RefreshTokenMutation } from '@/gql/graphql';
 
 const API_URL = `${import.meta.env.VITE_APP_API}/graphql`;
+
+enum EJwtErrorMessages {
+  EXPIRED = 'jwt expired',
+  INVALID = 'invalid token',
+}
 
 const refreshTokenDocument = gql`
   mutation RefreshToken($payload: RefreshTokenDto!) {
@@ -32,8 +42,8 @@ export const request = <R>(options: RequestOptions<Variables, R>) => {
         // Identify the error message
         const errorMessage = error.response.errors?.[0]?.message;
 
-        // CASE: JWT Expired ==> Get new refresh token
-        if (errorMessage === 'jwt expired') {
+        // CASE: JWT Expired ==> Refresh accessToken ==> Recall API
+        if (errorMessage === EJwtErrorMessages.EXPIRED) {
           originRequest<RefreshTokenMutation>(API_URL, refreshTokenDocument)
             // CASE: Update new refreshToken & accessToken
             .then(({ refreshToken: newTokens }) => {
@@ -57,9 +67,14 @@ export const request = <R>(options: RequestOptions<Variables, R>) => {
             // CASE: Invalid refresh token ==> Show toast error
             .catch((error) => {
               showToastError(error);
-              manageTokens({ type: EManageTokenType.SET, refreshToken: '', accessToken: '' });
-              throw error;
+              clearTokensAndRefreshPage();
             });
+        }
+
+        // CASE: JWT invalid
+        else if (errorMessage === EJwtErrorMessages.INVALID) {
+          showToastError(error);
+          clearTokensAndRefreshPage();
         }
 
         // Show toast error
