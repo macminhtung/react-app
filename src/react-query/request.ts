@@ -25,11 +25,8 @@ export const request = <R>(options: RequestOptions<Variables, R>) => {
     originRequest({
       ...options,
       url: API_URL,
-      requestHeaders: {
-        authorization: accessToken ? `Bearer ${accessToken}` : '',
-      },
+      requestHeaders: { authorization: accessToken ? `Bearer ${accessToken}` : '' },
     })
-      .then((data) => data)
       // Handle error
       .catch((error: ClientError) => {
         // Identify the error message
@@ -41,20 +38,14 @@ export const request = <R>(options: RequestOptions<Variables, R>) => {
             // CASE: Update new refreshToken & accessToken
             .then(({ refreshToken: newTokens }) => {
               // Set new tokens
-              manageTokens({
-                type: EManageTokenType.SET,
-                refreshToken: newTokens.refreshToken,
-                accessToken: newTokens.accessToken,
-              });
+              manageTokens({ type: EManageTokenType.SET, ...newTokens });
 
               // Recall the API with new accessToken
               return (
                 originRequest({
                   ...options,
                   url: API_URL,
-                  requestHeaders: {
-                    authorization: `Bearer ${newTokens.accessToken}`,
-                  },
+                  requestHeaders: { authorization: `Bearer ${newTokens.accessToken}` },
                 })
                   // Show toast error
                   .catch((error) => {
@@ -66,6 +57,7 @@ export const request = <R>(options: RequestOptions<Variables, R>) => {
             // CASE: Invalid refresh token ==> Show toast error
             .catch((error) => {
               showToastError(error);
+              manageTokens({ type: EManageTokenType.SET, refreshToken: '', accessToken: '' });
               throw error;
             });
         }
