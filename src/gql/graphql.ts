@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { DocumentTypeDecoration } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -25,7 +26,6 @@ export type AddPaymentMethodDto = {
 };
 
 export type AddressEntity = {
-  __typename?: 'AddressEntity';
   businessCompanyId?: Maybe<Scalars['String']['output']>;
   cityName?: Maybe<Scalars['String']['output']>;
   countryName?: Maybe<Scalars['String']['output']>;
@@ -42,7 +42,6 @@ export type AddressEntity = {
 };
 
 export type AgentServiceEntity = {
-  __typename?: 'AgentServiceEntity';
   agentId: Scalars['String']['output'];
   airports?: Maybe<Array<AirportEntity>>;
   categoryId: Scalars['String']['output'];
@@ -60,7 +59,6 @@ export type AgentServiceEntity = {
 };
 
 export type AgentServiceHistoryDto = {
-  __typename?: 'AgentServiceHistoryDto';
   currency: ECurrency;
   pricing: ServicePricingHistory;
   rule: RuleAttributes;
@@ -68,7 +66,6 @@ export type AgentServiceHistoryDto = {
 };
 
 export type AgentServiceResponseDto = {
-  __typename?: 'AgentServiceResponseDto';
   agent: UserEntity;
   agentId: Scalars['String']['output'];
   airports: Array<AirportEntity>;
@@ -88,7 +85,6 @@ export type AgentServiceResponseDto = {
 };
 
 export type AgentServicesPaginationResponseDto = {
-  __typename?: 'AgentServicesPaginationResponseDto';
   data: Array<AgentServiceResponseDto>;
   hasNextPage: Scalars['Boolean']['output'];
   hasPreviousPage: Scalars['Boolean']['output'];
@@ -99,7 +95,6 @@ export type AgentServicesPaginationResponseDto = {
 };
 
 export type AgentToAssignRequestResponseDto = {
-  __typename?: 'AgentToAssignRequestResponseDto';
   available?: Maybe<Scalars['Boolean']['output']>;
   email: Scalars['String']['output'];
   firstname?: Maybe<Scalars['String']['output']>;
@@ -108,7 +103,6 @@ export type AgentToAssignRequestResponseDto = {
 };
 
 export type AgentWorkingScheduleEntity = {
-  __typename?: 'AgentWorkingScheduleEntity';
   createdAt: Scalars['DateTime']['output'];
   deletedAt?: Maybe<Scalars['DateTime']['output']>;
   fri: DayWorkingSchedule;
@@ -125,7 +119,6 @@ export type AgentWorkingScheduleEntity = {
 };
 
 export type Airline = {
-  __typename?: 'Airline';
   active: Scalars['Boolean']['output'];
   fs: Scalars['String']['output'];
   iata: Scalars['String']['output'];
@@ -134,7 +127,6 @@ export type Airline = {
 };
 
 export type AirlineAttributesDto = {
-  __typename?: 'AirlineAttributesDto';
   airlineCode?: Maybe<Scalars['String']['output']>;
   airlineFsCode?: Maybe<Scalars['String']['output']>;
   airlineIataCode?: Maybe<Scalars['String']['output']>;
@@ -152,7 +144,6 @@ export type AirlineInput = {
 };
 
 export type AirportEntity = {
-  __typename?: 'AirportEntity';
   cityId?: Maybe<Scalars['String']['output']>;
   code: Scalars['String']['output'];
   countryId: Scalars['String']['output'];
@@ -164,7 +155,6 @@ export type AirportEntity = {
 };
 
 export type AirportResponseDto = {
-  __typename?: 'AirportResponseDto';
   airportServices?: Maybe<Array<AirportServiceResponseDto>>;
   city?: Maybe<CityEntity>;
   cityId?: Maybe<Scalars['String']['output']>;
@@ -198,7 +188,6 @@ export type AirportServiceAttributesInput = {
 };
 
 export type AirportServiceEntity = {
-  __typename?: 'AirportServiceEntity';
   airportId: Scalars['String']['output'];
   cancelation?: Maybe<Array<Cancelation>>;
   createdAt: Scalars['DateTime']['output'];
@@ -227,7 +216,6 @@ export type AirportServiceEntity = {
 };
 
 export type AirportServiceHistoryDto = {
-  __typename?: 'AirportServiceHistoryDto';
   category: ECategory;
   categoryName: Scalars['String']['output'];
   currency: ECurrency;
@@ -239,7 +227,6 @@ export type AirportServiceHistoryDto = {
 };
 
 export type AirportServiceResponseDto = {
-  __typename?: 'AirportServiceResponseDto';
   airport: AirportEntity;
   airportId: Scalars['String']['output'];
   cancelation?: Maybe<Array<Cancelation>>;
@@ -275,7 +262,6 @@ export type AirportServiceResponseDto = {
 };
 
 export type AirportServiceSettings = {
-  __typename?: 'AirportServiceSettings';
   cancelation?: Maybe<Array<Cancelation>>;
   description?: Maybe<Scalars['String']['output']>;
   fees?: Maybe<FeeAttributes>;
@@ -296,7 +282,6 @@ export type AirportServiceSettingsInput = {
 };
 
 export type AirportServicesPaginationResponseDto = {
-  __typename?: 'AirportServicesPaginationResponseDto';
   data: Array<AirportServiceResponseDto>;
   hasNextPage: Scalars['Boolean']['output'];
   hasPreviousPage: Scalars['Boolean']['output'];
@@ -307,7 +292,6 @@ export type AirportServicesPaginationResponseDto = {
 };
 
 export type AirportsPaginationResponseDto = {
-  __typename?: 'AirportsPaginationResponseDto';
   data: Array<AirportResponseDto>;
   hasNextPage: Scalars['Boolean']['output'];
   hasPreviousPage: Scalars['Boolean']['output'];
@@ -318,7 +302,6 @@ export type AirportsPaginationResponseDto = {
 };
 
 export type AlertEntity = {
-  __typename?: 'AlertEntity';
   airline?: Maybe<AirlineAttributesDto>;
   alertSetting: Scalars['String']['output'];
   baggage?: Maybe<BaggageAttributesDto>;
@@ -346,7 +329,6 @@ export type AlertEntity = {
 };
 
 export type AlertResponseDto = {
-  __typename?: 'AlertResponseDto';
   airline?: Maybe<AirlineAttributesDto>;
   alertSetting: Scalars['String']['output'];
   baggage?: Maybe<BaggageAttributesDto>;
@@ -375,7 +357,6 @@ export type AlertResponseDto = {
 };
 
 export type AlertsPaginationResponseDto = {
-  __typename?: 'AlertsPaginationResponseDto';
   data: Array<AlertResponseDto>;
   hasNextPage: Scalars['Boolean']['output'];
   hasPreviousPage: Scalars['Boolean']['output'];
@@ -386,7 +367,6 @@ export type AlertsPaginationResponseDto = {
 };
 
 export type AppendixDto = {
-  __typename?: 'AppendixDto';
   airlines: Array<Airline>;
 };
 
@@ -407,7 +387,6 @@ export type ArrangeItemDto = {
 };
 
 export type ArrivalAttributesDto = {
-  __typename?: 'ArrivalAttributesDto';
   airportCode?: Maybe<Scalars['String']['output']>;
   airportFsCode?: Maybe<Scalars['String']['output']>;
   airportIataCode?: Maybe<Scalars['String']['output']>;
@@ -415,7 +394,6 @@ export type ArrivalAttributesDto = {
 };
 
 export type ArrivalFlightStatusAttributesDto = {
-  __typename?: 'ArrivalFlightStatusAttributesDto';
   actualGateDateTime?: Maybe<Scalars['String']['output']>;
   actualRunwayDateTime?: Maybe<Scalars['String']['output']>;
   airportCode?: Maybe<Scalars['String']['output']>;
@@ -430,7 +408,6 @@ export type ArrivalFlightStatusAttributesDto = {
 };
 
 export type AssignRequestEntity = {
-  __typename?: 'AssignRequestEntity';
   assignAgent: UserEntity;
   assignAgentId: Scalars['String']['output'];
   bookingItemId: Scalars['String']['output'];
@@ -446,7 +423,6 @@ export type AssignRequestEntity = {
 };
 
 export type AssignRequestsResponseDto = {
-  __typename?: 'AssignRequestsResponseDto';
   assignAgent: UserResponseDto;
   assignAgentId: Scalars['String']['output'];
   bookingItemId: Scalars['String']['output'];
@@ -462,13 +438,11 @@ export type AssignRequestsResponseDto = {
 };
 
 export type BaggageAttributesDto = {
-  __typename?: 'BaggageAttributesDto';
   current?: Maybe<Scalars['String']['output']>;
   previous?: Maybe<Scalars['String']['output']>;
 };
 
 export type BookingEntity = {
-  __typename?: 'BookingEntity';
   bookingPaymentStatus: EBookingPaymentStatus;
   completedAt?: Maybe<Scalars['DateTime']['output']>;
   createdAt: Scalars['DateTime']['output'];
@@ -487,7 +461,6 @@ export type BookingEntity = {
 };
 
 export type BookingItemChecklistEntity = {
-  __typename?: 'BookingItemChecklistEntity';
   bookingItemId: Scalars['String']['output'];
   checklistId?: Maybe<Scalars['Int']['output']>;
   checklistNoteId?: Maybe<Scalars['String']['output']>;
@@ -503,7 +476,6 @@ export type BookingItemChecklistEntity = {
 };
 
 export type BookingItemChecklistResponseDto = {
-  __typename?: 'BookingItemChecklistResponseDto';
   bookingItem: BookingItemEntity;
   bookingItemId: Scalars['String']['output'];
   checklistId?: Maybe<Scalars['Int']['output']>;
@@ -522,7 +494,6 @@ export type BookingItemChecklistResponseDto = {
 };
 
 export type BookingItemDetailResponseDto = {
-  __typename?: 'BookingItemDetailResponseDto';
   airportService?: Maybe<AirportServiceResponseDto>;
   airportServiceId: Scalars['String']['output'];
   approvedAgent?: Maybe<UserEntity>;
@@ -581,7 +552,6 @@ export type BookingItemDetailResponseDto = {
 };
 
 export type BookingItemEntity = {
-  __typename?: 'BookingItemEntity';
   airportServiceId: Scalars['String']['output'];
   approvedAgentId?: Maybe<Scalars['String']['output']>;
   arrivalDateTime?: Maybe<Scalars['DateTime']['output']>;
@@ -623,7 +593,6 @@ export type BookingItemEntity = {
 };
 
 export type BookingItemExpenseEntity = {
-  __typename?: 'BookingItemExpenseEntity';
   bookingItemId: Scalars['String']['output'];
   completedAt?: Maybe<Scalars['DateTime']['output']>;
   createdAt: Scalars['DateTime']['output'];
@@ -644,7 +613,6 @@ export type BookingItemExpenseEntity = {
 };
 
 export type BookingItemExpenseResponseDto = {
-  __typename?: 'BookingItemExpenseResponseDto';
   bookingItem: BookingItemDetailResponseDto;
   bookingItemId: Scalars['String']['output'];
   completedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -667,7 +635,6 @@ export type BookingItemExpenseResponseDto = {
 };
 
 export type BookingItemNoteEntity = {
-  __typename?: 'BookingItemNoteEntity';
   bookingItemId?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
   createdById: Scalars['String']['output'];
@@ -681,7 +648,6 @@ export type BookingItemNoteEntity = {
 };
 
 export type BookingItemNoteResponseDto = {
-  __typename?: 'BookingItemNoteResponseDto';
   bookingItem?: Maybe<BookingItemResponseDto>;
   bookingItemChecklist?: Maybe<BookingItemChecklistResponseDto>;
   bookingItemExpense?: Maybe<BookingItemExpenseResponseDto>;
@@ -700,7 +666,6 @@ export type BookingItemNoteResponseDto = {
 };
 
 export type BookingItemResponseDto = {
-  __typename?: 'BookingItemResponseDto';
   airportService?: Maybe<AirportServiceResponseDto>;
   airportServiceId: Scalars['String']['output'];
   approvedAgent?: Maybe<UserEntity>;
@@ -755,7 +720,6 @@ export type BookingItemResponseDto = {
 };
 
 export type BookingItemStatsResponseDto = {
-  __typename?: 'BookingItemStatsResponseDto';
   arrival: Scalars['Float']['output'];
   connection: Scalars['Float']['output'];
   departure: Scalars['Float']['output'];
@@ -764,7 +728,6 @@ export type BookingItemStatsResponseDto = {
 };
 
 export type BookingItemsPaginationResponseDto = {
-  __typename?: 'BookingItemsPaginationResponseDto';
   data: Array<BookingItemDetailResponseDto>;
   hasNextPage: Scalars['Boolean']['output'];
   hasPreviousPage: Scalars['Boolean']['output'];
@@ -775,7 +738,6 @@ export type BookingItemsPaginationResponseDto = {
 };
 
 export type BusinessCompanyEntity = {
-  __typename?: 'BusinessCompanyEntity';
   createdAt: Scalars['DateTime']['output'];
   deletedAt?: Maybe<Scalars['DateTime']['output']>;
   email: Scalars['String']['output'];
@@ -790,7 +752,6 @@ export type BusinessCompanyEntity = {
 };
 
 export type BusinessCompanyResponseDto = {
-  __typename?: 'BusinessCompanyResponseDto';
   addresses: Array<AddressEntity>;
   createdAt: Scalars['DateTime']['output'];
   deletedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -806,7 +767,6 @@ export type BusinessCompanyResponseDto = {
 };
 
 export type Cancelation = {
-  __typename?: 'Cancelation';
   from: Scalars['Float']['output'];
   to: Scalars['Float']['output'];
   type: EFeeType;
@@ -821,7 +781,6 @@ export type CancelationInput = {
 };
 
 export type CardAssignmentEntity = {
-  __typename?: 'CardAssignmentEntity';
   brand: Scalars['String']['output'];
   businessCompanyId: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
@@ -839,7 +798,6 @@ export type CardAssignmentEntity = {
 };
 
 export type CardAssignmentsPaginationResponseDto = {
-  __typename?: 'CardAssignmentsPaginationResponseDto';
   data: Array<CardAssignmentEntity>;
   hasNextPage: Scalars['Boolean']['output'];
   hasPreviousPage: Scalars['Boolean']['output'];
@@ -850,7 +808,6 @@ export type CardAssignmentsPaginationResponseDto = {
 };
 
 export type CategoriesResponseDto = {
-  __typename?: 'CategoriesResponseDto';
   data: Array<CategoryEntity>;
   hasNextPage: Scalars['Boolean']['output'];
   hasPreviousPage: Scalars['Boolean']['output'];
@@ -861,7 +818,6 @@ export type CategoriesResponseDto = {
 };
 
 export type CategoryEntity = {
-  __typename?: 'CategoryEntity';
   category: ECategory;
   createdAt: Scalars['DateTime']['output'];
   deletedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -876,7 +832,6 @@ export type CheckExistCurrencyBySymbolDto = {
 };
 
 export type ChecklistEntity = {
-  __typename?: 'ChecklistEntity';
   createdAt: Scalars['DateTime']['output'];
   deletedAt?: Maybe<Scalars['DateTime']['output']>;
   flightSegmentType: EFlightSegmentType;
@@ -888,7 +843,6 @@ export type ChecklistEntity = {
 };
 
 export type CitiesPaginationResponseDto = {
-  __typename?: 'CitiesPaginationResponseDto';
   data: Array<CityEntity>;
   hasNextPage: Scalars['Boolean']['output'];
   hasPreviousPage: Scalars['Boolean']['output'];
@@ -899,7 +853,6 @@ export type CitiesPaginationResponseDto = {
 };
 
 export type CityEntity = {
-  __typename?: 'CityEntity';
   cityCode?: Maybe<Scalars['String']['output']>;
   cityName: Scalars['String']['output'];
   countryId: Scalars['String']['output'];
@@ -915,7 +868,6 @@ export type ConfirmAccountDto = {
 };
 
 export type ConnectionAttributesTimeDto = {
-  __typename?: 'ConnectionAttributesTimeDto';
   current?: Maybe<Scalars['Float']['output']>;
   previous?: Maybe<Scalars['Float']['output']>;
 };
@@ -925,7 +877,6 @@ export type ConnectionFlightDto = {
 };
 
 export type ConnectionFlightRoute = {
-  __typename?: 'ConnectionFlightRoute';
   airlineName: Scalars['String']['output'];
   airplaneName?: Maybe<Scalars['String']['output']>;
   arrivalAirportFsCode: Scalars['String']['output'];
@@ -946,7 +897,6 @@ export type ConnectionFlightRoute = {
 };
 
 export type ContactTransportInformation = {
-  __typename?: 'ContactTransportInformation';
   driver?: Maybe<Scalars['String']['output']>;
   phone?: Maybe<Scalars['String']['output']>;
 };
@@ -962,7 +912,6 @@ export type ContractAirportServicesDto = {
 };
 
 export type ContractEntity = {
-  __typename?: 'ContractEntity';
   airportId: Scalars['String']['output'];
   autoRenewal: Scalars['Boolean']['output'];
   cancelationNotice: Scalars['Int']['output'];
@@ -981,7 +930,6 @@ export type ContractEntity = {
 };
 
 export type ContractResponseDto = {
-  __typename?: 'ContractResponseDto';
   airport: AirportEntity;
   airportId: Scalars['String']['output'];
   autoRenewal: Scalars['Boolean']['output'];
@@ -1006,7 +954,6 @@ export type ContractResponseDto = {
 };
 
 export type ContractsPaginationResponseDto = {
-  __typename?: 'ContractsPaginationResponseDto';
   data: Array<ContractResponseDto>;
   hasNextPage: Scalars['Boolean']['output'];
   hasPreviousPage: Scalars['Boolean']['output'];
@@ -1017,7 +964,6 @@ export type ContractsPaginationResponseDto = {
 };
 
 export type CountriesPaginationResponseDto = {
-  __typename?: 'CountriesPaginationResponseDto';
   data: Array<CountryEntity>;
   hasNextPage: Scalars['Boolean']['output'];
   hasPreviousPage: Scalars['Boolean']['output'];
@@ -1028,7 +974,6 @@ export type CountriesPaginationResponseDto = {
 };
 
 export type CountryEntity = {
-  __typename?: 'CountryEntity';
   countryCode: Scalars['String']['output'];
   countryName: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
@@ -1242,14 +1187,12 @@ export type CreateUserInvitationsDto = {
 };
 
 export type CurrenciesDataResponseDto = {
-  __typename?: 'CurrenciesDataResponseDto';
   abbreviation: ECurrency;
   name: Scalars['String']['output'];
   symbol: Scalars['String']['output'];
 };
 
 export type CustomChecklist = {
-  __typename?: 'CustomChecklist';
   instructions: Scalars['String']['output'];
   name: Scalars['String']['output'];
 };
@@ -1265,7 +1208,6 @@ export type CustomerWithdrawBookingItemDto = {
 };
 
 export type DayWorkingSchedule = {
-  __typename?: 'DayWorkingSchedule';
   end: Scalars['Float']['output'];
   start: Scalars['Float']['output'];
 };
@@ -1276,7 +1218,6 @@ export type DayWorkingScheduleInput = {
 };
 
 export type DelayAttributesDto = {
-  __typename?: 'DelayAttributesDto';
   current?: Maybe<Scalars['Float']['output']>;
   previous?: Maybe<Scalars['Float']['output']>;
 };
@@ -1301,7 +1242,6 @@ export type DenyConnectionByTokenDto = {
 };
 
 export type DepartureAttributesDto = {
-  __typename?: 'DepartureAttributesDto';
   airportCode?: Maybe<Scalars['String']['output']>;
   airportFsCode?: Maybe<Scalars['String']['output']>;
   airportIataCode?: Maybe<Scalars['String']['output']>;
@@ -1309,7 +1249,6 @@ export type DepartureAttributesDto = {
 };
 
 export type DepartureFlightStatusAttributesDto = {
-  __typename?: 'DepartureFlightStatusAttributesDto';
   actualGateDateTime?: Maybe<Scalars['String']['output']>;
   actualRunwayDateTime?: Maybe<Scalars['String']['output']>;
   airportCode?: Maybe<Scalars['String']['output']>;
@@ -1324,7 +1263,6 @@ export type DepartureFlightStatusAttributesDto = {
 };
 
 export type DiscountEntity = {
-  __typename?: 'DiscountEntity';
   amount?: Maybe<Scalars['Float']['output']>;
   code: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
@@ -1343,14 +1281,12 @@ export type DiscountEntity = {
 };
 
 export type DiscountHistoryDto = {
-  __typename?: 'DiscountHistoryDto';
   amount?: Maybe<Scalars['Float']['output']>;
   percent?: Maybe<Scalars['Float']['output']>;
   type: EDiscountType;
 };
 
 export type DiscountsPaginationResponseDto = {
-  __typename?: 'DiscountsPaginationResponseDto';
   data: Array<DiscountEntity>;
   hasNextPage: Scalars['Boolean']['output'];
   hasPreviousPage: Scalars['Boolean']['output'];
@@ -1361,7 +1297,6 @@ export type DiscountsPaginationResponseDto = {
 };
 
 export type DivertedFlightStatusAttributesDto = {
-  __typename?: 'DivertedFlightStatusAttributesDto';
   airportCode?: Maybe<Scalars['String']['output']>;
   airportFsCode?: Maybe<Scalars['String']['output']>;
   airportIataCode?: Maybe<Scalars['String']['output']>;
@@ -1710,7 +1645,6 @@ export enum EInvoiceType {
 }
 
 export type ElAssignRequestsResponseDto = {
-  __typename?: 'ELAssignRequestsResponseDto';
   assignAgent?: Maybe<UserResponseDto>;
   assignAgentId: Scalars['String']['output'];
   bookingItemId: Scalars['String']['output'];
@@ -1726,7 +1660,6 @@ export type ElAssignRequestsResponseDto = {
 };
 
 export type ElTransferRequestsResponseDto = {
-  __typename?: 'ELTransferRequestsResponseDto';
   bookingItemId: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
   createdBy: UserResponseDto;
@@ -1829,7 +1762,6 @@ export enum EVendorConnectionType {
 }
 
 export type EmergencyContact = {
-  __typename?: 'EmergencyContact';
   name: Scalars['String']['output'];
   phone: Scalars['String']['output'];
 };
@@ -1840,7 +1772,6 @@ export type EmergencyContactInput = {
 };
 
 export type EvenLogsPaginationResponseDto = {
-  __typename?: 'EvenLogsPaginationResponseDto';
   data: Array<EventLogResponseDto>;
   hasNextPage: Scalars['Boolean']['output'];
   hasPreviousPage: Scalars['Boolean']['output'];
@@ -1851,7 +1782,6 @@ export type EvenLogsPaginationResponseDto = {
 };
 
 export type EventLogDataDto = {
-  __typename?: 'EventLogDataDto';
   approvedAgent?: Maybe<UserResponseDto>;
   arrivalFlightSchedule?: Maybe<FlightSchedule>;
   assignRequests?: Maybe<Array<ElAssignRequestsResponseDto>>;
@@ -1868,7 +1798,6 @@ export type EventLogDataDto = {
 };
 
 export type EventLogResponseDto = {
-  __typename?: 'EventLogResponseDto';
   bookingItem: BookingItemResponseDto;
   bookingItemId: Scalars['UUID']['output'];
   createdAt: Scalars['DateTime']['output'];
@@ -1886,7 +1815,6 @@ export type EventLogResponseDto = {
 };
 
 export type ExchangeRatePaginationResponseDto = {
-  __typename?: 'ExchangeRatePaginationResponseDto';
   data: Array<ExchangeRateyResponseDto>;
   hasNextPage: Scalars['Boolean']['output'];
   hasPreviousPage: Scalars['Boolean']['output'];
@@ -1897,7 +1825,6 @@ export type ExchangeRatePaginationResponseDto = {
 };
 
 export type ExchangeRateyResponseDto = {
-  __typename?: 'ExchangeRateyResponseDto';
   baseCurrency: ECurrency;
   createdAt: Scalars['DateTime']['output'];
   deletedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -1911,7 +1838,6 @@ export type ExchangeRateyResponseDto = {
 };
 
 export type FeeAttributes = {
-  __typename?: 'FeeAttributes';
   additionalHour?: Maybe<FeeDetail>;
   additionalPassenger?: Maybe<FeeDetail>;
   holiday?: Maybe<FeeDetail>;
@@ -1930,7 +1856,6 @@ export type FeeAttributesInput = {
 };
 
 export type FeeDetail = {
-  __typename?: 'FeeDetail';
   type?: Maybe<EFeeType>;
   value?: Maybe<Scalars['Float']['output']>;
 };
@@ -1941,7 +1866,6 @@ export type FeeDetailInput = {
 };
 
 export type FlightAttributesDto = {
-  __typename?: 'FlightAttributesDto';
   arrival?: Maybe<ArrivalAttributesDto>;
   bookedAirlineCode?: Maybe<Scalars['String']['output']>;
   bookedAirlineFsCode?: Maybe<Scalars['String']['output']>;
@@ -1953,7 +1877,6 @@ export type FlightAttributesDto = {
 };
 
 export type FlightSchedule = {
-  __typename?: 'FlightSchedule';
   airlineName?: Maybe<Scalars['String']['output']>;
   arrivalAirportFsCode: Scalars['String']['output'];
   arrivalAirportName?: Maybe<Scalars['String']['output']>;
@@ -1996,7 +1919,6 @@ export type FlightScheduleInput = {
 };
 
 export type FlightScheduleResponse = {
-  __typename?: 'FlightScheduleResponse';
   connectingFlightRoutes: Array<ConnectionFlightRoute>;
   id: Scalars['String']['output'];
   isValidConnection?: Maybe<Scalars['Boolean']['output']>;
@@ -2005,7 +1927,6 @@ export type FlightScheduleResponse = {
 };
 
 export type FlightSchedulesPaginationResponseDto = {
-  __typename?: 'FlightSchedulesPaginationResponseDto';
   data: Array<FlightScheduleResponse>;
   hasNextPage: Scalars['Boolean']['output'];
   hasPreviousPage: Scalars['Boolean']['output'];
@@ -2016,7 +1937,6 @@ export type FlightSchedulesPaginationResponseDto = {
 };
 
 export type FlightSegment = {
-  __typename?: 'FlightSegment';
   arrivalAirportFsCode: Scalars['String']['output'];
   arrivalTerminal?: Maybe<Scalars['String']['output']>;
   arrivalTime?: Maybe<Scalars['String']['output']>;
@@ -2051,7 +1971,6 @@ export type FlightSegmentInput = {
 };
 
 export type FlightSegmentServiceResponseDto = {
-  __typename?: 'FlightSegmentServiceResponseDto';
   airportCity: Scalars['String']['output'];
   airportFsCode: Scalars['String']['output'];
   flightScheduleId?: Maybe<Scalars['String']['output']>;
@@ -2063,7 +1982,6 @@ export type FlightSegmentServiceResponseDto = {
 };
 
 export type FlightStatusAttributesDto = {
-  __typename?: 'FlightStatusAttributesDto';
   arrival?: Maybe<ArrivalFlightStatusAttributesDto>;
   departure?: Maybe<DepartureFlightStatusAttributesDto>;
   diverted?: Maybe<DivertedFlightStatusAttributesDto>;
@@ -2079,14 +1997,12 @@ export type FlightStatusAttributesDto = {
 };
 
 export type FlightStatusHistoryDto = {
-  __typename?: 'FlightStatusHistoryDto';
   arrivalFlightStatus?: Maybe<EFlightStatus>;
   createdAt?: Maybe<Scalars['String']['output']>;
   departureFlightStatus?: Maybe<EFlightStatus>;
 };
 
 export type GateAttributesDto = {
-  __typename?: 'GateAttributesDto';
   current?: Maybe<Scalars['String']['output']>;
   previous?: Maybe<Scalars['String']['output']>;
 };
@@ -2528,7 +2444,6 @@ export type GetWithdrawPriceInfoDto = {
 };
 
 export type HolidayEntity = {
-  __typename?: 'HolidayEntity';
   airports?: Maybe<Array<AirportEntity>>;
   belongToCountryId?: Maybe<Scalars['String']['output']>;
   cities?: Maybe<Array<CityEntity>>;
@@ -2551,14 +2466,12 @@ export type HolidayEntity = {
 };
 
 export type HolidayHistoryDto = {
-  __typename?: 'HolidayHistoryDto';
   fromDate?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
   toDate?: Maybe<Scalars['String']['output']>;
 };
 
 export type HolidaysResponseDto = {
-  __typename?: 'HolidaysResponseDto';
   data: Array<HolidayEntity>;
   hasNextPage: Scalars['Boolean']['output'];
   hasPreviousPage: Scalars['Boolean']['output'];
@@ -2573,7 +2486,6 @@ export type InviteVendorsDto = {
 };
 
 export type InvoiceEntity = {
-  __typename?: 'InvoiceEntity';
   bookingId?: Maybe<Scalars['String']['output']>;
   completedAt?: Maybe<Scalars['DateTime']['output']>;
   createdAt: Scalars['DateTime']['output'];
@@ -2596,7 +2508,6 @@ export type InvoiceEntity = {
 };
 
 export type InvoiceItemEntity = {
-  __typename?: 'InvoiceItemEntity';
   agentPrice: Scalars['Float']['output'];
   bookingItemId: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
@@ -2610,7 +2521,6 @@ export type InvoiceItemEntity = {
 };
 
 export type InvoiceItemResponseDto = {
-  __typename?: 'InvoiceItemResponseDto';
   agentPrice: Scalars['Float']['output'];
   bookingItem: BookingItemResponseDto;
   bookingItemId: Scalars['String']['output'];
@@ -2625,7 +2535,6 @@ export type InvoiceItemResponseDto = {
 };
 
 export type InvoiceItemsPaginationResponseDto = {
-  __typename?: 'InvoiceItemsPaginationResponseDto';
   data: Array<InvoiceItemResponseDto>;
   hasNextPage: Scalars['Boolean']['output'];
   hasPreviousPage: Scalars['Boolean']['output'];
@@ -2636,7 +2545,6 @@ export type InvoiceItemsPaginationResponseDto = {
 };
 
 export type InvoiceResponseDto = {
-  __typename?: 'InvoiceResponseDto';
   booking?: Maybe<SubBookingDto>;
   bookingId?: Maybe<Scalars['String']['output']>;
   completedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -2663,7 +2571,6 @@ export type InvoiceResponseDto = {
 };
 
 export type InvoicesPaginationResponseDto = {
-  __typename?: 'InvoicesPaginationResponseDto';
   data: Array<InvoiceResponseDto>;
   hasNextPage: Scalars['Boolean']['output'];
   hasPreviousPage: Scalars['Boolean']['output'];
@@ -2674,7 +2581,6 @@ export type InvoicesPaginationResponseDto = {
 };
 
 export type LegAttributesDto = {
-  __typename?: 'LegAttributesDto';
   flights?: Maybe<Array<FlightAttributesDto>>;
   legIndex?: Maybe<Scalars['Float']['output']>;
 };
@@ -2751,7 +2657,6 @@ export type MarkChecklistItemApplicableOrNotDto = {
 };
 
 export type MeetAndAssistDto = {
-  __typename?: 'MeetAndAssistDto';
   description: Array<Scalars['String']['output']>;
   flightType?: Maybe<Scalars['String']['output']>;
   id: Scalars['String']['output'];
@@ -2766,7 +2671,6 @@ export type MeetAndAssistDto = {
 };
 
 export type Mutation = {
-  __typename?: 'Mutation';
   activateBookingItemChecklist: Scalars['String']['output'];
   activateUser: Scalars['String']['output'];
   addPaymentMethod: Scalars['String']['output'];
@@ -3372,14 +3276,12 @@ export type MutationWithdrawBookingArgs = {
 };
 
 export type NationalHolidayResponseDto = {
-  __typename?: 'NationalHolidayResponseDto';
   date: Scalars['String']['output'];
   name: Scalars['String']['output'];
   rule?: Maybe<Scalars['String']['output']>;
 };
 
 export type PassengerDto = {
-  __typename?: 'PassengerDto';
   alias?: Maybe<Scalars['String']['output']>;
   carryOnLuggage?: Maybe<Scalars['String']['output']>;
   checkedLuggage?: Maybe<Scalars['String']['output']>;
@@ -3395,7 +3297,6 @@ export type PassengerDto = {
 };
 
 export type PassengerEntity = {
-  __typename?: 'PassengerEntity';
   alias?: Maybe<Scalars['String']['output']>;
   bookingItemId: Scalars['String']['output'];
   carryOnLuggage?: Maybe<Scalars['Float']['output']>;
@@ -3418,7 +3319,6 @@ export type PassengerEntity = {
 };
 
 export type PaymentCredentialEntity = {
-  __typename?: 'PaymentCredentialEntity';
   createdAt: Scalars['DateTime']['output'];
   createdById: Scalars['String']['output'];
   deletedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -3430,14 +3330,12 @@ export type PaymentCredentialEntity = {
 };
 
 export type PaymentMethodInfo = {
-  __typename?: 'PaymentMethodInfo';
   brand: Scalars['String']['output'];
   last4: Scalars['String']['output'];
   providerName: EProviderName;
 };
 
 export type PaymentMethodResponseDto = {
-  __typename?: 'PaymentMethodResponseDto';
   brand: Scalars['String']['output'];
   expMonth: Scalars['Float']['output'];
   expYear: Scalars['Float']['output'];
@@ -3448,13 +3346,11 @@ export type PaymentMethodResponseDto = {
 };
 
 export type PaymentMethodsResponseDto = {
-  __typename?: 'PaymentMethodsResponseDto';
   isExistCustomer: Scalars['Boolean']['output'];
   paymentMethods?: Maybe<Array<PaymentMethodResponseDto>>;
 };
 
 export type PaymentTransactionEntity = {
-  __typename?: 'PaymentTransactionEntity';
   amount: Scalars['Float']['output'];
   amountCaptured: Scalars['Float']['output'];
   bookingId: Scalars['String']['output'];
@@ -3475,7 +3371,6 @@ export type PaymentTransactionEntity = {
 };
 
 export type PaymentTransactionsPaginationResponseDto = {
-  __typename?: 'PaymentTransactionsPaginationResponseDto';
   data: Array<PaymentTransactionEntity>;
   hasNextPage: Scalars['Boolean']['output'];
   hasPreviousPage: Scalars['Boolean']['output'];
@@ -3486,7 +3381,6 @@ export type PaymentTransactionsPaginationResponseDto = {
 };
 
 export type Policy = {
-  __typename?: 'Policy';
   pricing: ServicePricing;
   rule: RuleAttributes;
 };
@@ -3496,7 +3390,6 @@ export type PreparePublicKeysDto = {
 };
 
 export type PriceCalculationHistoryDto = {
-  __typename?: 'PriceCalculationHistoryDto';
   agentServiceHistory?: Maybe<AgentServiceHistoryDto>;
   airportServiceHistory: AirportServiceHistoryDto;
   discountHistory?: Maybe<DiscountHistoryDto>;
@@ -3505,7 +3398,6 @@ export type PriceCalculationHistoryDto = {
 };
 
 export type PrimaryVendorDto = {
-  __typename?: 'PrimaryVendorDto';
   addresses?: Maybe<Array<AddressEntity>>;
   createdAt: Scalars['DateTime']['output'];
   deletedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -3523,7 +3415,6 @@ export type PrimaryVendorDto = {
 };
 
 export type Query = {
-  __typename?: 'Query';
   checkExistCurrencyBySymbol: Array<ExchangeRateyResponseDto>;
   checkExistVendorSubdomain: Scalars['Int']['output'];
   checkVendorInvitationTokenIsValid: Scalars['Float']['output'];
@@ -3828,7 +3719,6 @@ export type QuerySearchFlightSchedulesArgs = {
 };
 
 export type RateAttributes = {
-  __typename?: 'RateAttributes';
   from: Scalars['Float']['output'];
   offHours: Scalars['Float']['output'];
   offHoursInternational: Scalars['Float']['output'];
@@ -3912,7 +3802,6 @@ export type RequestQuoteAttributesDto = {
 };
 
 export type RequestQuoteEntity = {
-  __typename?: 'RequestQuoteEntity';
   airportCode: Scalars['String']['output'];
   arrivalFlightSchedule?: Maybe<FlightSchedule>;
   createdAt: Scalars['DateTime']['output'];
@@ -3929,7 +3818,6 @@ export type RequestQuoteEntity = {
 };
 
 export type RequestQuotesPaginationResponseDto = {
-  __typename?: 'RequestQuotesPaginationResponseDto';
   data: Array<RequestQuoteEntity>;
   hasNextPage: Scalars['Boolean']['output'];
   hasPreviousPage: Scalars['Boolean']['output'];
@@ -3949,7 +3837,6 @@ export type ResetPasswordDto = {
 };
 
 export type ResponsePublicKeysDto = {
-  __typename?: 'ResponsePublicKeysDto';
   cacheKey: Scalars['String']['output'];
   ecdhPublicKey: Scalars['String']['output'];
   ecdsaPublicKey: Scalars['String']['output'];
@@ -3957,7 +3844,6 @@ export type ResponsePublicKeysDto = {
 };
 
 export type RoleEntity = {
-  __typename?: 'RoleEntity';
   createdAt: Scalars['DateTime']['output'];
   deletedAt?: Maybe<Scalars['DateTime']['output']>;
   id: Scalars['Int']['output'];
@@ -3967,7 +3853,6 @@ export type RoleEntity = {
 };
 
 export type RuleAttributes = {
-  __typename?: 'RuleAttributes';
   hoursAllowance: Scalars['Int']['output'];
   offHoursFrom: Scalars['Int']['output'];
   offHoursTo: Scalars['Int']['output'];
@@ -3984,7 +3869,6 @@ export type RuleAttributesInput = {
 };
 
 export type ScheduleHistoryDto = {
-  __typename?: 'ScheduleHistoryDto';
   arrival?: Maybe<TimeScheduleDto>;
   createdAt?: Maybe<Scalars['String']['output']>;
   departure?: Maybe<TimeScheduleDto>;
@@ -3992,7 +3876,6 @@ export type ScheduleHistoryDto = {
 };
 
 export type ScopeEntity = {
-  __typename?: 'ScopeEntity';
   createdAt: Scalars['DateTime']['output'];
   deletedAt?: Maybe<Scalars['DateTime']['output']>;
   description: Scalars['String']['output'];
@@ -4002,7 +3885,6 @@ export type ScopeEntity = {
 };
 
 export type ServiceConditions = {
-  __typename?: 'ServiceConditions';
   isHoliday?: Maybe<Scalars['Boolean']['output']>;
   isInternational?: Maybe<Scalars['Boolean']['output']>;
   isMaxPassengerPerAgentExceeded?: Maybe<Scalars['Boolean']['output']>;
@@ -4011,13 +3893,11 @@ export type ServiceConditions = {
 };
 
 export type ServicePricing = {
-  __typename?: 'ServicePricing';
   fees: FeeAttributes;
   rates: Array<RateAttributes>;
 };
 
 export type ServicePricingHistory = {
-  __typename?: 'ServicePricingHistory';
   cancelation: Array<Cancelation>;
   fees: FeeAttributes;
   rates: Array<RateAttributes>;
@@ -4033,7 +3913,6 @@ export type SignInDto = {
 };
 
 export type SignInResponseDto = {
-  __typename?: 'SignInResponseDto';
   accessToken: Scalars['String']['output'];
   refreshToken: Scalars['String']['output'];
 };
@@ -4050,7 +3929,6 @@ export enum SpecialServices {
 }
 
 export type SubBookingDto = {
-  __typename?: 'SubBookingDto';
   bookingItems: Array<SubBookingItemDto>;
   bookingPaymentStatus: EBookingPaymentStatus;
   completedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -4071,7 +3949,6 @@ export type SubBookingDto = {
 };
 
 export type SubBookingItemDto = {
-  __typename?: 'SubBookingItemDto';
   airportServiceId: Scalars['String']['output'];
   approvedAgentId?: Maybe<Scalars['String']['output']>;
   arrivalDateTime?: Maybe<Scalars['DateTime']['output']>;
@@ -4116,7 +3993,6 @@ export type SubBookingItemDto = {
 };
 
 export type SubFlightSegmentServiceDto = {
-  __typename?: 'SubFlightSegmentServiceDto';
   airlineCode: Scalars['String']['output'];
   airlineName: Scalars['String']['output'];
   airplaneName?: Maybe<Scalars['String']['output']>;
@@ -4140,13 +4016,11 @@ export type SubFlightSegmentServiceDto = {
 };
 
 export type TerminalAttributesDto = {
-  __typename?: 'TerminalAttributesDto';
   current?: Maybe<Scalars['String']['output']>;
   previous?: Maybe<Scalars['String']['output']>;
 };
 
 export type TimeLimitAttributes = {
-  __typename?: 'TimeLimitAttributes';
   agentWithdrawal: Scalars['Float']['output'];
   connectionLimitMax: Scalars['Int']['output'];
   connectionLimitMin: Scalars['Int']['output'];
@@ -4161,13 +4035,11 @@ export type TimeLimitAttributesInput = {
 };
 
 export type TimeScheduleDto = {
-  __typename?: 'TimeScheduleDto';
   arrivalDateTime?: Maybe<Scalars['String']['output']>;
   departureDateTime?: Maybe<Scalars['String']['output']>;
 };
 
 export type TransferRequestEntity = {
-  __typename?: 'TransferRequestEntity';
   bookingItemId: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
   createdById: Scalars['String']['output'];
@@ -4184,7 +4056,6 @@ export type TransferRequestEntity = {
 };
 
 export type TransferRequestResponseDto = {
-  __typename?: 'TransferRequestResponseDto';
   bookingItemId: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
   createdBy: UserResponseDto;
@@ -4203,7 +4074,6 @@ export type TransferRequestResponseDto = {
 };
 
 export type TransportInformation = {
-  __typename?: 'TransportInformation';
   arrangedBy: Scalars['String']['output'];
   carMaker?: Maybe<Scalars['String']['output']>;
   carModal?: Maybe<Scalars['String']['output']>;
@@ -4228,7 +4098,6 @@ export type TransportInformationInput = {
 };
 
 export type TripResponseDto = {
-  __typename?: 'TripResponseDto';
   alerts: Array<AlertEntity>;
   arrivalActualGateDateTime?: Maybe<Scalars['String']['output']>;
   arrivalBaggage?: Maybe<Scalars['String']['output']>;
@@ -4455,7 +4324,6 @@ export type UserAttributesMissingEmailDto = {
 };
 
 export type UserEntity = {
-  __typename?: 'UserEntity';
   avatar?: Maybe<Scalars['String']['output']>;
   businessCompanyId?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
@@ -4476,7 +4344,6 @@ export type UserEntity = {
 };
 
 export type UserInvitationEntity = {
-  __typename?: 'UserInvitationEntity';
   businessCompanyId?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
   createdBy: UserEntity;
@@ -4490,7 +4357,6 @@ export type UserInvitationEntity = {
 };
 
 export type UserInvitationsPaginationResponseDto = {
-  __typename?: 'UserInvitationsPaginationResponseDto';
   data: Array<UserInvitationEntity>;
   hasNextPage: Scalars['Boolean']['output'];
   hasPreviousPage: Scalars['Boolean']['output'];
@@ -4501,7 +4367,6 @@ export type UserInvitationsPaginationResponseDto = {
 };
 
 export type UserResponseDto = {
-  __typename?: 'UserResponseDto';
   addresses?: Maybe<Array<AddressEntity>>;
   agentServices?: Maybe<Array<AgentServiceResponseDto>>;
   avatar?: Maybe<Scalars['String']['output']>;
@@ -4527,7 +4392,6 @@ export type UserResponseDto = {
 };
 
 export type UsersPaginationResponseDto = {
-  __typename?: 'UsersPaginationResponseDto';
   data: Array<UserResponseDto>;
   hasNextPage: Scalars['Boolean']['output'];
   hasPreviousPage: Scalars['Boolean']['output'];
@@ -4538,7 +4402,6 @@ export type UsersPaginationResponseDto = {
 };
 
 export type VendorConnectionEntity = {
-  __typename?: 'VendorConnectionEntity';
   createdAt: Scalars['DateTime']['output'];
   deletedAt?: Maybe<Scalars['DateTime']['output']>;
   id: Scalars['String']['output'];
@@ -4553,7 +4416,6 @@ export type VendorConnectionEntity = {
 };
 
 export type VendorConnectionResponseDto = {
-  __typename?: 'VendorConnectionResponseDto';
   createdAt: Scalars['DateTime']['output'];
   deletedAt?: Maybe<Scalars['DateTime']['output']>;
   id: Scalars['String']['output'];
@@ -4570,7 +4432,6 @@ export type VendorConnectionResponseDto = {
 };
 
 export type VendorConnectionsPaginationResponseDto = {
-  __typename?: 'VendorConnectionsPaginationResponseDto';
   data: Array<VendorConnectionResponseDto>;
   hasNextPage: Scalars['Boolean']['output'];
   hasPreviousPage: Scalars['Boolean']['output'];
@@ -4581,7 +4442,6 @@ export type VendorConnectionsPaginationResponseDto = {
 };
 
 export type VendorEntity = {
-  __typename?: 'VendorEntity';
   addresses?: Maybe<Array<AddressEntity>>;
   createdAt: Scalars['DateTime']['output'];
   deletedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -4598,7 +4458,6 @@ export type VendorEntity = {
 };
 
 export type VendorInformationResponseDto = {
-  __typename?: 'VendorInformationResponseDto';
   activePaymentCredential?: Maybe<PaymentCredentialEntity>;
   addresses?: Maybe<Array<AddressEntity>>;
   createdAt: Scalars['DateTime']['output'];
@@ -4616,7 +4475,6 @@ export type VendorInformationResponseDto = {
 };
 
 export type VendorResponseDto = {
-  __typename?: 'VendorResponseDto';
   addresses?: Maybe<Array<AddressEntity>>;
   airportServices?: Maybe<Array<AirportServiceResponseDto>>;
   createdAt: Scalars['DateTime']['output'];
@@ -4635,7 +4493,6 @@ export type VendorResponseDto = {
 };
 
 export type WaiverAttributesDto = {
-  __typename?: 'WaiverAttributesDto';
   issuingAirlineCode?: Maybe<Scalars['String']['output']>;
   issuingAirlineFsCode?: Maybe<Scalars['String']['output']>;
   issuingAirlineIataCode?: Maybe<Scalars['String']['output']>;
@@ -4653,7 +4510,6 @@ export type WithdrawBookingDto = {
 };
 
 export type WithdrawPriceInfoResponseDto = {
-  __typename?: 'WithdrawPriceInfoResponseDto';
   arrivalFlightSchedule?: Maybe<FlightSchedule>;
   departureFlightSchedule?: Maybe<FlightSchedule>;
   displayId: Scalars['String']['output'];
@@ -4661,6 +4517,20 @@ export type WithdrawPriceInfoResponseDto = {
   type: EFlightSegmentType;
   withdrawPrice: Scalars['Float']['output'];
 };
+
+export type SignInMutationVariables = Exact<{
+  payload: SignInDto;
+}>;
+
+
+export type SignInMutation = { signIn: { accessToken: string, refreshToken: string } };
+
+export type RefreshTokenMutationVariables = Exact<{
+  payload: RefreshTokenDto;
+}>;
+
+
+export type RefreshTokenMutation = { refreshToken: { accessToken: string, refreshToken: string } };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -4680,3 +4550,20 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
+
+export const SignInDocument = new TypedDocumentString(`
+    mutation SignIn($payload: SignInDto!) {
+  signIn(payload: $payload) {
+    accessToken
+    refreshToken
+  }
+}
+    `) as unknown as TypedDocumentString<SignInMutation, SignInMutationVariables>;
+export const RefreshTokenDocument = new TypedDocumentString(`
+    mutation RefreshToken($payload: RefreshTokenDto!) {
+  refreshToken(payload: $payload) {
+    accessToken
+    refreshToken
+  }
+}
+    `) as unknown as TypedDocumentString<RefreshTokenMutation, RefreshTokenMutationVariables>;

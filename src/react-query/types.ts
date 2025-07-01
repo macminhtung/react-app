@@ -1,9 +1,6 @@
-import type { UseMutationOptions, QueryClient } from '@tanstack/react-query';
+import type { UseMutationOptions } from '@tanstack/react-query';
 
-export type TUseMutation = {
-  options?: Omit<
-    UseMutationOptions<unknown, unknown, unknown, unknown>,
-    'mutationKey' | 'mutationFn'
-  >;
-  queryClient?: QueryClient;
-};
+export type TUseMutationOptions<R = unknown> = Omit<
+  UseMutationOptions<R, unknown, unknown, unknown>,
+  'mutationKey' | 'mutationFn'
+>;

@@ -37,7 +37,7 @@ const SignUpPage = () => {
   }, []);
 
   return (
-    <div className='size-full flex flex-col items-center'>
+    <div className='size-full flex flex-col items-center gap-6'>
       <p className='text-4xl font-bold mb-10'>{t('common.signUp')}</p>
       <Form onSubmit={onSubmit} className='grid gap-6 w-full max-w-[20rem]'>
         <ItemField iType={EItemFieldType.INPUT} label={t('common.username')} fieldName='username' />
@@ -55,18 +55,17 @@ const SignUpPage = () => {
         />
 
         <ButtonC type='submit'>{t('common.submit')}</ButtonC>
-
-        <div className='text-center'>
-          <span>{t('common.Already have an account?')}</span>
-          <ButtonC
-            variant='link'
-            onClick={() => navigate(ROUTE_PATH.SIGNIN)}
-            className='font-bold text-xl'
-          >
-            {t('common.signIn')}
-          </ButtonC>
-        </div>
       </Form>
+      <div className='text-center'>
+        <span>{t('common.Already have an account?')}</span>
+        <ButtonC
+          variant='link'
+          onClick={() => navigate(ROUTE_PATH.SIGNIN)}
+          className='font-bold text-xl'
+        >
+          {t('common.signIn')}
+        </ButtonC>
+      </div>
     </div>
   );
 };

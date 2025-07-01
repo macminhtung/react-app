@@ -1,6 +1,6 @@
 import type { Dispatch, SetStateAction } from 'react';
 import { createContext, useContext, useState } from 'react';
-import { ELocalStorageKey } from '@/common/enums';
+import { manageTokens, EManageTokenType } from '@/common/funcs';
 
 interface IAuthUser {
   email: string;
@@ -15,19 +15,15 @@ const initAuthUser: IAuthUser = {
 };
 
 interface IAuthContext {
-  accessToken: string | null;
-  setAccessToken: Dispatch<SetStateAction<string | null>>;
-  refreshToken: string | null;
-  setRefreshToken: Dispatch<SetStateAction<string | null>>;
+  tokens: { accessToken: string; refreshToken: string };
+  setTokens: Dispatch<SetStateAction<{ accessToken: string; refreshToken: string }>>;
   authUser: IAuthUser;
   setAuthUser: Dispatch<SetStateAction<IAuthUser>>;
 }
 
 const initValues: IAuthContext = {
-  accessToken: localStorage.getItem(ELocalStorageKey.ACCESS_TOKEN),
-  setAccessToken: () => null,
-  refreshToken: localStorage.getItem(ELocalStorageKey.REFRESH_TOKEN),
-  setRefreshToken: () => null,
+  tokens: manageTokens({ type: EManageTokenType.GET }),
+  setTokens: () => null,
   authUser: initAuthUser,
   setAuthUser: () => initAuthUser,
 };
@@ -35,19 +31,12 @@ const initValues: IAuthContext = {
 export const AuthContext = createContext<IAuthContext>(initValues);
 
 export const useAuthContextValue = (): IAuthContext => {
-  const [accessToken, setAccessToken] = useState<IAuthContext['accessToken']>(
-    initValues.accessToken
-  );
-  const [refreshToken, setRefreshToken] = useState<IAuthContext['refreshToken']>(
-    initValues.refreshToken
-  );
+  const [tokens, setTokens] = useState<IAuthContext['tokens']>(initValues.tokens);
   const [authUser, setAuthUser] = useState<IAuthContext['authUser']>(initValues.authUser);
 
   return {
-    accessToken,
-    setAccessToken,
-    refreshToken,
-    setRefreshToken,
+    tokens,
+    setTokens,
     authUser,
     setAuthUser,
   };

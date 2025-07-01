@@ -4,9 +4,9 @@ import { ROUTE_PATH } from '@/common/constants';
 import { AppWrapper } from '@/app-router/app-wrapper';
 
 const PublicLayout = () => {
-  const { accessToken } = useAuthContext();
+  const { tokens } = useAuthContext();
 
-  if (accessToken) return <Navigate to={ROUTE_PATH.DASHBOARD.ROOT} />;
+  if (tokens.accessToken) return <Navigate to={ROUTE_PATH.DASHBOARD.ROOT} />;
 
   return <AppWrapper />;
 };

@@ -1,8 +1,10 @@
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { resources } from '@/i18next/i18n';
 import { useNavigate } from 'react-router';
 import { ROUTE_PATH } from '@/common/constants';
-import { MoonIcon, SunMediumIcon } from 'lucide-react';
+import { manageTokens, EManageTokenType } from '@/common/funcs';
+import { MoonIcon, SunMediumIcon, LogOut } from 'lucide-react';
 import { useAppContext, ETheme } from '@/context/useAppContext';
 import { useAuthContext } from '@/context/useAuthContext';
 import { AvatarC, ButtonC, SelectC, SwitchC } from '@/components/ui-customize';
@@ -13,13 +15,19 @@ const languageOptions = Object.keys(resources).map((key) => ({
 }));
 
 const Header = () => {
-  const { t, i18n } = useTranslation();
-  const { accessToken } = useAuthContext();
+  const { i18n } = useTranslation();
+  const { tokens, setTokens } = useAuthContext();
   const navigate = useNavigate();
   const { theme, setTheme } = useAppContext();
   const isDarkMode = theme === ETheme.DARK;
 
-  const isLoggedIn = !!accessToken;
+  const isLoggedIn = !!tokens.accessToken;
+
+  const signOut = useCallback(() => {
+    const noneTokens = { accessToken: '', refreshToken: '' };
+    setTokens(noneTokens);
+    manageTokens({ type: EManageTokenType.SET, ...noneTokens });
+  }, [setTokens]);
 
   return (
     <div className='flex items-center p-3 gap-2 border-b-[1px] border-b-gray-900 h-[66px] dark:border-b-gray-300'>
@@ -39,12 +47,16 @@ const Header = () => {
           className='h-6 w-[2.65rem]'
           thumbClassName='h-5 w-5 data-[state=checked]:translate-x-5'
         />
-        {isLoggedIn && <ButtonC>{t('common.signOut')}</ButtonC>}
         <SelectC
           className='w-20'
           options={languageOptions}
           onChange={(value) => i18n.changeLanguage(value)}
         />
+        {isLoggedIn && (
+          <ButtonC className='!bg-red-400 text-white' onClick={signOut}>
+            <LogOut className='scale-[1.3]' />
+          </ButtonC>
+        )}
       </div>
     </div>
   );

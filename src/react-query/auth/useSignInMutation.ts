@@ -1,8 +1,8 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, QueryClient } from '@tanstack/react-query';
 import { gql } from 'graphql-request';
 import { request } from '@/react-query/request';
-import { SignInDto, SignInResponseDto } from '@/gql/graphql';
-import type { TUseMutation } from '@/react-query/types';
+import type { TUseMutationOptions } from '@/react-query/types';
+import type { SignInMutationVariables, SignInMutation } from '@/gql/graphql';
 
 const document = gql`
   mutation SignIn($payload: SignInDto!) {
@@ -13,18 +13,14 @@ const document = gql`
   }
 `;
 
-export const useSignInMutation = (
-  options?: TUseMutation['options'],
-  queryClient?: TUseMutation['queryClient']
+export const useSignInMutation = <V extends SignInMutationVariables, R extends SignInMutation>(
+  options?: TUseMutationOptions<R>,
+  queryClient?: QueryClient
 ) =>
   useMutation(
     {
       mutationKey: ['useSignInMutation'],
-      mutationFn: (variables: { payload: SignInDto }) =>
-        request<typeof variables, SignInResponseDto>({
-          document,
-          variables,
-        }),
+      mutationFn: (variables: V) => request<R>({ document, variables }),
       ...options,
     },
     queryClient
