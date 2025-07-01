@@ -1,21 +1,27 @@
 import { createElement } from 'react';
-import { toast } from 'sonner';
+import { toast, ExternalToast } from 'sonner';
 import { X } from 'lucide-react';
 import { ClientError } from 'graphql-request';
 import { ELocalStorageKey } from '@/common/enums';
+import { ROUTE_PATH } from '@/common/constants';
 
-export const showToastError = (error: ClientError) =>
+export const showToastError = (
+  error: ClientError,
+  options?: Omit<ExternalToast, 'action' | 'actionButtonStyle' | 'duration'>
+) =>
   toast.error(error.response.errors?.[0]?.message, {
     action: {
       label: createElement(X, { className: 'w-5 text-gray-700 dark:text-white' }),
       onClick: () => null,
     },
     actionButtonStyle: { backgroundColor: 'transparent' },
+    duration: 2500,
+    ...options,
   });
 
-export const clearTokensAndRefreshPage = () => {
+export const clearTokensAndNavigateSignInPage = () => {
   manageTokens({ type: EManageTokenType.SET, refreshToken: '', accessToken: '' });
-  window.location.reload();
+  window.location.href = ROUTE_PATH.SIGNIN;
 };
 
 export enum EManageTokenType {

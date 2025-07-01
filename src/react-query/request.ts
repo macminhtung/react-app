@@ -9,7 +9,7 @@ import {
   showToastError,
   manageTokens,
   EManageTokenType,
-  clearTokensAndRefreshPage,
+  clearTokensAndNavigateSignInPage,
 } from '@/common/funcs';
 import type { RefreshTokenMutation } from '@/gql/graphql';
 
@@ -66,15 +66,15 @@ export const request = <R>(options: RequestOptions<Variables, R>) => {
             })
             // CASE: Invalid refresh token ==> Show toast error
             .catch((error) => {
-              showToastError(error);
-              clearTokensAndRefreshPage();
+              showToastError(error, { onAutoClose: () => clearTokensAndNavigateSignInPage() });
             });
         }
 
         // CASE: JWT invalid
         else if (errorMessage === EJwtErrorMessages.INVALID) {
-          showToastError(error);
-          clearTokensAndRefreshPage();
+          showToastError(error, {
+            onAutoClose: () => clearTokensAndNavigateSignInPage(),
+          });
         }
 
         // Show toast error
