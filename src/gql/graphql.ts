@@ -4518,6 +4518,11 @@ export type WithdrawPriceInfoResponseDto = {
   withdrawPrice: Scalars['Float']['output'];
 };
 
+export type GetAuthProfileQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAuthProfileQuery = { getAuthProfile: { id: string, email: string, firstName: string, lastName: string, avatar?: string | null } };
+
 export type SignInMutationVariables = Exact<{
   payload: SignInDto;
 }>;
@@ -4551,6 +4556,17 @@ export class TypedDocumentString<TResult, TVariables>
   }
 }
 
+export const GetAuthProfileDocument = new TypedDocumentString(`
+    query GetAuthProfile {
+  getAuthProfile {
+    id
+    email
+    firstName
+    lastName
+    avatar
+  }
+}
+    `) as unknown as TypedDocumentString<GetAuthProfileQuery, GetAuthProfileQueryVariables>;
 export const SignInDocument = new TypedDocumentString(`
     mutation SignIn($payload: SignInDto!) {
   signIn(payload: $payload) {

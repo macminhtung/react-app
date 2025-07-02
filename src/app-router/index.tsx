@@ -19,12 +19,15 @@ const TestFormPage = lazy(() => import('@/pages/TestForm'));
 const queryClient = new QueryClient();
 
 const AppRoutes = () => {
+  const appContextValue = useAppContextValue();
+  const authContextValue = useAuthContextValue();
+
   return (
-    <AppContext.Provider value={useAppContextValue()}>
+    <AppContext.Provider value={appContextValue}>
       <QueryClientProvider client={queryClient}>
         <Toaster position='top-right' />
         <BrowserRouter>
-          <AuthContext.Provider value={useAuthContextValue()}>
+          <AuthContext.Provider value={authContextValue}>
             <Suspense
               fallback={
                 <div className='w-[100vw] h-[100vh] flex items-center justify-center'>

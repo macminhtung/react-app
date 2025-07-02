@@ -14,7 +14,7 @@ const document = gql`
 `;
 
 export const useSignInMutation = <V extends SignInMutationVariables, R extends SignInMutation>(
-  options?: TUseMutationOptions<R>,
+  options?: TUseMutationOptions<V, R>,
   queryClient?: QueryClient
 ) =>
   useMutation(

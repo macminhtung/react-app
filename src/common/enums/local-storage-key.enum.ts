@@ -1,5 +1,6 @@
 export enum ELocalStorageKey {
   UI_THEME = 'UI-THEME',
+  LANGUAGE = 'LANGUAGE',
   ACCESS_TOKEN = 'ACCESS_TOKEN',
   REFRESH_TOKEN = 'REFRESH_TOKEN',
 }

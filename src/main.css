@@ -53,13 +53,13 @@ html {
 }
 
 .dark {
-  --background: oklch(13% .028 261.692);
+  --background: oklch(12.964% 0.02739 261.707 / 0.95);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
+  --popover: oklch(12.964% 0.02739 261.707 / 0.95);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
+  --primary: oklch(92.191% 0.0001 271.152 / 0.805);
   --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);

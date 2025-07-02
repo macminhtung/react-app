@@ -1,13 +1,15 @@
 import { createElement } from 'react';
-import { toast, ExternalToast } from 'sonner';
+import { toast, type ExternalToast } from 'sonner';
 import { X } from 'lucide-react';
-import { ClientError } from 'graphql-request';
+import type { ClientError } from 'graphql-request';
+import type { TUseQueryOptions } from '@/react-query/types';
+import type { UseQueryResult } from '@tanstack/react-query';
 import { ELocalStorageKey } from '@/common/enums';
 import { ROUTE_PATH } from '@/common/constants';
 
 export const showToastError = (
   error: ClientError,
-  options?: Omit<ExternalToast, 'action' | 'actionButtonStyle' | 'duration'>
+  options?: Omit<ExternalToast, 'action' | 'actionButtonStyle'>
 ) =>
   toast.error(error.response.errors?.[0]?.message, {
     action: {
@@ -47,4 +49,14 @@ export const manageTokens = (
   localStorage.setItem(ELocalStorageKey.REFRESH_TOKEN, refreshToken);
   localStorage.setItem(ELocalStorageKey.ACCESS_TOKEN, accessToken);
   return { refreshToken, accessToken };
+};
+
+export const processUseQueryFuncs = <R>(
+  result: UseQueryResult<NoInfer<R>, ClientError>,
+  options?: Pick<TUseQueryOptions<R>, 'onSuccess' | 'onError'>
+) => {
+  const { onSuccess, onError } = options || {};
+  if (onSuccess && result.isSuccess) onSuccess(result.data);
+  if (onError && result.isError) onError(result.error);
+  return result;
 };

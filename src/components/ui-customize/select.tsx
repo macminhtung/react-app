@@ -26,12 +26,21 @@ export type TSelectProps = Omit<ComponentProps<typeof SelectPrimitive.Trigger>, 
 };
 
 export const SelectC = (props: TSelectProps) => {
-  const { options = [], className, placeholder, loading, spinClassName, onChange, ...rest } = props;
+  const {
+    options = [],
+    className,
+    placeholder,
+    loading,
+    spinClassName,
+    value,
+    onChange,
+    ...rest
+  } = props;
 
   return (
     <Select
       onValueChange={onChange}
-      defaultValue={placeholder ? undefined : options[0]?.value}
+      defaultValue={value ? value.toString() : options?.[0].value}
       disabled={loading}
     >
       <SelectTrigger

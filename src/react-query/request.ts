@@ -72,9 +72,7 @@ export const request = <R>(options: RequestOptions<Variables, R>) => {
 
         // CASE: JWT invalid
         else if (errorMessage === EJwtErrorMessages.INVALID) {
-          showToastError(error, {
-            onAutoClose: () => clearTokensAndNavigateSignInPage(),
-          });
+          showToastError(error, { onAutoClose: () => clearTokensAndNavigateSignInPage() });
         }
 
         // Show toast error
