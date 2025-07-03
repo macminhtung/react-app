@@ -142,8 +142,4 @@ body {
   --animate-spin-2s: spin 2s linear infinite;
 }
 
-/* @layer utilities {
-  .center-center {
-    @apply items-center justify-center;
-  }
-} */
+
