@@ -7,7 +7,7 @@ import { ROUTE_PATH } from '@/common/constants';
 import { useZodForm } from '@/components/form/hooks';
 import { EItemFieldType } from '@/components/form/enums';
 import { ButtonC } from '@/components/ui-customize';
-import { useSignInMutation } from '@/react-query/auth/useSignInMutation';
+import { useSignInMutation } from '@/react-query/auth';
 import { manageTokens, EManageTokenType } from '@/common/funcs';
 
 const signInSchema = z.object({
@@ -23,9 +23,10 @@ const signInSchema = z.object({
 });
 
 const SignInPage = () => {
-  const { t } = useTranslation();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { setTokens } = useAuthContext();
+
   const { Form, ItemField } = useZodForm({
     schema: signInSchema,
     defaultValues: { email: '', password: '' },

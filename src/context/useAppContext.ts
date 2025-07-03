@@ -15,6 +15,8 @@ export enum ELanguage {
 }
 
 interface IAppContext {
+  isAppLoading: boolean;
+  setIsAppLoading: Dispatch<SetStateAction<boolean>>;
   theme: ETheme;
   setTheme: Dispatch<SetStateAction<ETheme>>;
   language: ELanguage | string;
@@ -22,6 +24,8 @@ interface IAppContext {
 }
 
 const initValues: IAppContext = {
+  isAppLoading: false,
+  setIsAppLoading: () => null,
   theme:
     localStorage.getItem(ELocalStorageKey.UI_THEME) === ETheme.LIGHT ? ETheme.LIGHT : ETheme.DARK,
   setTheme: () => null,
@@ -34,8 +38,9 @@ export const AppContext = createContext<IAppContext>(initValues);
 
 export const useAppContextValue = (): IAppContext => {
   const { i18n } = useTranslation();
-  const [theme, setTheme] = useState<IAppContext['theme']>(initValues.theme);
-  const [language, setLanguage] = useState<IAppContext['language']>(initValues.language);
+  const [isAppLoading, setIsAppLoading] = useState<boolean>(initValues.isAppLoading);
+  const [theme, setTheme] = useState<ETheme>(initValues.theme);
+  const [language, setLanguage] = useState<ELanguage | string>(initValues.language);
 
   useEffect(() => {
     // Remove prev theme
@@ -55,7 +60,7 @@ export const useAppContextValue = (): IAppContext => {
     i18n.changeLanguage(language);
   }, [i18n, language]);
 
-  return { theme, setTheme, language, setLanguage };
+  return { isAppLoading, setIsAppLoading, theme, setTheme, language, setLanguage };
 };
 
 export const useAppContext = () => useContext(AppContext);

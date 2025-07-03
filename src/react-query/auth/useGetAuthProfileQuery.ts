@@ -1,7 +1,7 @@
 import { useQuery, type QueryClient } from '@tanstack/react-query';
 import { gql } from 'graphql-request';
 import { request } from '@/react-query/request';
-import { processUseQueryFuncs } from '@/common/funcs';
+import { useProcessUseQueryFuncs } from '@/common/hooks';
 import type { TUseQueryOptions } from '@/react-query/types';
 import type { GetAuthProfileQueryVariables, GetAuthProfileQuery } from '@/gql/graphql';
 
@@ -25,7 +25,7 @@ export const useGetAuthProfileQuery = <
   options?: TUseQueryOptions<R>,
   queryClient?: QueryClient
 ) =>
-  processUseQueryFuncs<R>(
+  useProcessUseQueryFuncs<R>(
     useQuery(
       {
         queryKey: ['useGetAuthProfileQuery', variables],

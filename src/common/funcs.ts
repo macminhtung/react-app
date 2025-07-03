@@ -2,8 +2,7 @@ import { createElement } from 'react';
 import { toast, type ExternalToast } from 'sonner';
 import { X } from 'lucide-react';
 import type { ClientError } from 'graphql-request';
-import type { TUseQueryOptions } from '@/react-query/types';
-import type { UseQueryResult } from '@tanstack/react-query';
+
 import { ELocalStorageKey } from '@/common/enums';
 import { ROUTE_PATH } from '@/common/constants';
 
@@ -37,6 +36,7 @@ export const manageTokens = (
     | { type: EManageTokenType.SET; refreshToken: string; accessToken: string }
 ) => {
   const { type } = payload;
+
   // CASE: Get Tokens
   if (type === EManageTokenType.GET)
     return {
@@ -48,15 +48,6 @@ export const manageTokens = (
   const { refreshToken, accessToken } = payload;
   localStorage.setItem(ELocalStorageKey.REFRESH_TOKEN, refreshToken);
   localStorage.setItem(ELocalStorageKey.ACCESS_TOKEN, accessToken);
-  return { refreshToken, accessToken };
-};
 
-export const processUseQueryFuncs = <R>(
-  result: UseQueryResult<NoInfer<R>, ClientError>,
-  options?: Pick<TUseQueryOptions<R>, 'onSuccess' | 'onError'>
-) => {
-  const { onSuccess, onError } = options || {};
-  if (onSuccess && result.isSuccess) onSuccess(result.data);
-  if (onError && result.isError) onError(result.error);
-  return result;
+  return { refreshToken, accessToken };
 };

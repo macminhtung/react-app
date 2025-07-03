@@ -10,6 +10,7 @@ export type TUseQueryOptions<R = unknown> = Omit<
   UseQueryOptions<R, ClientError, R, QueryKey>,
   'queryKey' | 'queryFn'
 > & {
+  onLoading?: (isLoading: boolean) => void;
   onSuccess?: (data: R) => Promise<unknown> | unknown;
   onError?: (error: ClientError) => Promise<unknown> | unknown;
 };
