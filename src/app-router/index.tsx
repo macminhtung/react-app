@@ -15,6 +15,7 @@ const SignUpPage = lazy(() => import('@/pages/SignUp'));
 const DashboardPage = lazy(() => import('@/pages/Dashboard'));
 const ComponentsPage = lazy(() => import('@/pages/Components'));
 const TestFormPage = lazy(() => import('@/pages/TestForm'));
+const ProfilePage = lazy(() => import('@/pages/Profile'));
 
 const queryClient = new QueryClient();
 
@@ -52,6 +53,7 @@ const AppRoutes = () => {
                 />
                 <Route path={ROUTE_PATH.DASHBOARD.ROOT} element={<AuthenticatedLayout />}>
                   <Route index path={ROUTE_PATH.DASHBOARD.ROOT} element={<DashboardPage />} />
+                  <Route index path={ROUTE_PATH.DASHBOARD.PROFILE} element={<ProfilePage />} />
                 </Route>
 
                 {/* NOT FOUND ROUTES */}

@@ -29,6 +29,7 @@ import {
   RadioGroupC,
   DatePickerC,
   RangeDatePickerC,
+  UploadImageC,
 } from '@/components/ui-customize';
 import { EItemFieldType } from '@/components/form/enums';
 import { cn } from '@/lib/utils';
@@ -43,7 +44,8 @@ type TItemProps =
   | { iType: EItemFieldType.SWITCH; iProps?: ComponentProps<typeof SwitchC> }
   | { iType: EItemFieldType.RADIO_GROUP; iProps: ComponentProps<typeof RadioGroupC> }
   | { iType: EItemFieldType.DATE_PICKER; iProps?: ComponentProps<typeof DatePickerC> }
-  | { iType: EItemFieldType.RANGE_DATE_PICKER; iProps?: ComponentProps<typeof RangeDatePickerC> };
+  | { iType: EItemFieldType.RANGE_DATE_PICKER; iProps?: ComponentProps<typeof RangeDatePickerC> }
+  | { iType: EItemFieldType.UPLOAD_IMAGE; iProps?: ComponentProps<typeof UploadImageC> };
 
 type TZodO = ZodObject<
   FieldValues,
@@ -66,6 +68,7 @@ const ITEM_FIELDS_MAP = {
   [EItemFieldType.RADIO_GROUP]: RadioGroupC,
   [EItemFieldType.DATE_PICKER]: DatePickerC,
   [EItemFieldType.RANGE_DATE_PICKER]: RangeDatePickerC,
+  [EItemFieldType.UPLOAD_IMAGE]: UploadImageC,
 };
 
 export type TItemFieldC<T extends TZodSchema> = TItemProps & {

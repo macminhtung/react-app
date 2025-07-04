@@ -81,7 +81,7 @@ const Header = () => {
           <>
             <AvatarC
               src={authUser.avatar || 'https://github.com/shadcn.png'}
-              className={'rounded-[50%] cursor-pointer size-10'}
+              className={'rounded-[50%] size-10'}
             />
             <DropdownMenu open={isOpenMenu} onOpenChange={setIsOpenMenu}>
               <DropdownMenuTrigger asChild>
@@ -95,7 +95,7 @@ const Header = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent className='min-w-fit w-32 p-1.5 absolute right-[-22px] top-[4px]'>
                 <DropdownMenuLabel>{themeAndLang}</DropdownMenuLabel>
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate(ROUTE_PATH.DASHBOARD.PROFILE)}>
                   <UserPen className='scale-[1.3] mr-2 text-primary' />
                   <span>{t('common.profile')}</span>
                 </DropdownMenuItem>

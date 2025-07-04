@@ -10,5 +10,9 @@ export const vnTranslation = {
     "Don't have an account?": 'Bạn chưa có tài khoản?',
     'Already have an account?': 'Bạn đã có tài khoản?',
     profile: 'Hồ sơ',
+    avatar: 'Ảnh đại diện',
+    email: 'Email',
+    firstName: 'Tên',
+    lastName: 'Họ',
   },
 };

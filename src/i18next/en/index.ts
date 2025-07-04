@@ -10,5 +10,9 @@ export const enTranslation = {
     "Don't have an account?": "Don't have an account?",
     'Already have an account?': 'Already have an account?',
     profile: 'Profile',
+    avatar: 'Avatar',
+    email: 'Email',
+    firstName: 'First Name',
+    lastName: 'Last Name',
   },
 };

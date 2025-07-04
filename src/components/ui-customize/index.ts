@@ -12,3 +12,4 @@ export * from './Switch';
 export * from './RadioGroup';
 export * from './DatePicker';
 export * from './RangeDatePicker';
+export * from './UploadImage';
