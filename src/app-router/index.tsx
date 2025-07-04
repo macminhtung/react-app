@@ -7,8 +7,8 @@ import { AppContext, useAppContextValue } from '@/context/useAppContext';
 import { AuthContext, useAuthContextValue } from '@/context/useAuthContext';
 import PublicLayout from '@/app-router/public-layout';
 import AuthenticatedLayout from '@/app-router/authenticated-layout';
-import { SpinnerC } from '@/components/ui-customize';
 import { Toaster } from '@/components/ui/sonner';
+import { AppLoading } from '@/components/AppLoading';
 
 const SignInPage = lazy(() => import('@/pages/SignIn'));
 const SignUpPage = lazy(() => import('@/pages/SignUp'));
@@ -29,13 +29,7 @@ const AppRoutes = () => {
         <Toaster position='top-right' />
         <BrowserRouter>
           <AuthContext.Provider value={authContextValue}>
-            <Suspense
-              fallback={
-                <div className='w-[100vw] h-[100vh] flex items-center justify-center'>
-                  <SpinnerC className='size-20' />
-                </div>
-              }
-            >
+            <Suspense fallback={<AppLoading />}>
               <Routes>
                 {/* PUBLIC ROUTES */}
                 <Route element={<PublicLayout />}>

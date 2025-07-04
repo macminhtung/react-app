@@ -2,9 +2,9 @@ import { Navigate } from 'react-router';
 import { useAuthContext } from '@/context/useAuthContext';
 import { useAppContext } from '@/context/useAppContext';
 import { ROUTE_PATH } from '@/common/constants';
-import { Loader } from 'lucide-react';
 import { AppWrapper } from '@/app-router/app-wrapper';
 import { useGetAuthProfileQuery } from '@/react-query/auth';
+import { AppLoading } from '@/components/AppLoading';
 
 const AuthenticatedLayout = () => {
   const { isAppLoading, setIsAppLoading } = useAppContext();
@@ -26,12 +26,7 @@ const AuthenticatedLayout = () => {
   // CASE: UN-LOGGED ==> Navigate to signIn page
   if (!tokens.accessToken) return <Navigate to={ROUTE_PATH.SIGNIN} />;
 
-  if (isAppLoading)
-    return (
-      <div className='flex h-full w-full items-center justify-center'>
-        <Loader className='scale-[6] animate-spin-2s' />
-      </div>
-    );
+  if (isAppLoading) return <AppLoading />;
 
   return <AppWrapper />;
 };
