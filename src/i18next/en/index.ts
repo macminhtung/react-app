@@ -1,5 +1,6 @@
 export const enTranslation = {
   common: {
+    dashboard: 'Dashboard',
     signIn: 'SignIn',
     signUp: 'SignUp',
     signOut: 'SignOut',
@@ -14,5 +15,6 @@ export const enTranslation = {
     email: 'Email',
     firstName: 'First Name',
     lastName: 'Last Name',
+    notFound: '[404] Not Found!',
   },
 };

@@ -1,5 +1,6 @@
 export const vnTranslation = {
   common: {
+    dashboard: 'Trang chủ',
     signIn: 'Đăng nhập',
     signUp: 'Đăng ký',
     signOut: 'Đăng xuất',
@@ -14,5 +15,6 @@ export const vnTranslation = {
     email: 'Email',
     firstName: 'Tên',
     lastName: 'Họ',
+    notFound: '[404] Không tìm thấy trang!',
   },
 };
