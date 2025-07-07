@@ -71,16 +71,6 @@ const SignInPage = () => {
           {t('common.signUp')}
         </ButtonC>
       </div>
-
-      <div className='flex flex-col gap-2'>
-        <ButtonC
-          onClick={() => navigate(ROUTE_PATH.TEST_FORM)}
-          className='font-bold text-xl'
-          variant={'outline'}
-        >
-          Test Form Fields
-        </ButtonC>
-      </div>
     </div>
   );
 };

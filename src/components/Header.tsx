@@ -81,7 +81,7 @@ const Header = () => {
           <>
             <AvatarC
               src={authUser.avatar || 'https://github.com/shadcn.png'}
-              className={'rounded-[50%] size-10'}
+              className='rounded-[50%] size-10'
             />
             <DropdownMenu open={isOpenMenu} onOpenChange={setIsOpenMenu}>
               <DropdownMenuTrigger asChild>

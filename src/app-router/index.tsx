@@ -14,10 +14,9 @@ const SignInPage = lazy(() => import('@/pages/SignIn'));
 const SignUpPage = lazy(() => import('@/pages/SignUp'));
 const DashboardPage = lazy(() => import('@/pages/Dashboard'));
 const ComponentsPage = lazy(() => import('@/pages/Components'));
-const TestFormPage = lazy(() => import('@/pages/TestForm'));
 const ProfilePage = lazy(() => import('@/pages/Profile'));
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
 
 const AppRoutes = () => {
   const appContextValue = useAppContextValue();
@@ -36,7 +35,6 @@ const AppRoutes = () => {
                   <Route index path={ROUTE_PATH.SIGNIN} element={<SignInPage />} />
                   <Route index path={ROUTE_PATH.SIGNUP} element={<SignUpPage />} />
                   <Route index path={ROUTE_PATH.COMPONENTS} element={<ComponentsPage />} />
-                  <Route index path={ROUTE_PATH.TEST_FORM} element={<TestFormPage />} />
                 </Route>
 
                 {/* PRIVATE ROUTES */}

@@ -107,7 +107,7 @@ export const FormFieldC = <T extends TZodSchema>(props: TFormFieldC<T>) => {
               )}
             >
               <FormLabel>
-                {label}{' '}
+                {label}&#160;
                 {checkIsRequired(schema, field.name) && <span className='text-red-500'>*</span>}
               </FormLabel>
               <ItemField {...field} {...iProps} onBlur={() => field.onBlur()} />

@@ -1,6 +1,5 @@
 import { useState, type ComponentProps } from 'react';
-import { TableC, ButtonC } from '@/components/ui-customize';
-import { toast } from 'sonner';
+import { TableC } from '@/components/ui-customize';
 
 const records = [
   {
@@ -44,23 +43,6 @@ const ComponentsPage = () => {
 
   return (
     <div className='flex flex-col size-full gap-6'>
-      <div className='flex flex-col'>
-        <ButtonC
-          className='w-fit'
-          onClick={() =>
-            toast('Event has been created', {
-              description: 'Sunday, December 03, 2023 at 9:00 AM',
-              action: {
-                label: 'Close',
-                onClick: () => console.log('Close'),
-              },
-            })
-          }
-        >
-          Show Toast
-        </ButtonC>
-      </div>
-
       <div className='flex flex-col'>
         <p className='font-bold mb-2'>Table</p>
         <TableC
