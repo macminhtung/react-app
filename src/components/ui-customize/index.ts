@@ -13,3 +13,4 @@ export * from './RadioGroup';
 export * from './DatePicker';
 export * from './RangeDatePicker';
 export * from './UploadImage';
+export * from './Dialog';

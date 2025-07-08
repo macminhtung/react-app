@@ -9,7 +9,7 @@ type TDatePickerProps = Omit<ComponentProps<typeof Calendar>, 'onChange' | 'mode
   onChange?: (v: Date | undefined) => void;
 };
 
-export function DatePickerC(props: TDatePickerProps) {
+export const DatePickerC = (props: TDatePickerProps) => {
   const { onChange, className, ...rest } = props;
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState<Date | undefined>(undefined);
@@ -37,4 +37,4 @@ export function DatePickerC(props: TDatePickerProps) {
       </PopoverContent>
     </Popover>
   );
-}
+};

@@ -1,5 +1,5 @@
 import { useState, type ComponentProps } from 'react';
-import { TableC } from '@/components/ui-customize';
+import { TableC, DialogC, ButtonC } from '@/components/ui-customize';
 
 const records = [
   {
@@ -40,6 +40,7 @@ const ComponentsPage = () => {
   const [selectedRecords, setSelectedRecords] = useState<
     ComponentProps<typeof TableC>['rowRecords']
   >([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className='flex flex-col size-full gap-6'>
@@ -59,6 +60,15 @@ const ComponentsPage = () => {
           pagination={{ ...pagination, total: 100, setPagination }}
           selectMode={{ selectedRecords, setSelectedRecords }}
         />
+      </div>
+      <div className='flex flex-col'>
+        <p className='font-bold mb-2'>Dialog</p>
+        <ButtonC className='w-fit' onClick={() => setIsOpen(true)}>
+          Show Dialog
+        </ButtonC>
+        <DialogC open={isOpen} onOpenChange={setIsOpen} title='Dialog Title' description='aaaaaa'>
+          <div>Say oh yeah</div>
+        </DialogC>
       </div>
     </div>
   );
