@@ -16,5 +16,6 @@ export const enTranslation = {
     firstName: 'First Name',
     lastName: 'Last Name',
     notFound: '[404] Not Found!',
+    uploading: 'Uploading',
   },
 };

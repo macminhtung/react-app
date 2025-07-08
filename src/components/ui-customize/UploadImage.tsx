@@ -2,26 +2,44 @@ import { useState } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { ImageIcon, XCircleIcon } from 'lucide-react';
+import { ImageIcon, XCircleIcon, LoaderCircle } from 'lucide-react';
 import Dropzone, { type DropzoneProps } from 'react-dropzone';
+import { useTranslation } from 'react-i18next';
+import { showToastError } from '@/common/funcs';
 
 type TUploadImageC = {
   className?: string;
   value?: string; // Use for react-hook-form
   onChange?: Dispatch<SetStateAction<string>>; // Use for react-hook-form
+  onUpload?: (file: File) => Promise<string>; // Uploading the file and return the fileURL
 } & Omit<DropzoneProps, 'onDrop' | 'maxFiles'>;
 
 export const UploadImageC = (props: TUploadImageC) => {
-  const { className, value, onChange, ...dropzoneProps } = props;
+  const { className, value, onChange, onUpload, ...dropzoneProps } = props;
+  const { t } = useTranslation();
   const [profilePicture, setProfilePicture] = useState<string>(value || '');
+  const [isUploading, setIsUploading] = useState<boolean>(false);
 
   return (
-    <div className={cn('w-full max-w-40', className)}>
+    <div className={cn('relative w-full max-w-40', className)}>
+      {/* # ================= # */}
+      {/* # ==> UPLOADING <== # */}
+      {/* # ================= # */}
+      {isUploading && (
+        <div className='absolute top-0 z-[1] flex flex-col size-full items-center justify-center opacity-80 gap-6 bg-background'>
+          <LoaderCircle className='text-primary scale-[2] animate-spin' />
+          <p className='text-primary font-bold animate-bounce'>{t('common.uploading')}</p>
+        </div>
+      )}
+
       <div className='mt-1 w-full'>
         {profilePicture ? (
+          // # ================== #
+          // # ==> SHOW IMAGE <== #
+          // # ================== #
           <div className='relative aspect-square'>
             <Button
-              className='absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 h-fit !p-1 cursor-pointer'
+              className='absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 h-fit !p-1 cursor-pointer rounded-[50%] z-10'
               onClick={() => {
                 setProfilePicture('');
                 if (onChange) onChange('');
@@ -37,6 +55,9 @@ export const UploadImageC = (props: TUploadImageC) => {
             />
           </div>
         ) : (
+          // # ==================== #
+          // # ==> SELECT IMAGE <== #
+          // # ==================== #
           <Dropzone
             onDrop={(acceptedFiles) => {
               const file = acceptedFiles[0];
@@ -44,6 +65,13 @@ export const UploadImageC = (props: TUploadImageC) => {
                 const fileURL = URL.createObjectURL(file);
                 setProfilePicture(fileURL);
                 if (onChange) onChange(fileURL);
+                if (onUpload) {
+                  setIsUploading(true);
+                  onUpload(file)
+                    .then((uploadedURL) => onChange && onChange(uploadedURL))
+                    .catch((error) => showToastError(error))
+                    .finally(() => setIsUploading(false));
+                }
               }
             }}
             maxFiles={1}

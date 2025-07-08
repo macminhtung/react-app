@@ -18,6 +18,13 @@ const profileSchema = z.object({
     .max(20, { message: 'Maximum 20 characters' }),
 });
 
+const uploadImage = () =>
+  new Promise<string>((resolve) => {
+    setTimeout(() => {
+      resolve('uploadedURL');
+    }, 2000);
+  });
+
 const ProfilePage = () => {
   const { t } = useTranslation();
   const { authUser } = useAuthContext();
@@ -34,6 +41,7 @@ const ProfilePage = () => {
           iType={EItemFieldType.UPLOAD_IMAGE}
           label={t('common.avatar')}
           fieldName='avatar'
+          iProps={{ onUpload: uploadImage }}
         />
 
         <ItemField

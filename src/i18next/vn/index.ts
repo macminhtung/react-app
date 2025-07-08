@@ -16,5 +16,6 @@ export const vnTranslation = {
     firstName: 'Tên',
     lastName: 'Họ',
     notFound: '[404] Không tìm thấy trang!',
+    uploading: 'Đang tải lên',
   },
 };

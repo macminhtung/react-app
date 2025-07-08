@@ -85,8 +85,8 @@ export const TableC = <K extends string>(props: TTableCProps<K>) => {
   return (
     <div className={cn('grid w-full [&>div]:border [&>div]:rounded relative', className)}>
       {loading && (
-        <div className='absolute z-10 bg-gray-200 opacity-40 size-full flex items-center justify-center'>
-          <Loader2 className={cn('animate-spin text-gray-700')} size={40} />
+        <div className='absolute z-10 bg-background opacity-70 size-full flex items-center justify-center'>
+          <Loader2 className={cn('animate-spin text-primary')} size={40} />
         </div>
       )}
       <Table>
