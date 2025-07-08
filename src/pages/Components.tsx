@@ -66,7 +66,7 @@ const ComponentsPage = () => {
         <ButtonC className='w-fit' onClick={() => setIsOpen(true)}>
           Show Dialog
         </ButtonC>
-        <DialogC open={isOpen} onOpenChange={setIsOpen} title='Dialog Title' description='aaaaaa'>
+        <DialogC open={isOpen} onOpenChange={setIsOpen} title='Dialog Title'>
           <div>Say oh yeah</div>
         </DialogC>
       </div>

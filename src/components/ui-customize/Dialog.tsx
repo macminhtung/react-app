@@ -13,7 +13,6 @@ import { cn } from '@/lib/utils';
 type TDialogProps = ComponentProps<typeof Dialog> & {
   className?: string;
   title?: ReactNode;
-  description?: ReactNode;
   showFooter?: boolean;
 };
 
