@@ -38,8 +38,9 @@ const ProfilePage = () => {
       <p className='text-4xl font-bold mb-10'>{t('common.profile')}</p>
       <Form onSubmit={onSubmit} className='grid gap-6 w-full max-w-[20rem]'>
         <ItemField
+          className='flex items-center'
           iType={EItemFieldType.UPLOAD_IMAGE}
-          label={t('common.avatar')}
+          label=''
           fieldName='avatar'
           iProps={{ onUpload: uploadImage }}
         />

@@ -72,8 +72,9 @@ const ITEM_FIELDS_MAP = {
 };
 
 export type TItemFieldC<T extends TZodSchema> = TItemProps & {
-  fieldName: FieldPath<z.infer<T>>;
+  className?: string;
   label: string;
+  fieldName: FieldPath<z.infer<T>>;
   itemFieldDescription?: string;
 };
 
@@ -88,7 +89,8 @@ const checkIsRequired = (schema: TZodSchema, fieldName: string) =>
   (schema instanceof ZodEffects && !schema._def.schema.shape[fieldName].isOptional());
 
 export const FormFieldC = <T extends TZodSchema>(props: TFormFieldC<T>) => {
-  const { iType, control, schema, fieldName, label, iProps, itemFieldDescription } = props;
+  const { iType, control, schema, className, fieldName, label, iProps, itemFieldDescription } =
+    props;
 
   const ItemField: ElementType = ITEM_FIELDS_MAP[iType];
   const isHorizontal = [EItemFieldType.CHECK_BOX, EItemFieldType.SWITCH].includes(iType);
@@ -103,13 +105,15 @@ export const FormFieldC = <T extends TZodSchema>(props: TFormFieldC<T>) => {
             <div
               className={cn(
                 'flex gap-2 flex-col ',
-                isHorizontal && 'flex-row-reverse justify-end items-center'
+                isHorizontal && 'flex-row-reverse justify-end items-center',
+                className && className
               )}
             >
               <FormLabel>
-                {label}&#160;
+                {label}
                 {checkIsRequired(schema, field.name) && <span className='text-red-500'>*</span>}
               </FormLabel>
+
               <ItemField {...field} {...iProps} onBlur={() => field.onBlur()} />
             </div>
           </FormControl>

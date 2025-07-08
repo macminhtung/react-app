@@ -51,7 +51,7 @@ export const UploadImageC = (props: TUploadImageC) => {
               src={profilePicture}
               height={500}
               width={500}
-              className='border border-border h-full w-full rounded-md object-cover'
+              className='border-2 border-border h-full w-full rounded-md object-cover'
             />
           </div>
         ) : (
