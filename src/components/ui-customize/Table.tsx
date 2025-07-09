@@ -26,20 +26,28 @@ export type THeader<K extends string> = {
   width?: string | number;
 };
 
-export type TTableCProps<K extends string> = {
-  headers: THeader<K>[];
-  rowRecords: Record<K, string | number>[];
-  rowKey: K;
+type THeaderValues<K extends string, H extends readonly THeader<K>[]> = H[number]['key'];
+type TRowRecord<K extends string, H extends readonly THeader<K>[]> = Record<
+  THeaderValues<K, H>,
+  string | number
+>;
+
+export type TTableCProps<K extends string, H extends readonly THeader<K>[]> = {
+  headers: H;
+  rowRecords: TRowRecord<K, H>[];
+  rowKey: THeaderValues<K, H>;
   className?: string;
   loading?: boolean;
   pagination?: ComponentProps<typeof PaginationC>;
   selectMode?: {
-    selectedRecords: Record<K, string | number>[];
-    setSelectedRecords: Dispatch<SetStateAction<Record<K, string | number>[]>>;
+    selectedRecords: TRowRecord<K, H>[];
+    setSelectedRecords: Dispatch<SetStateAction<TRowRecord<K, H>[]>>;
   };
 };
 
-export const TableC = <K extends string>(props: TTableCProps<K>) => {
+export const TableC = <K extends string, H extends readonly THeader<K>[]>(
+  props: TTableCProps<K, H>
+) => {
   const { headers, rowRecords, className, pagination, loading, rowKey, selectMode } = props;
   const [checkedAllState, setCheckedAllState] = useState<CheckedState>(false);
 
@@ -62,7 +70,7 @@ export const TableC = <K extends string>(props: TTableCProps<K>) => {
 
   // ==> ON SELECT ROW <==
   const onSelectRow = useCallback(
-    (checked: CheckedState, record: Record<K, string | number>) => {
+    (checked: CheckedState, record: TRowRecord<K, H>) => {
       if (selectMode) {
         selectMode.setSelectedRecords((prev) => {
           // Update selected records
