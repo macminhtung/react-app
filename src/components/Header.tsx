@@ -56,7 +56,8 @@ const Header = () => {
         />
 
         <SelectC
-          className='w-18 min-h-8 !h-6'
+          className='min-w-18 min-h-8 !h-6'
+          popoverClassName='min-w-18 max-w-fit'
           value={language}
           options={languageOptions}
           onChange={(value) => setLanguage(value)}

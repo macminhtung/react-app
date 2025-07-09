@@ -18,3 +18,4 @@ export * from './dialog';
 export * from './tabs';
 export * from './tooltip';
 export * from './dropdown-menu';
+export * from './command';

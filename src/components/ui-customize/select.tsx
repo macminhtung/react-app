@@ -1,15 +1,21 @@
-import type { ComponentProps, ReactNode } from 'react';
+import { useState } from 'react';
+import type { ReactNode, ChangeEvent } from 'react';
+
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+  Command,
+  CommandEmpty,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandGroup,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Button,
 } from '@/components/ui';
-import * as SelectPrimitive from '@radix-ui/react-select';
+
 import { cn } from '@/lib/utils';
-import { Loader2 } from 'lucide-react';
+import { Loader2, ChevronDown } from 'lucide-react';
 
 export interface ISelectOption {
   label: ReactNode;
@@ -17,56 +23,73 @@ export interface ISelectOption {
   disabled?: boolean;
 }
 
-export type TSelectProps = Omit<ComponentProps<typeof SelectPrimitive.Trigger>, 'onChange'> & {
+export type TSelectProps = {
   options: ISelectOption[];
+  value?: ISelectOption['value']; // Use for react-hook-form
+  onChange?: (value: string) => void; // Use for react-hook-form
+  className?: string;
   loading?: boolean;
-  spinClassName?: string;
-  placeholder?: ReactNode;
-  onChange?: (value: string) => void;
+  placeholder?: string;
+  onSearch?: (e: ChangeEvent<HTMLInputElement>) => void; // Use for searching
+  popoverClassName?: string;
 };
 
 export const SelectC = (props: TSelectProps) => {
   const {
     options = [],
+    popoverClassName,
     className,
-    placeholder,
+    placeholder = 'Select option',
     loading,
-    spinClassName,
     value,
     onChange,
-    ...rest
+    onSearch,
   } = props;
+  const [open, setOpen] = useState<boolean>(false);
+  const [oValue, setOValue] = useState<string>(value ? value.toString() : placeholder);
 
   return (
-    <Select
-      onValueChange={onChange}
-      defaultValue={value ? value.toString() : options?.[0].value}
-      disabled={loading}
-    >
-      <SelectTrigger
-        className={cn(
-          'relative w-40 min-h-10',
-          className,
-          `${loading && '[&>svg.lucide-chevron-down]:hidden'}`
-        )}
-        {...rest}
-      >
-        <SelectValue placeholder={placeholder} />
-        {loading && (
-          <Loader2
-            className={cn('absolute right-[12px] animate-spin text-primary', spinClassName)}
-          />
-        )}
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          {options.map(({ label, value, disabled }, idx) => (
-            <SelectItem key={`${idx}-${value}`} value={value} disabled={disabled}>
-              {label}
-            </SelectItem>
-          ))}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild disabled={loading}>
+        <Button
+          variant='outline'
+          className={cn('min-w-52 w-fit justify-between relative min-h-10', className)}
+        >
+          {options.find((o) => o.value === oValue)?.label || placeholder}
+          {loading ? (
+            <Loader2 className='absolute right-[12px] animate-spin text-primary' />
+          ) : (
+            <ChevronDown className='ml-auto opacity-50' />
+          )}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className={cn('min-w-52 p-0 w-fit', popoverClassName)} align='start'>
+        <Command onChange={onSearch}>
+          {onSearch && <CommandInput placeholder='Search...' className='h-9' />}
+          <CommandList>
+            <CommandEmpty>No option.</CommandEmpty>
+            <CommandGroup>
+              {options.map(({ value, label }, idx) => (
+                <CommandItem
+                  className={cn(
+                    'm-1 cursor-pointer transition-all',
+                    value === oValue && 'bg-border font-semibold'
+                  )}
+                  key={`${idx}-${value}`}
+                  value={value}
+                  onSelect={(curValue) => {
+                    setOValue(curValue);
+                    setOpen(false);
+                    if (onChange) onChange(curValue);
+                  }}
+                >
+                  {label}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
   );
 };

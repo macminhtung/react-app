@@ -4,6 +4,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
   DialogFooter,
   DialogClose,
 } from '@/components/ui/dialog';
@@ -12,18 +13,20 @@ import { cn } from '@/lib/utils';
 
 type TDialogProps = ComponentProps<typeof Dialog> & {
   className?: string;
-  title?: ReactNode;
+  title: ReactNode;
+  description?: ReactNode;
   showFooter?: boolean;
 };
 
 export const DialogC = (props: TDialogProps) => {
-  const { title, className, children, showFooter = true, ...dialogProps } = props;
+  const { title, description, className, children, showFooter = true, ...dialogProps } = props;
 
   return (
     <Dialog {...dialogProps}>
       <DialogContent className={cn('max-w-[90vw] max-md:w-[500px]', className)}>
         <DialogHeader className='pb-3 border-b-[1px] border-border'>
-          {title && <DialogTitle>{title}</DialogTitle>}
+          <DialogTitle>{title}</DialogTitle>
+          <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         {children}
         {showFooter && (
