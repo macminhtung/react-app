@@ -149,17 +149,17 @@ export const MultiSelectC = (props: TMultiSelectCProps) => {
           )}
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
-            <CommandGroup>
+            <CommandGroup className='[&>div]:grid [&>div]:gap-1'>
               <CommandItem key='all' onSelect={toggleSelectAllCheckbox} className='cursor-pointer'>
                 <div
                   className={cn(
-                    'm-1 flex h-5 w-5 items-center justify-center rounded-sm border border-primary',
+                    'flex items-center justify-center rounded-sm border border-primary',
                     selectedValues.length === options.length
                       ? 'bg-primary text-primary dark:bg-background'
                       : 'opacity-50 [&_svg]:invisible'
                   )}
                 >
-                  <CheckIcon className='h-5 w-5' />
+                  <CheckIcon />
                 </div>
                 <span className='font-semibold'>Select All</span>
               </CommandItem>
@@ -169,19 +169,19 @@ export const MultiSelectC = (props: TMultiSelectCProps) => {
                   <CommandItem
                     key={option.value}
                     onSelect={() => toggleOptionValue(option.value)}
-                    className='cursor-pointer'
+                    className={cn('cursor-pointer transition-all', isSelected && 'bg-border/80')}
                   >
                     <div
                       className={cn(
-                        'm-1 flex h-5 w-5 items-center justify-center rounded-sm border border-primary',
+                        'flex items-center justify-center rounded-sm border border-primary',
                         isSelected
                           ? 'bg-primary text-primary dark:bg-background'
                           : 'opacity-50 [&_svg]:invisible'
                       )}
                     >
-                      <CheckIcon className='h-5 w-5' />
+                      <CheckIcon />
                     </div>
-                    <span className='text-md'>{option.label}</span>
+                    <span className=''>{option.label}</span>
                   </CommandItem>
                 );
               })}

@@ -71,7 +71,7 @@ export const SelectC = (props: TSelectProps) => {
                 <CommandItem
                   className={cn(
                     'm-1 cursor-pointer transition-all',
-                    value === oValue && 'bg-border font-semibold'
+                    value === oValue && 'bg-border/40 font-semibold'
                   )}
                   key={`${idx}-${value}`}
                   value={value}
