@@ -61,7 +61,7 @@ const ComponentsPage = () => {
 
   const { Form, ItemField } = useZodForm({
     schema: formSchema,
-    defaultValues: { select: 'Option1', multiSelect: ['Option2'] },
+    defaultValues: { select: 'Option1', multiSelect: [] },
   });
 
   return (

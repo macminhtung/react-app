@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import type { ReactNode, ChangeEvent } from 'react';
-
 import {
   Command,
   CommandEmpty,
@@ -13,7 +12,6 @@ import {
   PopoverTrigger,
   Button,
 } from '@/components/ui';
-
 import { cn } from '@/lib/utils';
 import { Loader2, ChevronDown } from 'lucide-react';
 
@@ -57,7 +55,7 @@ export const SelectC = (props: TSelectProps) => {
         >
           {options.find((o) => o.value === oValue)?.label || placeholder}
           {loading ? (
-            <Loader2 className='absolute right-[12px] animate-spin text-primary' />
+            <Loader2 className='absolute right-[12px] animate-spin text-primary scale-[1.2]' />
           ) : (
             <ChevronDown className='ml-auto opacity-50' />
           )}
