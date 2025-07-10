@@ -169,7 +169,7 @@ export const MultiSelectC = (props: TMultiSelectCProps) => {
                   <CommandItem
                     key={option.value}
                     onSelect={() => toggleOptionValue(option.value)}
-                    className={cn('cursor-pointer transition-all', isSelected && 'bg-border/80')}
+                    className={cn('cursor-pointer transition-all', isSelected && 'bg-border/40')}
                   >
                     <div
                       className={cn(
