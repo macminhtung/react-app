@@ -8,11 +8,13 @@
 
 ## Getting Started
 
+Install package
+
 ```bash
 yarn install
 ```
 
-## Run server
+Run server
 
 ```bash
 yarn dev
