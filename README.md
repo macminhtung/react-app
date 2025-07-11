@@ -2,6 +2,7 @@
 
 - ReactJs + Vite + Typescript + Eslint + Prettier
 - Tailwind + Shadcn UI
+- I18next + Dark mode
 - React hook form + Zod
 - React query + GraphQL(Codegen)
 
