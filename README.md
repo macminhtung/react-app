@@ -8,7 +8,7 @@
 
 ## Getting Started
 
-Install package
+Install packages
 
 ```bash
 yarn install
