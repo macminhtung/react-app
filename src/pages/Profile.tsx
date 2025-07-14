@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { useTranslation } from 'react-i18next';
 import { useZodForm } from '@/components/form/hooks';
 import { EItemFieldType } from '@/components/form/enums';
-import { useAuthContext } from '@/context/useAuthContext';
+import { useAuthSelector } from '@/context/useAuthContext';
 import { ButtonC } from '@/components/ui-customize';
 
 const profileSchema = z.object({
@@ -27,7 +27,7 @@ const uploadImage = () =>
 
 const ProfilePage = () => {
   const { t } = useTranslation();
-  const { authUser } = useAuthContext();
+  const authUser = useAuthSelector((ctx) => ctx.authUser);
 
   const { Form, ItemField } = useZodForm({ schema: profileSchema, defaultValues: authUser });
 

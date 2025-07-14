@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { z } from 'zod';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { useAuthContext } from '@/context/useAuthContext';
+import { useAuthSelector } from '@/context/useAuthContext';
 import { ROUTE_PATH } from '@/common/constants';
 import { useZodForm } from '@/components/form/hooks';
 import { EItemFieldType } from '@/components/form/enums';
@@ -25,7 +25,7 @@ const signInSchema = z.object({
 const SignInPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { setTokens } = useAuthContext();
+  const setTokens = useAuthSelector((ctx) => ctx.setTokens);
 
   const { Form, ItemField } = useZodForm({
     schema: signInSchema,

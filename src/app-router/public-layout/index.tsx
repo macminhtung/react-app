@@ -1,14 +1,15 @@
+import { memo } from 'react';
 import { Navigate } from 'react-router';
-import { useAuthContext } from '@/context/useAuthContext';
+import { useAuthSelector } from '@/context/useAuthContext';
 import { ROUTE_PATH } from '@/common/constants';
 import { AppWrapper } from '@/app-router/app-wrapper';
 
 const PublicLayout = () => {
-  const { tokens } = useAuthContext();
+  const tokens = useAuthSelector((ctx) => ctx.tokens);
 
   if (tokens.accessToken) return <Navigate to={ROUTE_PATH.DASHBOARD.ROOT} />;
 
   return <AppWrapper />;
 };
 
-export default PublicLayout;
+export default memo(PublicLayout);

@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContextSelector } from 'use-context-selector';
 import { useTranslation } from 'react-i18next';
 import { ELocalStorageKey } from '@/common/enums';
 
@@ -63,4 +63,5 @@ export const useAppContextValue = (): IAppContext => {
   return { isAppLoading, setIsAppLoading, theme, setTheme, language, setLanguage };
 };
 
-export const useAppContext = () => useContext(AppContext);
+export const useAppSelector = <T>(selector: (ctx: IAppContext) => T): T =>
+  useContextSelector(AppContext, selector);

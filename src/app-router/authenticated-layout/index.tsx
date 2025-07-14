@@ -1,14 +1,18 @@
+import { memo } from 'react';
 import { Navigate } from 'react-router';
-import { useAuthContext } from '@/context/useAuthContext';
-import { useAppContext } from '@/context/useAppContext';
+import { useAuthSelector } from '@/context/useAuthContext';
+import { useAppSelector } from '@/context/useAppContext';
 import { ROUTE_PATH } from '@/common/constants';
 import { AppWrapper } from '@/app-router/app-wrapper';
 import { useGetAuthProfileQuery } from '@/react-query/auth';
 import { AppLoading } from '@/components/AppLoading';
 
 const AuthenticatedLayout = () => {
-  const { isAppLoading, setIsAppLoading } = useAppContext();
-  const { tokens, authUser, setAuthUser } = useAuthContext();
+  const isAppLoading = useAppSelector((ctx) => ctx.isAppLoading);
+  const setIsAppLoading = useAppSelector((ctx) => ctx.setIsAppLoading);
+  const authUser = useAuthSelector((ctx) => ctx.authUser);
+  const setAuthUser = useAuthSelector((ctx) => ctx.setAuthUser);
+  const tokens = useAuthSelector((ctx) => ctx.tokens);
 
   // Get authProfile query
   useGetAuthProfileQuery(
@@ -31,4 +35,4 @@ const AuthenticatedLayout = () => {
   return <AppWrapper />;
 };
 
-export default AuthenticatedLayout;
+export default memo(AuthenticatedLayout);

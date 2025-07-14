@@ -5,8 +5,8 @@ import { ROUTE_PATH } from '@/common/constants';
 import { cn } from '@/lib/utils';
 import { manageTokens, EManageTokenType } from '@/common/funcs';
 import { MoonIcon, SunMediumIcon, Menu, UserPen, LogOut, ListX } from 'lucide-react';
-import { useAppContext, ETheme, ELanguage } from '@/context/useAppContext';
-import { useAuthContext } from '@/context/useAuthContext';
+import { useAppSelector, ETheme, ELanguage } from '@/context/useAppContext';
+import { useAuthSelector } from '@/context/useAuthContext';
 import { AvatarC, ButtonC, SelectC, SwitchC } from '@/components/ui-customize';
 import {
   DropdownMenu,
@@ -22,10 +22,16 @@ const languageOptions = Object.values(ELanguage).map((key) => ({
 }));
 
 const Header = () => {
+  const theme = useAppSelector((ctx) => ctx.theme);
+  const setTheme = useAppSelector((ctx) => ctx.setTheme);
+  const language = useAppSelector((ctx) => ctx.language);
+  const setLanguage = useAppSelector((ctx) => ctx.setLanguage);
+  const tokens = useAuthSelector((ctx) => ctx.tokens);
+  const setTokens = useAuthSelector((ctx) => ctx.setTokens);
+  const authUser = useAuthSelector((ctx) => ctx.authUser);
+
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { theme, setTheme, language, setLanguage } = useAppContext();
-  const { tokens, setTokens, authUser } = useAuthContext();
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   const isDarkMode = theme === ETheme.DARK;
