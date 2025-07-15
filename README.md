@@ -4,7 +4,7 @@
 - Tailwind + Shadcn UI
 - I18next + Dark mode
 - React hook form + Zod
-- React query + GraphQL(Codegen)
+- Zustand + React query + GraphQL(Codegen)
 
 ## Getting Started
 

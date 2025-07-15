@@ -1,11 +1,11 @@
 import { memo } from 'react';
 import { Navigate } from 'react-router';
-import { useAuthSelector } from '@/context/useAuthContext';
+import { useAuthStore } from '@/stores';
 import { ROUTE_PATH } from '@/common/constants';
 import { AppWrapper } from '@/app-router/app-wrapper';
 
 const PublicLayout = () => {
-  const tokens = useAuthSelector((ctx) => ctx.tokens);
+  const tokens = useAuthStore((state) => state.tokens);
 
   if (tokens.accessToken) return <Navigate to={ROUTE_PATH.DASHBOARD.ROOT} />;
 

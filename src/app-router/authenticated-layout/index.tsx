@@ -1,18 +1,17 @@
 import { memo } from 'react';
 import { Navigate } from 'react-router';
-import { useAuthSelector } from '@/context/useAuthContext';
-import { useAppSelector } from '@/context/useAppContext';
+import { useAppStore, useAuthStore } from '@/stores';
 import { ROUTE_PATH } from '@/common/constants';
 import { AppWrapper } from '@/app-router/app-wrapper';
 import { useGetAuthProfileQuery } from '@/react-query/auth';
 import { AppLoading } from '@/components/AppLoading';
 
 const AuthenticatedLayout = () => {
-  const isAppLoading = useAppSelector((ctx) => ctx.isAppLoading);
-  const setIsAppLoading = useAppSelector((ctx) => ctx.setIsAppLoading);
-  const authUser = useAuthSelector((ctx) => ctx.authUser);
-  const setAuthUser = useAuthSelector((ctx) => ctx.setAuthUser);
-  const tokens = useAuthSelector((ctx) => ctx.tokens);
+  const isAppLoading = useAppStore((state) => state.isAppLoading);
+  const setIsAppLoading = useAppStore((state) => state.setIsAppLoading);
+  const authUser = useAuthStore((state) => state.authUser);
+  const setAuthUser = useAuthStore((state) => state.setAuthUser);
+  const tokens = useAuthStore((state) => state.tokens);
 
   // Get authProfile query
   useGetAuthProfileQuery(

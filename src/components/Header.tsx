@@ -1,12 +1,12 @@
-import { useCallback, useState, useMemo } from 'react';
+import { useCallback, useState, useMemo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { ROUTE_PATH } from '@/common/constants';
 import { cn } from '@/lib/utils';
+import { ELocalStorageKey } from '@/common/enums';
 import { manageTokens, EManageTokenType } from '@/common/funcs';
 import { MoonIcon, SunMediumIcon, Menu, UserPen, LogOut, ListX } from 'lucide-react';
-import { useAppSelector, ETheme, ELanguage } from '@/context/useAppContext';
-import { useAuthSelector } from '@/context/useAuthContext';
+import { useAppStore, ETheme, ELanguage, useAuthStore } from '@/stores';
 import { AvatarC, ButtonC, SelectC, SwitchC } from '@/components/ui-customize';
 import {
   DropdownMenu,
@@ -22,15 +22,15 @@ const languageOptions = Object.values(ELanguage).map((key) => ({
 }));
 
 const Header = () => {
-  const theme = useAppSelector((ctx) => ctx.theme);
-  const setTheme = useAppSelector((ctx) => ctx.setTheme);
-  const language = useAppSelector((ctx) => ctx.language);
-  const setLanguage = useAppSelector((ctx) => ctx.setLanguage);
-  const tokens = useAuthSelector((ctx) => ctx.tokens);
-  const setTokens = useAuthSelector((ctx) => ctx.setTokens);
-  const authUser = useAuthSelector((ctx) => ctx.authUser);
+  const theme = useAppStore((state) => state.theme);
+  const setTheme = useAppStore((state) => state.setTheme);
+  const language = useAppStore((state) => state.language);
+  const setLanguage = useAppStore((state) => state.setLanguage);
+  const tokens = useAuthStore((state) => state.tokens);
+  const setTokens = useAuthStore((state) => state.setTokens);
+  const authUser = useAuthStore((state) => state.authUser);
 
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const navigate = useNavigate();
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
@@ -66,12 +66,33 @@ const Header = () => {
           popoverClassName='min-w-18 max-w-fit'
           value={language}
           options={languageOptions}
-          onChange={(value) => setLanguage(value)}
+          onChange={(value) => {
+            setLanguage(value);
+            i18n.changeLanguage(language);
+          }}
         />
       </div>
     ),
-    [isDarkMode, isLoggedIn, language, setLanguage, setTheme]
+    [i18n, isDarkMode, isLoggedIn, language, setLanguage, setTheme]
   );
+
+  useEffect(() => {
+    // Remove prev theme
+    const root = window.document.documentElement;
+    root.classList.remove(theme === ETheme.LIGHT ? ETheme.DARK : ETheme.LIGHT);
+
+    // Add new theme
+    root.classList.add(theme);
+
+    // Update theme to localStorage
+    localStorage.setItem(ELocalStorageKey.UI_THEME, theme);
+  }, [theme]);
+
+  useEffect(() => {
+    // Update language to localStorage
+    localStorage.setItem(ELocalStorageKey.LANGUAGE, language);
+    i18n.changeLanguage(language);
+  }, [i18n, language]);
 
   return (
     <div className='flex items-center p-3 gap-2 border-b-[1px] border-b-gray-900 h-[66px] dark:border-b-gray-300'>
