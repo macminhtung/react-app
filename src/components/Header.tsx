@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { ROUTE_PATH } from '@/common/constants';
 import { cn } from '@/lib/utils';
-import { ELocalStorageKey } from '@/common/enums';
+import { ELocalStorageKey, ETheme, ELanguage } from '@/common/enums';
 import { manageTokens, EManageTokenType } from '@/common/funcs';
 import { MoonIcon, SunMediumIcon, Menu, UserPen, LogOut, ListX } from 'lucide-react';
-import { useAppStore, ETheme, ELanguage, useAuthStore } from '@/stores';
+import { useAppStore } from '@/store';
 import { AvatarC, ButtonC, SelectC, SwitchC } from '@/components/ui-customize';
 import {
   DropdownMenu,
@@ -26,9 +26,9 @@ const Header = () => {
   const setTheme = useAppStore((state) => state.setTheme);
   const language = useAppStore((state) => state.language);
   const setLanguage = useAppStore((state) => state.setLanguage);
-  const tokens = useAuthStore((state) => state.tokens);
-  const setTokens = useAuthStore((state) => state.setTokens);
-  const authUser = useAuthStore((state) => state.authUser);
+  const tokens = useAppStore((state) => state.tokens);
+  const setTokens = useAppStore((state) => state.setTokens);
+  const authUser = useAppStore((state) => state.authUser);
 
   const { i18n, t } = useTranslation();
   const navigate = useNavigate();

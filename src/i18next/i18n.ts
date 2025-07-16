@@ -2,8 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { enTranslation } from './en';
 import { vnTranslation } from './vn';
-import { ELocalStorageKey } from '@/common/enums';
-import { ELanguage } from '@/stores';
+import { ELocalStorageKey, ELanguage } from '@/common/enums';
 
 export const I18N_RESOURCES = {
   [ELanguage.EN]: { translation: enTranslation },

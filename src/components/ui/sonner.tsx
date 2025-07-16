@@ -1,5 +1,5 @@
 import { Toaster as Sonner, ToasterProps } from 'sonner';
-import { useAppStore } from '@/stores';
+import { useAppStore } from '@/store';
 
 const Toaster = ({ ...props }: ToasterProps) => {
   const theme = useAppStore((state) => state.theme);
