@@ -11,9 +11,9 @@ export const useProcessUseQueryFuncs = <R>(
 
   useEffect(() => {
     if (enabled) {
-      if (onLoading) onLoading(result.isLoading);
-      if (onSuccess && result.isSuccess) onSuccess(result.data);
-      if (onError && result.isError) onError(result.error);
+      if (onLoading) onLoading(result.isFetching);
+      if (onSuccess && !result.isFetching && result.isSuccess) onSuccess(result.data);
+      if (onError && !result.isFetching && result.isError) onError(result.error);
     }
   }, [enabled, onError, onLoading, onSuccess, result]);
 
