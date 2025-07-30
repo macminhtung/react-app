@@ -1,35 +1,41 @@
 import { DetailedHTMLProps, FormHTMLAttributes, useCallback } from 'react';
-import { useForm } from 'react-hook-form';
+import {
+  useForm,
+  FormProvider,
+  DefaultValues,
+  FieldValues,
+  SubmitHandler,
+  UseFormProps,
+} from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { FormFieldC, type TItemFieldC } from '@/components/form';
+import type { ZodSchema } from 'zod';
 
-import type { DefaultValues, UseFormProps } from 'react-hook-form';
-import { FormProvider } from '@/components/ui';
-import { FormFieldC, TItemFieldC, TZodSchema } from '@/components/form';
-import { z } from 'zod';
-
-type TUseFormC<T extends TZodSchema> = {
-  schema: T;
-  defaultValues?: DefaultValues<z.infer<T>>;
-  values?: z.infer<T>;
-} & UseFormProps;
-
-type TFormProps<T extends TZodSchema> = Omit<
+type TFormProps<T extends FieldValues> = Omit<
   DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>,
   'onSubmit'
-> & { onSubmit: (values: z.infer<T>) => void };
+> & { onSubmit: SubmitHandler<T | FieldValues> };
 
-export const useZodForm = <T extends TZodSchema>(props: TUseFormC<T>) => {
+export const useZodForm = <T extends FieldValues>(
+  props: {
+    schema: ZodSchema<T>;
+    defaultValues?: DefaultValues<T>;
+    values: T;
+  } & UseFormProps<T>
+) => {
   const { schema, mode = 'onBlur', ...rest } = props;
-  const methods = useForm({ resolver: zodResolver(schema), mode, ...rest });
+
+  const methods = useForm<T, unknown, T>({ resolver: zodResolver(schema), mode, ...rest });
 
   const ItemField = useCallback(
-    (props: TItemFieldC<T>) => FormFieldC({ ...props, control: methods.control, schema }),
+    (itemProps: TItemFieldC<T>) =>
+      FormFieldC<T>({ ...itemProps, control: methods.control, schema }),
     [methods.control, schema]
   );
 
   const Form = useCallback(
-    (props: TFormProps<T>) => {
-      const { onSubmit, ...rest } = props;
+    (formProps: TFormProps<T>) => {
+      const { onSubmit, ...rest } = formProps;
       return (
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)} {...rest} />

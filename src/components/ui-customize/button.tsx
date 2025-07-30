@@ -11,7 +11,7 @@ type TButtonProps = TOriginButtonProps & {
 export function ButtonC(props: TButtonProps) {
   const { className, loading, children, spinClassName, ...rest } = props;
   return (
-    <Button className={cn('cursor-pointer h-10', className)} {...rest}>
+    <Button type='button' className={cn('cursor-pointer h-10', className)} {...rest}>
       {loading && <Loader2 className={cn('animate-spin', spinClassName)} />}
       {children}
     </Button>

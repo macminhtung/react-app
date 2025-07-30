@@ -1,8 +1,10 @@
 import { useState, type ComponentProps } from 'react';
+import { z } from 'zod';
+import { X, Plus } from 'lucide-react';
+import { useFieldArray } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { TableC, DialogC, ButtonC } from '@/components/ui-customize';
 import { useZodForm } from '@/components/form/hooks';
-import { z } from 'zod';
-import { useTranslation } from 'react-i18next';
 import { EItemFieldType } from '@/components/form/enums';
 
 const records = [
@@ -43,9 +45,14 @@ const options = [
   { label: 'Option4', value: 'Option4' },
 ];
 
-const formSchema = z.object({
+const itemSchema = z.object({
+  input: z.string().min(1, 'Required'),
   select: z.string(),
   multiSelect: z.array(z.string()),
+});
+
+const formSchema = z.object({
+  items: z.array(itemSchema).min(1, 'At least one item is required'),
 });
 
 const ComponentsPage = () => {
@@ -59,9 +66,14 @@ const ComponentsPage = () => {
   >([]);
   const [isOpen, setIsOpen] = useState(false);
 
-  const { Form, ItemField } = useZodForm({
+  const { methods, Form, ItemField } = useZodForm({
     schema: formSchema,
-    defaultValues: { select: 'Option1', multiSelect: [] },
+    values: { items: [{ input: '', select: 'Option1', multiSelect: [] }] },
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control: methods.control,
+    name: 'items',
   });
 
   return (
@@ -98,19 +110,53 @@ const ComponentsPage = () => {
           onSubmit={(values) => console.log(values)}
           className='grid gap-6 w-full max-w-[20rem]'
         >
-          <ItemField
-            iType={EItemFieldType.SELECT}
-            label={'SELECT'}
-            fieldName='select'
-            iProps={{ options, className: 'w-full', onSearch: (e) => console.log(e.target.value) }}
-          />
+          {fields.map((field, idx) => (
+            <div key={field.id} className='flex p-5 rounded-md border gap-5 items-start relative'>
+              <ItemField
+                iType={EItemFieldType.INPUT}
+                label={'INPUT'}
+                fieldName={`items.${idx}.input`}
+                iProps={{ className: 'w-50', autoFocus: false }}
+              />
 
-          <ItemField
-            iType={EItemFieldType.MULTI_SELECT}
-            label={'MULTI_SELECT'}
-            fieldName='multiSelect'
-            iProps={{ options, onSearch: () => null }}
-          />
+              <ItemField
+                iType={EItemFieldType.SELECT}
+                label={'SELECT'}
+                fieldName={`items.${idx}.select`}
+                iProps={{
+                  options,
+                  className: 'w-full',
+                  onSearch: (e) => console.log(e.target.value),
+                }}
+              />
+
+              <ItemField
+                iType={EItemFieldType.MULTI_SELECT}
+                label={'MULTI_SELECT'}
+                fieldName={`items.${idx}.multiSelect`}
+                iProps={{ options, onSearch: () => null }}
+              />
+
+              {fields.length > 1 && (
+                <ButtonC
+                  onClick={() => remove(idx)}
+                  variant='ghost'
+                  className='absolute right-1 top-1 size-8'
+                >
+                  <X className='size-5 text-red-500' />
+                </ButtonC>
+              )}
+            </div>
+          ))}
+
+          <ButtonC
+            onClick={() => append({ input: '', select: 'Option1', multiSelect: [] })}
+            variant='outline'
+            className=''
+          >
+            <Plus />
+            <span>Add</span>
+          </ButtonC>
 
           <ButtonC type='submit'>{t('common.submit')}</ButtonC>
         </Form>
