@@ -78,6 +78,7 @@ const ComponentsPage = () => {
       <div className='flex flex-col'>
         <p className='font-bold mb-2'>Table</p>
         <TableC
+          rowRecords={records}
           headers={[
             { key: 'id', title: 'ID', width: 150 },
             { key: 'name', title: 'Name' },
@@ -87,7 +88,6 @@ const ComponentsPage = () => {
           ]}
           className='[&>div]:max-h-[200px]'
           rowKey='id'
-          rowRecords={records}
           pagination={{ ...pagination, total: 100, setPagination }}
           selectMode={{ selectedRecords, setSelectedRecords }}
         />
