@@ -108,15 +108,18 @@ const ComponentsPage = () => {
         <p className='font-bold mb-2'>Form</p>
         <Form
           onSubmit={(values) => console.log(values)}
-          className='grid gap-6 w-full max-w-[20rem]'
+          className='grid gap-6 w-full max-w-[40rem] max-md:items-center'
         >
           {fields.map((field, idx) => (
-            <div key={field.id} className='flex p-5 rounded-md border gap-5 items-start relative'>
+            <div
+              key={field.id}
+              className='flex w-full p-5 rounded-md border gap-5 items-start relative max-md:flex-col max-md:items-center max-md:[&>div]:w-full'
+            >
               <ItemField
                 iType={EItemFieldType.INPUT}
                 label={'INPUT'}
                 fieldName={`items.${idx}.input`}
-                iProps={{ className: 'w-50', autoFocus: false }}
+                iProps={{ className: 'w-50 max-md:w-full', autoFocus: false }}
               />
 
               <ItemField
