@@ -28,9 +28,8 @@ export const useZodForm = <T extends FieldValues>(props: TUseZodForm<T>) => {
   const methods = useForm<T, unknown, T>({ resolver: zodResolver(schema), mode, ...rest });
 
   const ItemField = useCallback(
-    (itemProps: TItemFieldC<T>) =>
-      FormFieldC<T>({ ...itemProps, control: methods.control, schema }),
-    [methods.control, schema]
+    (itemProps: TItemFieldC<T>) => FormFieldC<T>({ ...itemProps, control: methods.control }),
+    [methods.control]
   );
 
   const Form = useCallback(

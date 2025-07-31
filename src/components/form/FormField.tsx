@@ -1,6 +1,5 @@
 import type { ElementType, ComponentProps } from 'react';
 import type { Control, FieldPath, FieldValues } from 'react-hook-form';
-import type { ZodSchema } from 'zod';
 import {
   FormControl,
   FormDescription,
@@ -38,18 +37,6 @@ type TItemProps =
   | { iType: EItemFieldType.RANGE_DATE_PICKER; iProps?: ComponentProps<typeof RangeDatePickerC> }
   | { iType: EItemFieldType.UPLOAD_IMAGE; iProps?: ComponentProps<typeof UploadImageC> };
 
-export type TItemFieldC<T extends FieldValues> = TItemProps & {
-  className?: string;
-  label: string;
-  fieldName: FieldPath<T>;
-  itemFieldDescription?: string;
-};
-
-type TFormFieldC<T extends FieldValues> = TItemFieldC<T> & {
-  control: Control<T, unknown, T>;
-  schema: ZodSchema<T>;
-};
-
 const ITEM_FIELDS_MAP = {
   [EItemFieldType.INPUT]: InputC,
   [EItemFieldType.PASSWORD]: PasswordC,
@@ -62,6 +49,17 @@ const ITEM_FIELDS_MAP = {
   [EItemFieldType.DATE_PICKER]: DatePickerC,
   [EItemFieldType.RANGE_DATE_PICKER]: RangeDatePickerC,
   [EItemFieldType.UPLOAD_IMAGE]: UploadImageC,
+};
+
+export type TItemFieldC<T extends FieldValues> = TItemProps & {
+  className?: string;
+  label: string;
+  fieldName: FieldPath<T>;
+  itemFieldDescription?: string;
+};
+
+type TFormFieldC<T extends FieldValues> = TItemFieldC<T> & {
+  control: Control<T, unknown, T>;
 };
 
 export const FormFieldC = <T extends FieldValues>(props: TFormFieldC<T>) => {

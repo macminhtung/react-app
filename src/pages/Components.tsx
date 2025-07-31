@@ -114,61 +114,64 @@ const ComponentsPage = () => {
         />
       </div>
       <div className='flex flex-col'>
-        <p className='font-bold mb-2'>Form</p>
+        <p className='font-bold mb-2 text-xl'>FORM</p>
         <Form
           onSubmit={(values) => console.log(values)}
           className='grid gap-6 w-full max-w-[40rem] max-md:items-center'
         >
-          {fields.map((field, idx) => (
-            <div
-              key={field.id}
-              className='flex w-full p-5 rounded-md border gap-5 items-start relative max-md:flex-col max-md:items-center max-md:[&>div]:w-full'
+          <div className='flex flex-col p-6 rounded-md border'>
+            <p className='font-medium mb-3'>Items</p>
+            {fields.map((field, idx) => (
+              <div
+                key={field.id}
+                className='flex w-full p-5 rounded-md border gap-5 items-start relative mb-5 max-md:flex-col max-md:items-center max-md:[&>div]:w-full'
+              >
+                <ItemField
+                  iType={EItemFieldType.INPUT}
+                  label={'INPUT'}
+                  fieldName={`items.${idx}.input`}
+                  iProps={{ className: 'w-50 max-md:w-full' }}
+                />
+
+                <ItemField
+                  iType={EItemFieldType.SELECT}
+                  label={'SELECT'}
+                  fieldName={`items.${idx}.select`}
+                  iProps={{
+                    options,
+                    className: 'w-full',
+                    onSearch: (e) => console.log(e.target.value),
+                  }}
+                />
+
+                <ItemField
+                  iType={EItemFieldType.MULTI_SELECT}
+                  label={'MULTI_SELECT'}
+                  fieldName={`items.${idx}.multiSelect`}
+                  iProps={{ options, onSearch: () => null }}
+                />
+
+                {fields.length > 1 && (
+                  <ButtonC
+                    onClick={() => remove(idx)}
+                    variant='ghost'
+                    className='absolute right-1 top-1 size-8'
+                  >
+                    <X className='size-5 text-red-500' />
+                  </ButtonC>
+                )}
+              </div>
+            ))}
+
+            <ButtonC
+              onClick={() => append({ input: '', select: 'Option1', multiSelect: [] })}
+              variant='outline'
+              className=''
             >
-              <ItemField
-                iType={EItemFieldType.INPUT}
-                label={'INPUT'}
-                fieldName={`items.${idx}.input`}
-                iProps={{ className: 'w-50 max-md:w-full', autoFocus: false }}
-              />
-
-              <ItemField
-                iType={EItemFieldType.SELECT}
-                label={'SELECT'}
-                fieldName={`items.${idx}.select`}
-                iProps={{
-                  options,
-                  className: 'w-full',
-                  onSearch: (e) => console.log(e.target.value),
-                }}
-              />
-
-              <ItemField
-                iType={EItemFieldType.MULTI_SELECT}
-                label={'MULTI_SELECT'}
-                fieldName={`items.${idx}.multiSelect`}
-                iProps={{ options, onSearch: () => null }}
-              />
-
-              {fields.length > 1 && (
-                <ButtonC
-                  onClick={() => remove(idx)}
-                  variant='ghost'
-                  className='absolute right-1 top-1 size-8'
-                >
-                  <X className='size-5 text-red-500' />
-                </ButtonC>
-              )}
-            </div>
-          ))}
-
-          <ButtonC
-            onClick={() => append({ input: '', select: 'Option1', multiSelect: [] })}
-            variant='outline'
-            className=''
-          >
-            <Plus />
-            <span>Add</span>
-          </ButtonC>
+              <Plus />
+              <span>Add</span>
+            </ButtonC>
+          </div>
 
           <ItemField
             iType={EItemFieldType.INPUT}
@@ -178,7 +181,7 @@ const ComponentsPage = () => {
           />
 
           <ItemField
-            iType={EItemFieldType.INPUT}
+            iType={EItemFieldType.TEXTAREA}
             label={'KEY2'}
             fieldName={'object.key2'}
             iProps={{ className: 'w-full' }}
