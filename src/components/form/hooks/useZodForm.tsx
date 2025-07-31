@@ -1,4 +1,6 @@
-import { DetailedHTMLProps, FormHTMLAttributes, useCallback } from 'react';
+import { useCallback } from 'react';
+import type { DetailedHTMLProps, FormHTMLAttributes } from 'react';
+import type { ZodSchema } from 'zod';
 import {
   useForm,
   FormProvider,
@@ -9,20 +11,19 @@ import {
 } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormFieldC, type TItemFieldC } from '@/components/form';
-import type { ZodSchema } from 'zod';
 
 type TFormProps<T extends FieldValues> = Omit<
   DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>,
   'onSubmit'
 > & { onSubmit: SubmitHandler<T | FieldValues> };
 
-export const useZodForm = <T extends FieldValues>(
-  props: {
-    schema: ZodSchema<T>;
-    defaultValues?: DefaultValues<T>;
-    values: T;
-  } & UseFormProps<T>
-) => {
+type TUseZodForm<T extends FieldValues> = UseFormProps<T> & {
+  schema: ZodSchema<T>;
+  defaultValues?: DefaultValues<T>;
+  values?: T;
+};
+
+export const useZodForm = <T extends FieldValues>(props: TUseZodForm<T>) => {
   const { schema, mode = 'onBlur', ...rest } = props;
   const methods = useForm<T, unknown, T>({ resolver: zodResolver(schema), mode, ...rest });
 

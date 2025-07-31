@@ -1,6 +1,6 @@
 import type { ElementType, ComponentProps } from 'react';
-import { type Control, FieldPath, FieldValues } from 'react-hook-form';
-import { z } from 'zod';
+import type { Control, FieldPath, FieldValues } from 'react-hook-form';
+import type { ZodSchema } from 'zod';
 import {
   FormControl,
   FormDescription,
@@ -47,7 +47,7 @@ export type TItemFieldC<T extends FieldValues> = TItemProps & {
 
 type TFormFieldC<T extends FieldValues> = TItemFieldC<T> & {
   control: Control<T, unknown, T>;
-  schema: z.ZodSchema<T>;
+  schema: ZodSchema<T>;
 };
 
 const ITEM_FIELDS_MAP = {
