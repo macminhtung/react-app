@@ -1,6 +1,6 @@
 import type { ElementType, ComponentProps } from 'react';
-import { z } from 'zod';
 import { type Control, FieldPath, FieldValues } from 'react-hook-form';
+import { z } from 'zod';
 import {
   FormControl,
   FormDescription,
@@ -66,9 +66,8 @@ const ITEM_FIELDS_MAP = {
 
 export const FormFieldC = <T extends FieldValues>(props: TFormFieldC<T>) => {
   const { iType, control, className, fieldName, label, iProps, itemFieldDescription } = props;
-
-  const ItemField: ElementType = ITEM_FIELDS_MAP[iType];
   const isHorizontal = [EItemFieldType.CHECK_BOX, EItemFieldType.SWITCH].includes(iType);
+  const ItemField: ElementType = ITEM_FIELDS_MAP[iType];
 
   return (
     <FormField

@@ -24,7 +24,6 @@ export const useZodForm = <T extends FieldValues>(
   } & UseFormProps<T>
 ) => {
   const { schema, mode = 'onBlur', ...rest } = props;
-
   const methods = useForm<T, unknown, T>({ resolver: zodResolver(schema), mode, ...rest });
 
   const ItemField = useCallback(
@@ -34,14 +33,11 @@ export const useZodForm = <T extends FieldValues>(
   );
 
   const Form = useCallback(
-    (formProps: TFormProps<T>) => {
-      const { onSubmit, ...rest } = formProps;
-      return (
-        <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(onSubmit)} {...rest} />
-        </FormProvider>
-      );
-    },
+    ({ onSubmit, ...rest }: TFormProps<T>) => (
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(onSubmit)} {...rest} />
+      </FormProvider>
+    ),
     [methods]
   );
 

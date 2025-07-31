@@ -45,14 +45,20 @@ const options = [
   { label: 'Option4', value: 'Option4' },
 ];
 
-const itemSchema = z.object({
-  input: z.string().min(1, 'Required'),
-  select: z.string(),
-  multiSelect: z.array(z.string()),
-});
-
 const formSchema = z.object({
-  items: z.array(itemSchema).min(1, 'At least one item is required'),
+  items: z
+    .array(
+      z.object({
+        input: z.string().min(1, 'Required'),
+        select: z.string(),
+        multiSelect: z.array(z.string()),
+      })
+    )
+    .min(1, 'At least one item is required'),
+  object: z.object({
+    key1: z.string().min(1, 'Required'),
+    key2: z.string(),
+  }),
 });
 
 const ComponentsPage = () => {
@@ -68,7 +74,10 @@ const ComponentsPage = () => {
 
   const { methods, Form, ItemField } = useZodForm({
     schema: formSchema,
-    values: { items: [{ input: '', select: 'Option1', multiSelect: [] }] },
+    values: {
+      items: [{ input: '', select: 'Option1', multiSelect: [] }],
+      object: { key1: '', key2: '' },
+    },
   });
 
   const { fields, append, remove } = useFieldArray({
@@ -160,6 +169,20 @@ const ComponentsPage = () => {
             <Plus />
             <span>Add</span>
           </ButtonC>
+
+          <ItemField
+            iType={EItemFieldType.INPUT}
+            label={'KEY1'}
+            fieldName={'object.key1'}
+            iProps={{ className: 'w-full' }}
+          />
+
+          <ItemField
+            iType={EItemFieldType.INPUT}
+            label={'KEY2'}
+            fieldName={'object.key2'}
+            iProps={{ className: 'w-full' }}
+          />
 
           <ButtonC type='submit'>{t('common.submit')}</ButtonC>
         </Form>
