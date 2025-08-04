@@ -3,7 +3,7 @@ import { Navigate } from 'react-router';
 import { useAppStore } from '@/store';
 import { ROUTE_PATH } from '@/common/constants';
 import { AppWrapper } from '@/app-router/app-wrapper';
-import { useGetAuthProfileQuery } from '@/react-query/auth';
+import { useGetProfileQuery } from '@/react-query/auth';
 import { AppLoading } from '@/components/AppLoading';
 
 const AuthenticatedLayout = () => {
@@ -11,23 +11,20 @@ const AuthenticatedLayout = () => {
   const setIsAppLoading = useAppStore((state) => state.setIsAppLoading);
   const authUser = useAppStore((state) => state.authUser);
   const setAuthUser = useAppStore((state) => state.setAuthUser);
-  const tokens = useAppStore((state) => state.tokens);
+  const accessToken = useAppStore((state) => state.accessToken);
 
   // Get authProfile query
-  useGetAuthProfileQuery(
+  useGetProfileQuery(
     {},
     {
-      onSuccess: (data) => {
-        const { avatar, ...rest } = data.getAuthProfile;
-        setAuthUser({ avatar: avatar || '', ...rest });
-      },
+      onSuccess: (data) => setAuthUser(data.getProfile),
       onLoading: (isLoading) => setIsAppLoading(isLoading),
-      enabled: !!tokens.accessToken && !authUser.email,
+      enabled: !!accessToken && !authUser.email,
     }
   );
 
   // CASE: UN-LOGGED ==> Navigate to signIn page
-  if (!tokens.accessToken) return <Navigate to={ROUTE_PATH.SIGNIN} />;
+  if (!accessToken) return <Navigate to={ROUTE_PATH.SIGNIN} />;
 
   if (isAppLoading) return <AppLoading />;
 

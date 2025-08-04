@@ -3,24 +3,22 @@ import { gql } from 'graphql-request';
 import { request } from '@/react-query/request';
 import { useProcessUseQueryFuncs } from '@/common/hooks';
 import type { TUseQueryOptions } from '@/react-query/types';
-import type { GetAuthProfileQueryVariables, GetAuthProfileQuery } from '@/gql/graphql';
+import type { GetProfileQueryVariables, GetProfileQuery } from '@/gql/graphql';
 
 const document = gql`
-  query GetAuthProfile {
-    getAuthProfile {
+  query GetProfile {
+    getProfile {
       id
       email
       firstName
       lastName
       avatar
+      roleId
     }
   }
 `;
 
-export const useGetAuthProfileQuery = <
-  V extends GetAuthProfileQueryVariables,
-  R extends GetAuthProfileQuery,
->(
+export const useGetProfileQuery = <V extends GetProfileQueryVariables, R extends GetProfileQuery>(
   variables: V,
   options?: TUseQueryOptions<R>,
   queryClient?: QueryClient
@@ -28,7 +26,7 @@ export const useGetAuthProfileQuery = <
   useProcessUseQueryFuncs<R>(
     useQuery(
       {
-        queryKey: ['useGetAuthProfileQuery', variables],
+        queryKey: ['useGetProfileQuery', variables],
         queryFn: () => request<R>({ document, variables }),
         ...options,
       },

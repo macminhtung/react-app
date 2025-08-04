@@ -1,2 +1,3 @@
 export * from './useSignInMutation';
-export * from './useGetAuthProfileQuery';
+export * from './useSignOutMutation';
+export * from './useGetProfileQuery';

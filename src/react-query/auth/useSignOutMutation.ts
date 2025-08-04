@@ -2,23 +2,20 @@ import { useMutation, QueryClient } from '@tanstack/react-query';
 import { gql } from 'graphql-request';
 import { request } from '@/react-query/request';
 import type { TUseMutationOptions } from '@/react-query/types';
-import type { SignInMutationVariables, SignInMutation } from '@/gql/graphql';
 
 const document = gql`
-  mutation SignIn($payload: SignInDto!) {
-    signIn(payload: $payload) {
-      accessToken
-    }
+  mutation SignOut {
+    signOut
   }
 `;
 
-export const useSignInMutation = <V extends SignInMutationVariables, R extends SignInMutation>(
+export const useSignOutMutation = <V extends undefined, R extends number>(
   options?: TUseMutationOptions<V, R>,
   queryClient?: QueryClient
 ) =>
   useMutation(
     {
-      mutationKey: ['useSignInMutation'],
+      mutationKey: ['useSignOutMutation'],
       mutationFn: (variables: V) => request<R>({ document, variables }),
       ...options,
     },

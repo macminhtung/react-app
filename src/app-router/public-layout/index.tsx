@@ -5,9 +5,9 @@ import { ROUTE_PATH } from '@/common/constants';
 import { AppWrapper } from '@/app-router/app-wrapper';
 
 const PublicLayout = () => {
-  const tokens = useAppStore((state) => state.tokens);
+  const accessToken = useAppStore((state) => state.accessToken);
 
-  if (tokens.accessToken) return <Navigate to={ROUTE_PATH.DASHBOARD.ROOT} />;
+  if (accessToken) return <Navigate to={ROUTE_PATH.DASHBOARD.ROOT} />;
 
   return <AppWrapper />;
 };

@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router';
 import { ROUTE_PATH } from '@/common/constants';
 import { cn } from '@/lib/utils';
 import { ELocalStorageKey, ETheme, ELanguage } from '@/common/enums';
-import { manageTokens, EManageTokenType } from '@/common/funcs';
+import { manageAccessToken, EManageTokenType } from '@/common/funcs';
 import { MoonIcon, SunMediumIcon, Menu, UserPen, LogOut, ListX } from 'lucide-react';
-import { useAppStore } from '@/store';
+import { useAppStore, initAuthUser } from '@/store';
+import { useSignOutMutation } from '@/react-query/auth';
 import { AvatarC, ButtonC, SelectC, SwitchC } from '@/components/ui-customize';
 import {
   DropdownMenu,
@@ -26,29 +27,35 @@ const Header = () => {
   const setTheme = useAppStore((state) => state.setTheme);
   const language = useAppStore((state) => state.language);
   const setLanguage = useAppStore((state) => state.setLanguage);
-  const tokens = useAppStore((state) => state.tokens);
-  const setTokens = useAppStore((state) => state.setTokens);
   const authUser = useAppStore((state) => state.authUser);
+  const setAuthUser = useAppStore((state) => state.setAuthUser);
+  const setAccessToken = useAppStore((state) => state.setAccessToken);
 
   const { i18n, t } = useTranslation();
   const navigate = useNavigate();
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   const isDarkMode = theme === ETheme.DARK;
-  const isLoggedIn = !!tokens.accessToken;
 
-  const signOut = useCallback(() => {
-    const noneTokens = { accessToken: '', refreshToken: '' };
-    setTokens(noneTokens);
-    manageTokens({ type: EManageTokenType.SET, ...noneTokens });
-  }, [setTokens]);
+  // Remove accessToken
+  const removeAccessToken = useCallback(() => {
+    setAccessToken('');
+    setAuthUser(initAuthUser);
+    manageAccessToken({ type: EManageTokenType.SET, accessToken: '' });
+  }, [setAccessToken, setAuthUser]);
+
+  // Handle signOut
+  const signOutMutation = useSignOutMutation({
+    onSuccess: () => removeAccessToken(),
+    onError: () => removeAccessToken(),
+  });
 
   const themeAndLang = useMemo(
     () => (
       <div
         className={cn(
           'flex items-center justify-center gap-4 pb-4 my-1',
-          isLoggedIn && 'border-b border-primary'
+          authUser.id && 'border-b border-primary'
         )}
       >
         <SwitchC
@@ -73,7 +80,7 @@ const Header = () => {
         />
       </div>
     ),
-    [i18n, isDarkMode, isLoggedIn, language, setLanguage, setTheme]
+    [i18n, isDarkMode, authUser.id, language, setLanguage, setTheme]
   );
 
   useEffect(() => {
@@ -102,7 +109,7 @@ const Header = () => {
         onClick={() => navigate(ROUTE_PATH.ROOT)}
       />
       <div className='flex items-center gap-4 ml-auto'>
-        {isLoggedIn ? (
+        {authUser.id ? (
           // # ============== #
           // # ==> LOGGED <== #
           // # ============== #
@@ -127,7 +134,10 @@ const Header = () => {
                   <UserPen className='scale-[1.3] mr-2 text-primary' />
                   <span>{t('common.profile')}</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={signOut}>
+                <DropdownMenuItem
+                  onClick={() => signOutMutation.mutate(undefined)}
+                  disabled={signOutMutation.isPending}
+                >
                   <LogOut className='scale-[1.2] mr-2 text-primary' />
                   <span>{t('common.signOut')}</span>
                 </DropdownMenuItem>

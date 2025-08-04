@@ -1,19 +1,23 @@
 import { create } from 'zustand';
 import { ELocalStorageKey, ETheme, ELanguage } from '@/common/enums';
-import { manageTokens, EManageTokenType } from '@/common/funcs';
+import { manageAccessToken, EManageTokenType } from '@/common/funcs';
 
-type TAuthUser = {
+export type TAuthUser = {
+  id: string;
   avatar: string;
   email: string;
   firstName: string;
   lastName: string;
+  roleId: number;
 };
 
-const initAuthUser: TAuthUser = {
+export const initAuthUser: TAuthUser = {
+  id: '',
   avatar: '',
   email: '',
   firstName: '',
   lastName: '',
+  roleId: 0,
 };
 
 type TAppState = {
@@ -23,8 +27,8 @@ type TAppState = {
   setTheme: (theme: ETheme) => void;
   language: ELanguage | string;
   setLanguage: (language: ELanguage | string) => void;
-  tokens: { accessToken: string; refreshToken: string };
-  setTokens: (tokens: { accessToken: string; refreshToken: string }) => void;
+  accessToken: string;
+  setAccessToken: (token: string) => void;
   authUser: TAuthUser;
   setAuthUser: (authUser: TAuthUser) => void;
 };
@@ -38,8 +42,8 @@ export const useAppStore = create<TAppState>((set) => ({
   language:
     localStorage.getItem(ELocalStorageKey.LANGUAGE) === ELanguage.EN ? ELanguage.EN : ELanguage.VN,
   setLanguage: (language) => set({ language }),
-  tokens: manageTokens({ type: EManageTokenType.GET }),
-  setTokens: (tokens) => set({ tokens }),
+  accessToken: manageAccessToken({ type: EManageTokenType.GET }),
+  setAccessToken: (tokens) => set({ accessToken: tokens }),
   authUser: initAuthUser,
   setAuthUser: (authUser) => set({ authUser }),
 }));

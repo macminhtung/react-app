@@ -1,19 +1,12 @@
-import {
-  Variables,
-  request as originRequest,
-  RequestOptions,
-  ClientError,
-  gql,
-} from 'graphql-request';
+import { Variables, RequestOptions, ClientError, gql, GraphQLClient } from 'graphql-request';
 import {
   showToastError,
-  manageTokens,
+  manageAccessToken,
   EManageTokenType,
   clearTokensAndNavigateSignInPage,
 } from '@/common/funcs';
-import type { RefreshTokenMutationVariables, RefreshTokenMutation } from '@/gql/graphql';
+import type { RefreshTokenMutation, RefreshTokenMutationVariables } from '@/gql/graphql';
 
-const API_URL = `${import.meta.env.VITE_APP_API}/graphql`;
 const JWT_ERRORS = {
   EXPIRED: 'jwt expired',
   INVALID_TOKEN: 'invalid token',
@@ -29,19 +22,23 @@ const refreshTokenDocument = gql`
   mutation RefreshToken($payload: RefreshTokenDto!) {
     refreshToken(payload: $payload) {
       accessToken
-      refreshToken
     }
   }
 `;
 
+const client = new GraphQLClient(`${import.meta.env.VITE_APP_API}/graphql`, {
+  credentials: 'include',
+  mode: 'cors',
+});
+
 export const request = <R>(options: RequestOptions<Variables, R>) => {
-  const accessToken = manageTokens({ type: EManageTokenType.GET }).accessToken;
+  const accessToken = manageAccessToken({ type: EManageTokenType.GET });
   return (
-    originRequest({
-      ...options,
-      url: API_URL,
-      requestHeaders: { authorization: accessToken ? `Bearer ${accessToken}` : '' },
-    })
+    client
+      .request({
+        ...options,
+        requestHeaders: { authorization: accessToken ? `Bearer ${accessToken}` : '' },
+      })
       // Handle error
       .catch((error: ClientError) => {
         // Identify the error message
@@ -49,29 +46,28 @@ export const request = <R>(options: RequestOptions<Variables, R>) => {
 
         // CASE: JWT Expired ==> Refresh accessToken ==> Recall API
         if (errorMessage === JWT_ERRORS.EXPIRED) {
-          const refreshToken = manageTokens({ type: EManageTokenType.GET }).refreshToken;
           return (
-            originRequest<RefreshTokenMutation, RefreshTokenMutationVariables>({
-              url: API_URL,
-              document: refreshTokenDocument,
-              variables: { payload: { refreshToken } },
-            })
-              // CASE: Update new refreshToken & accessToken
-              .then(({ refreshToken: newTokens }) => {
+            client
+              .request<RefreshTokenMutation, RefreshTokenMutationVariables>({
+                document: refreshTokenDocument,
+                variables: { payload: { accessToken } },
+              })
+              // CASE: Update new accessToken & accessToken
+              .then(({ refreshToken: { accessToken: newAccessToken } }) => {
                 // Set new tokens
-                manageTokens({ type: EManageTokenType.SET, ...newTokens });
+                manageAccessToken({ type: EManageTokenType.SET, accessToken: newAccessToken });
 
                 // Recall the API with new accessToken
                 return (
-                  originRequest({
-                    ...options,
-                    url: API_URL,
-                    requestHeaders: { authorization: `Bearer ${newTokens.accessToken}` },
-                  })
+                  client
+                    .request({
+                      ...options,
+                      requestHeaders: { authorization: `Bearer ${newAccessToken}` },
+                    })
                     // CASE: Invalid refresh token ==> Show toast error
-                    .catch((reError) => {
+                    .catch((reCallError) => {
                       // Identify the re-error message
-                      const reErrorMessage = reError.response.errors?.[0]?.message || '';
+                      const reErrorMessage = reCallError.response.errors?.[0]?.message || '';
 
                       // CASE: JWT invalid
                       if (isJwtInvalid(reErrorMessage))
@@ -81,10 +77,19 @@ export const request = <R>(options: RequestOptions<Variables, R>) => {
                         });
 
                       // Show toast error
-                      showToastError(reError);
+                      showToastError(reCallError);
                       throw null;
                     })
                 );
+              })
+
+              // CASE: Refresh token error
+              .catch((refreshError) => {
+                showToastError(refreshError, {
+                  duration: 1500,
+                  onAutoClose: () => clearTokensAndNavigateSignInPage(),
+                });
+                throw null;
               })
           );
         }

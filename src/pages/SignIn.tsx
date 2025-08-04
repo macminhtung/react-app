@@ -8,7 +8,7 @@ import { useZodForm } from '@/components/form/hooks';
 import { EItemFieldType } from '@/components/form/enums';
 import { ButtonC } from '@/components/ui-customize';
 import { useSignInMutation } from '@/react-query/auth';
-import { manageTokens, EManageTokenType } from '@/common/funcs';
+import { manageAccessToken, EManageTokenType } from '@/common/funcs';
 
 const signInSchema = z.object({
   email: z
@@ -25,7 +25,7 @@ const signInSchema = z.object({
 const SignInPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const setTokens = useAppStore((state) => state.setTokens);
+  const setAccessToken = useAppStore((state) => state.setAccessToken);
 
   const { Form, ItemField } = useZodForm({
     schema: signInSchema,
@@ -33,9 +33,9 @@ const SignInPage = () => {
   });
 
   const { mutateAsync, isPending } = useSignInMutation({
-    onSuccess: (data) => {
-      setTokens(data.signIn);
-      manageTokens({ type: EManageTokenType.SET, ...data.signIn });
+    onSuccess: ({ signIn: { accessToken } }) => {
+      setAccessToken(accessToken);
+      manageAccessToken({ type: EManageTokenType.SET, accessToken });
       navigate(ROUTE_PATH.DASHBOARD.ROOT);
     },
   });

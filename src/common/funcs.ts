@@ -21,7 +21,7 @@ export const showToastError = (
   });
 
 export const clearTokensAndNavigateSignInPage = () => {
-  manageTokens({ type: EManageTokenType.SET, refreshToken: '', accessToken: '' });
+  manageAccessToken({ type: EManageTokenType.SET, accessToken: '' });
   window.location.href = ROUTE_PATH.SIGNIN;
 };
 
@@ -30,24 +30,17 @@ export enum EManageTokenType {
   SET = 'SET',
 }
 
-export const manageTokens = (
-  payload:
-    | { type: EManageTokenType.GET }
-    | { type: EManageTokenType.SET; refreshToken: string; accessToken: string }
+export const manageAccessToken = (
+  payload: { type: EManageTokenType.GET } | { type: EManageTokenType.SET; accessToken: string }
 ) => {
   const { type } = payload;
 
   // CASE: Get Tokens
   if (type === EManageTokenType.GET)
-    return {
-      refreshToken: localStorage.getItem(ELocalStorageKey.REFRESH_TOKEN) || '',
-      accessToken: localStorage.getItem(ELocalStorageKey.ACCESS_TOKEN) || '',
-    };
+    return localStorage.getItem(ELocalStorageKey.ACCESS_TOKEN) || '';
 
   // CASE: Set Tokens
-  const { refreshToken, accessToken } = payload;
-  localStorage.setItem(ELocalStorageKey.REFRESH_TOKEN, refreshToken);
+  const { accessToken } = payload;
   localStorage.setItem(ELocalStorageKey.ACCESS_TOKEN, accessToken);
-
-  return { refreshToken, accessToken };
+  return accessToken;
 };
