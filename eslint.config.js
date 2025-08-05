@@ -23,6 +23,7 @@ export default tseslint.config(
     rules: {
       ...reactHooks.configs.recommended.rules,
       ...prettier.rules,
+      '@typescript-eslint/no-unused-vars': 'warn',
       "prettier/prettier": "error",
       'react-refresh/only-export-components': [
         'warn',

@@ -17,7 +17,7 @@ const NotFoundPage = () => {
       />
       <div className='flex items-end text-primary gap-6 animate-bounce max-md:flex-col max-md:items-center'>
         <MapPinX size={100} />
-        <p className='font-medium text-6xl max-md:text-3xl'>{t('common.notFound')}</p>
+        <p className='font-medium text-6xl max-md:text-3xl'>{t('notFound')}</p>
       </div>
     </div>
   );

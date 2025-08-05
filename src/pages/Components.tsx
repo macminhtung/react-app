@@ -187,7 +187,7 @@ const ComponentsPage = () => {
             iProps={{ className: 'w-full' }}
           />
 
-          <ButtonC type='submit'>{t('common.submit')}</ButtonC>
+          <ButtonC type='submit'>{t('submit')}</ButtonC>
         </Form>
       </div>
     </div>

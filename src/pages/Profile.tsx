@@ -1,66 +1,82 @@
+import { useCallback } from 'react';
 import { z } from 'zod';
 import { useTranslation } from 'react-i18next';
 import { useZodForm } from '@/components/form/hooks';
 import { EItemFieldType } from '@/components/form/enums';
 import { useAppStore } from '@/store';
 import { ButtonC } from '@/components/ui-customize';
+import { showToastSuccess, uploadImageToS3 } from '@/common/funcs';
+import { useUpdateProfileMutation, useGeneratePreSignedUrlMutation } from '@/react-query/auth';
 
 const profileSchema = z.object({
   avatar: z.string().optional(),
-  email: z.string().email('Email invalid'),
+  email: z.string().email(),
   firstName: z
     .string()
-    .min(1, { message: 'Minimum 1 characters' })
+    .min(1, { message: 'Required' })
     .max(20, { message: 'Maximum 20 characters' }),
   lastName: z
     .string()
-    .min(1, { message: 'Minimum 1 characters' })
+    .min(1, { message: 'Required' })
     .max(20, { message: 'Maximum 20 characters' }),
 });
-
-const uploadImage = () =>
-  new Promise<string>((resolve) => {
-    setTimeout(() => {
-      resolve('uploadedURL');
-    }, 2000);
-  });
 
 const ProfilePage = () => {
   const { t } = useTranslation();
   const authUser = useAppStore((state) => state.authUser);
 
+  const generatePreSignedUrlMutation = useGeneratePreSignedUrlMutation();
+
+  const { mutateAsync, isPending } = useUpdateProfileMutation({
+    onSuccess: () => showToastSuccess(t('updatedSuccessfully')),
+  });
+
   const { Form, ItemField } = useZodForm({ schema: profileSchema, defaultValues: authUser });
 
-  const onSubmit = (values: z.infer<typeof profileSchema>) => console.log(values);
+  const onUploadAvatar = useCallback(
+    async (file: File) => {
+      // Generate preSignedUrl
+      const { generatePreSignedUrl } = await generatePreSignedUrlMutation.mutateAsync({
+        payload: {
+          contentType: file.type,
+          filename: file.name,
+        },
+      });
+
+      return await uploadImageToS3(generatePreSignedUrl, file);
+    },
+    [generatePreSignedUrlMutation]
+  );
+
+  const onSubmit = ({ email: _, avatar, ...rest }: z.infer<typeof profileSchema>) =>
+    mutateAsync({ payload: { avatar: avatar || '', ...rest } });
 
   return (
     <div className='size-full flex flex-col items-center gap-6'>
-      <p className='text-4xl font-bold mb-10'>{t('common.profile')}</p>
+      <p className='text-4xl font-bold mb-10'>{t('profile')}</p>
       <Form onSubmit={onSubmit} className='grid gap-6 w-full max-w-[20rem]'>
         <ItemField
           className='flex items-center'
           iType={EItemFieldType.UPLOAD_IMAGE}
           label=''
           fieldName='avatar'
-          iProps={{ onUpload: uploadImage }}
+          iProps={{ onUpload: onUploadAvatar }}
         />
 
         <ItemField
           iType={EItemFieldType.INPUT}
-          label={t('common.email')}
+          label={t('email')}
           fieldName='email'
           iProps={{ disabled: true }}
         />
 
-        <ItemField
-          iType={EItemFieldType.INPUT}
-          label={t('common.firstName')}
-          fieldName='firstName'
-        />
+        <ItemField iType={EItemFieldType.INPUT} label={t('firstName')} fieldName='firstName' />
 
-        <ItemField iType={EItemFieldType.INPUT} label={t('common.lastName')} fieldName='lastName' />
+        <ItemField iType={EItemFieldType.INPUT} label={t('lastName')} fieldName='lastName' />
 
-        <ButtonC type='submit'>{t('common.submit')}</ButtonC>
+        <ButtonC type='submit' loading={isPending}>
+          {t('submit')}
+        </ButtonC>
       </Form>
     </div>
   );

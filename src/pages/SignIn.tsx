@@ -47,28 +47,24 @@ const SignInPage = () => {
 
   return (
     <div className='size-full flex flex-col items-center gap-6'>
-      <p className='text-4xl font-bold mb-10'>{t('common.signIn')}</p>
+      <p className='text-4xl font-bold mb-10'>{t('signIn')}</p>
       <Form onSubmit={onSubmit} className='grid gap-6 w-full max-w-[20rem]'>
-        <ItemField iType={EItemFieldType.INPUT} label={t('common.username')} fieldName='email' />
+        <ItemField iType={EItemFieldType.INPUT} label={t('email')} fieldName='email' />
 
-        <ItemField
-          iType={EItemFieldType.PASSWORD}
-          label={t('common.password')}
-          fieldName='password'
-        />
+        <ItemField iType={EItemFieldType.PASSWORD} label={t('password')} fieldName='password' />
 
         <ButtonC type='submit' loading={isPending}>
-          {t('common.signIn')}
+          {t('signIn')}
         </ButtonC>
       </Form>
       <div className='text-center'>
-        <span>{t("common.Don't have an account?")}</span>
+        <span>{t("Don't have an account?")}</span>
         <ButtonC
           variant='link'
           onClick={() => navigate(ROUTE_PATH.SIGNUP)}
           className='font-bold text-xl'
         >
-          {t('common.signUp')}
+          {t('signUp')}
         </ButtonC>
       </div>
     </div>

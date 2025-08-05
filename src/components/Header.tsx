@@ -114,6 +114,7 @@ const Header = () => {
           // # ==> LOGGED <== #
           // # ============== #
           <>
+            <span className='font-semibold text-sm'>{`${authUser.firstName} ${authUser.lastName}`}</span>
             <AvatarC
               src={authUser.avatar || 'https://github.com/shadcn.png'}
               className='rounded-[50%] size-10'
@@ -132,14 +133,14 @@ const Header = () => {
                 <DropdownMenuLabel>{themeAndLang}</DropdownMenuLabel>
                 <DropdownMenuItem onClick={() => navigate(ROUTE_PATH.DASHBOARD.PROFILE)}>
                   <UserPen className='scale-[1.3] mr-2 text-primary' />
-                  <span>{t('common.profile')}</span>
+                  <span>{t('profile')}</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => signOutMutation.mutate(undefined)}
                   disabled={signOutMutation.isPending}
                 >
                   <LogOut className='scale-[1.2] mr-2 text-primary' />
-                  <span>{t('common.signOut')}</span>
+                  <span>{t('signOut')}</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

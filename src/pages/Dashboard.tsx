@@ -6,7 +6,7 @@ const DashboardPage = () => {
 
   return (
     <div className='flex flex-col w-full'>
-      <p className='mb-5 text-3xl font-medium'>{t('common.dashboard')}</p>
+      <p className='mb-5 text-3xl font-medium'>{t('dashboard')}</p>
       <ComponentsPage />
     </div>
   );

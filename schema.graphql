@@ -19,6 +19,11 @@ enum EOrder {
   DESC
 }
 
+input GeneratePreSignedUrlDto {
+  contentType: String
+  filename: String!
+}
+
 input GetPaginatedRecordsDto {
   createdFrom: DateTime
   createdTo: DateTime
@@ -49,10 +54,11 @@ input GetUsersPaginatedDto {
 type Mutation {
   createProduct(payload: CreateProductDto!): ProductEntity!
   deleteProduct(id: String!): String!
+  generatePreSignedUrl(payload: GeneratePreSignedUrlDto!): String!
   refreshToken(payload: RefreshTokenDto!): SignInResponseDto!
   signIn(payload: SignInDto!): SignInResponseDto!
   signOut: Float!
-  signUp(payload: SignUpDto!): SignInResponseDto!
+  signUp(payload: SignUpDto!): UserEntity!
   updatePassword(payload: UpdatePasswordDto!): SignInResponseDto!
   updateProduct(id: String!, payload: CreateProductDto!): ProductEntity!
   updateProfile(payload: UpdateProfileDto!): UserEntity!
@@ -103,7 +109,6 @@ type SignInResponseDto {
 }
 
 input SignUpDto {
-  avatar: String!
   email: String!
   firstName: String!
   lastName: String!

@@ -29,6 +29,11 @@ export enum EOrder {
   Desc = 'DESC'
 }
 
+export type GeneratePreSignedUrlDto = {
+  contentType?: InputMaybe<Scalars['String']['input']>;
+  filename: Scalars['String']['input'];
+};
+
 export type GetPaginatedRecordsDto = {
   createdFrom?: InputMaybe<Scalars['DateTime']['input']>;
   createdTo?: InputMaybe<Scalars['DateTime']['input']>;
@@ -59,10 +64,11 @@ export type GetUsersPaginatedDto = {
 export type Mutation = {
   createProduct: ProductEntity;
   deleteProduct: Scalars['String']['output'];
+  generatePreSignedUrl: Scalars['String']['output'];
   refreshToken: SignInResponseDto;
   signIn: SignInResponseDto;
   signOut: Scalars['Float']['output'];
-  signUp: SignInResponseDto;
+  signUp: UserEntity;
   updatePassword: SignInResponseDto;
   updateProduct: ProductEntity;
   updateProfile: UserEntity;
@@ -77,6 +83,11 @@ export type MutationCreateProductArgs = {
 
 export type MutationDeleteProductArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type MutationGeneratePreSignedUrlArgs = {
+  payload: GeneratePreSignedUrlDto;
 };
 
 
@@ -175,7 +186,6 @@ export type SignInResponseDto = {
 };
 
 export type SignUpDto = {
-  avatar: Scalars['String']['input'];
   email: Scalars['String']['input'];
   firstName: Scalars['String']['input'];
   lastName: Scalars['String']['input'];
@@ -214,6 +224,13 @@ export type UserEntity = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export type GeneratePreSignedUrlMutationVariables = Exact<{
+  payload: GeneratePreSignedUrlDto;
+}>;
+
+
+export type GeneratePreSignedUrlMutation = { generatePreSignedUrl: string };
+
 export type GetProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -230,6 +247,20 @@ export type SignOutMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type SignOutMutation = { signOut: number };
+
+export type SignUpMutationVariables = Exact<{
+  payload: SignUpDto;
+}>;
+
+
+export type SignUpMutation = { signUp: { id: string } };
+
+export type UpdateProfileMutationVariables = Exact<{
+  payload: UpdateProfileDto;
+}>;
+
+
+export type UpdateProfileMutation = { updateProfile: { id: string, email: string, avatar: string, firstName: string, lastName: string } };
 
 export type RefreshTokenMutationVariables = Exact<{
   payload: RefreshTokenDto;
@@ -257,6 +288,11 @@ export class TypedDocumentString<TResult, TVariables>
   }
 }
 
+export const GeneratePreSignedUrlDocument = new TypedDocumentString(`
+    mutation GeneratePreSignedUrl($payload: GeneratePreSignedUrlDto!) {
+  generatePreSignedUrl(payload: $payload)
+}
+    `) as unknown as TypedDocumentString<GeneratePreSignedUrlMutation, GeneratePreSignedUrlMutationVariables>;
 export const GetProfileDocument = new TypedDocumentString(`
     query GetProfile {
   getProfile {
@@ -281,6 +317,24 @@ export const SignOutDocument = new TypedDocumentString(`
   signOut
 }
     `) as unknown as TypedDocumentString<SignOutMutation, SignOutMutationVariables>;
+export const SignUpDocument = new TypedDocumentString(`
+    mutation SignUp($payload: SignUpDto!) {
+  signUp(payload: $payload) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<SignUpMutation, SignUpMutationVariables>;
+export const UpdateProfileDocument = new TypedDocumentString(`
+    mutation UpdateProfile($payload: UpdateProfileDto!) {
+  updateProfile(payload: $payload) {
+    id
+    email
+    avatar
+    firstName
+    lastName
+  }
+}
+    `) as unknown as TypedDocumentString<UpdateProfileMutation, UpdateProfileMutationVariables>;
 export const RefreshTokenDocument = new TypedDocumentString(`
     mutation RefreshToken($payload: RefreshTokenDto!) {
   refreshToken(payload: $payload) {

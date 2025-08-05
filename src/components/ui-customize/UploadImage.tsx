@@ -28,7 +28,7 @@ export const UploadImageC = (props: TUploadImageC) => {
       {isUploading && (
         <div className='absolute top-0 z-[1] flex flex-col size-full items-center justify-center opacity-80 gap-6 bg-background'>
           <LoaderCircle className='text-primary scale-[2] animate-spin' />
-          <p className='text-primary font-bold animate-bounce'>{t('common.uploading')}</p>
+          <p className='text-primary font-bold animate-bounce'>{t('uploading')}</p>
         </div>
       )}
 
