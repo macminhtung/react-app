@@ -119,7 +119,7 @@ const ComponentsPage = () => {
           onSubmit={(values) => console.log(values)}
           className='grid gap-6 w-full max-w-[40rem] max-md:items-center'
         >
-          <div className='flex flex-col p-6 rounded-md border'>
+          <div className='flex flex-col p-6 rounded-md border max-md:border-none max-md:p-0'>
             <p className='font-medium mb-3'>Items</p>
             {fields.map((field, idx) => (
               <div
@@ -166,7 +166,6 @@ const ComponentsPage = () => {
             <ButtonC
               onClick={() => append({ input: '', select: 'Option1', multiSelect: [] })}
               variant='outline'
-              className=''
             >
               <Plus />
               <span>Add</span>

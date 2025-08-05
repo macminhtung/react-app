@@ -31,7 +31,7 @@ const client = new GraphQLClient(`${import.meta.env.VITE_APP_API}/graphql`, {
   mode: 'cors',
 });
 
-export const request = <R>(options: RequestOptions<Variables, R>) => {
+export const request = <R, V extends Variables = Variables>(options: RequestOptions<V, R>) => {
   const accessToken = manageAccessToken({ type: EManageTokenType.GET });
   return (
     client

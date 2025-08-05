@@ -1,9 +1,14 @@
 import { createElement } from 'react';
 import { toast, type ExternalToast } from 'sonner';
-import { X, CircleCheck } from 'lucide-react';
-import { ClientError } from 'graphql-request';
+import { X, CircleCheck, CircleX } from 'lucide-react';
+import { ClientError, gql } from 'graphql-request';
 import { ELocalStorageKey } from '@/common/enums';
 import { ROUTE_PATH } from '@/common/constants';
+import { request } from '@/react-query/request';
+import type {
+  GeneratePreSignedUrlMutationVariables,
+  GeneratePreSignedUrlMutation,
+} from '@/gql/graphql';
 
 export const showToastSuccess = (
   message: string,
@@ -30,6 +35,7 @@ export const showToastError = (
       onClick: () => null,
     },
     actionButtonStyle: { backgroundColor: 'transparent' },
+    icon: createElement(CircleX, { className: 'w-5 text-red-500' }),
     duration: 2500,
     ...options,
   });
@@ -59,20 +65,38 @@ export const manageAccessToken = (
   return accessToken;
 };
 
-export const uploadImageToS3 = async (signedUrl: string, file: File): Promise<string> => {
-  const response = await fetch(signedUrl, { method: 'PUT', body: file });
+const generatePreSignedUrlDocument = gql`
+  mutation GeneratePreSignedUrl($payload: GeneratePreSignedUrlDto!) {
+    generatePreSignedUrl(payload: $payload)
+  }
+`;
 
-  // CASE: Upload failed
-  if (!response.ok) {
+export const uploadImageToS3 = async (file: File): Promise<string> => {
+  // Call API to generate the preSignedUrl
+  const resData = await request<
+    GeneratePreSignedUrlMutation,
+    GeneratePreSignedUrlMutationVariables
+  >({
+    document: generatePreSignedUrlDocument,
+    variables: { payload: { contentType: file.type, filename: file.name } },
+  });
+
+  // Upload the image based on preSignedUrl
+  const uploadRes = await fetch(resData.generatePreSignedUrl, { method: 'PUT', body: file });
+
+  // CASE: Upload fail
+  if (!uploadRes.ok) {
     toast.error('Upload image failed', {
       action: {
         label: createElement(X, { className: 'w-5 text-gray-700 dark:text-white' }),
         onClick: () => null,
       },
       actionButtonStyle: { backgroundColor: 'transparent' },
+      icon: createElement(CircleX, { className: 'w-5 text-red-500' }),
     });
     return '';
   }
 
-  return signedUrl.split('?')?.[0];
+  // CASE: Upload success
+  return resData.generatePreSignedUrl.split('?')?.[0];
 };

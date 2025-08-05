@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { z } from 'zod';
 import { useTranslation } from 'react-i18next';
 import { useZodForm } from '@/components/form/hooks';
@@ -6,7 +5,7 @@ import { EItemFieldType } from '@/components/form/enums';
 import { useAppStore } from '@/store';
 import { ButtonC } from '@/components/ui-customize';
 import { showToastSuccess, uploadImageToS3 } from '@/common/funcs';
-import { useUpdateProfileMutation, useGeneratePreSignedUrlMutation } from '@/react-query/auth';
+import { useUpdateProfileMutation } from '@/react-query/auth';
 
 const profileSchema = z.object({
   avatar: z.string().optional(),
@@ -25,28 +24,11 @@ const ProfilePage = () => {
   const { t } = useTranslation();
   const authUser = useAppStore((state) => state.authUser);
 
-  const generatePreSignedUrlMutation = useGeneratePreSignedUrlMutation();
-
   const { mutateAsync, isPending } = useUpdateProfileMutation({
     onSuccess: () => showToastSuccess(t('updatedSuccessfully')),
   });
 
   const { Form, ItemField } = useZodForm({ schema: profileSchema, defaultValues: authUser });
-
-  const onUploadAvatar = useCallback(
-    async (file: File) => {
-      // Generate preSignedUrl
-      const { generatePreSignedUrl } = await generatePreSignedUrlMutation.mutateAsync({
-        payload: {
-          contentType: file.type,
-          filename: file.name,
-        },
-      });
-
-      return await uploadImageToS3(generatePreSignedUrl, file);
-    },
-    [generatePreSignedUrlMutation]
-  );
 
   const onSubmit = ({ email: _, avatar, ...rest }: z.infer<typeof profileSchema>) =>
     mutateAsync({ payload: { avatar: avatar || '', ...rest } });
@@ -60,7 +42,7 @@ const ProfilePage = () => {
           iType={EItemFieldType.UPLOAD_IMAGE}
           label=''
           fieldName='avatar'
-          iProps={{ onUpload: onUploadAvatar }}
+          iProps={{ onUpload: uploadImageToS3 }}
         />
 
         <ItemField
