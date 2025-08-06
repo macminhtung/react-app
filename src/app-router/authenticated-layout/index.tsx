@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { Navigate } from 'react-router';
 import { useAppStore } from '@/store';
 import { ROUTE_PATH } from '@/common/constants';
@@ -31,4 +30,4 @@ const AuthenticatedLayout = () => {
   return <AppWrapper />;
 };
 
-export default memo(AuthenticatedLayout);
+export default AuthenticatedLayout;
