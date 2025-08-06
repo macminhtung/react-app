@@ -25,7 +25,7 @@ const AuthenticatedLayout = () => {
   // CASE: UN-LOGGED ==> Navigate to signIn page
   if (!accessToken) return <Navigate to={ROUTE_PATH.SIGNIN} />;
 
-  if (isAppLoading) return <AppLoading />;
+  if (!authUser.id || isAppLoading) return <AppLoading />;
 
   return <AppWrapper />;
 };
