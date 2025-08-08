@@ -23,12 +23,19 @@ const profileSchema = z.object({
 const ProfilePage = () => {
   const { t } = useTranslation();
   const authUser = useAppStore((state) => state.authUser);
+  const setAuthUser = useAppStore((state) => state.setAuthUser);
 
   const { mutateAsync, isPending } = useUpdateProfileMutation({
-    onSuccess: () => showToastSuccess(t('updatedSuccessfully')),
+    onSuccess: (data) => {
+      setAuthUser({ ...authUser, ...data.updateProfile });
+      showToastSuccess(t('updatedSuccessfully'));
+    },
   });
 
-  const { Form, ItemField } = useZodForm({ schema: profileSchema, defaultValues: authUser });
+  const { methods, Form, ItemField } = useZodForm({
+    schema: profileSchema,
+    values: authUser,
+  });
 
   const onSubmit = ({ email: _, avatar, ...rest }: z.infer<typeof profileSchema>) =>
     mutateAsync({ payload: { avatar: avatar || '', ...rest } });
@@ -56,7 +63,7 @@ const ProfilePage = () => {
 
         <ItemField iType={EItemFieldType.INPUT} label={t('lastName')} fieldName='lastName' />
 
-        <ButtonC type='submit' loading={isPending}>
+        <ButtonC type='submit' loading={isPending} disabled={!methods.formState.isDirty}>
           {t('submit')}
         </ButtonC>
       </Form>

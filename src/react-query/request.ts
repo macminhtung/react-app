@@ -9,14 +9,8 @@ import type { RefreshTokenMutation, RefreshTokenMutationVariables } from '@/gql/
 
 const JWT_ERRORS = {
   EXPIRED: 'jwt expired',
-  INVALID_TOKEN: 'invalid token',
-  INVALID_SIGNATURE: 'invalid signature',
-  UNEXPECTED_TOKEN: 'Unexpected token',
+  TOKEN_INVALID: 'Token invalid',
 };
-
-const isJwtInvalid = (errorMessage: string) =>
-  [JWT_ERRORS.INVALID_TOKEN, JWT_ERRORS.INVALID_SIGNATURE].includes(errorMessage) ||
-  errorMessage.includes(JWT_ERRORS.UNEXPECTED_TOKEN);
 
 const refreshTokenDocument = gql`
   mutation RefreshToken($payload: RefreshTokenDto!) {
@@ -70,7 +64,7 @@ export const request = <R, V extends Variables = Variables>(options: RequestOpti
                       const reErrorMessage = reCallError.response.errors?.[0]?.message || '';
 
                       // CASE: JWT invalid
-                      if (isJwtInvalid(reErrorMessage))
+                      if (reErrorMessage.includes(JWT_ERRORS.TOKEN_INVALID))
                         throw showToastError(error, {
                           duration: 1500,
                           onAutoClose: () => clearTokensAndNavigateSignInPage(),
@@ -95,7 +89,7 @@ export const request = <R, V extends Variables = Variables>(options: RequestOpti
         }
 
         // CASE: JWT invalid
-        else if (isJwtInvalid(errorMessage))
+        else if (errorMessage.includes(JWT_ERRORS.TOKEN_INVALID))
           throw showToastError(error, {
             duration: 1500,
             onAutoClose: () => clearTokensAndNavigateSignInPage(),

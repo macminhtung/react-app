@@ -57,7 +57,7 @@ const formSchema = z.object({
     .min(1, 'At least one item is required'),
   object: z.object({
     key1: z.string().min(1, 'Required'),
-    key2: z.string(),
+    key2: z.string().optional(),
   }),
 });
 
@@ -76,7 +76,7 @@ const ComponentsPage = () => {
     schema: formSchema,
     values: {
       items: [{ input: '', select: 'Option1', multiSelect: [] }],
-      object: { key1: '', key2: '' },
+      object: { key1: '' },
     },
   });
 
@@ -119,12 +119,12 @@ const ComponentsPage = () => {
           onSubmit={(values) => console.log(values)}
           className='grid gap-6 w-full max-w-[40rem] max-md:items-center'
         >
-          <div className='flex flex-col p-6 rounded-md border max-md:border-none max-md:p-0'>
+          <div className='flex flex-col p-6 rounded-md border max-md:[&>div:not(:nth-last-child(-n+2))]:border-b'>
             <p className='font-medium mb-3'>Items</p>
             {fields.map((field, idx) => (
               <div
                 key={field.id}
-                className='flex w-full p-5 rounded-md border gap-5 items-start relative mb-5 max-md:flex-col max-md:items-center max-md:[&>div]:w-full'
+                className='item flex w-full p-5 rounded-md border gap-5 items-start relative mb-5 max-md:flex-col max-md:rounded-none max-md:items-center max-md:[&>div]:w-full max-md:border-0 max-md:px-0'
               >
                 <ItemField
                   iType={EItemFieldType.INPUT}
@@ -155,7 +155,7 @@ const ComponentsPage = () => {
                   <ButtonC
                     onClick={() => remove(idx)}
                     variant='ghost'
-                    className='absolute right-1 top-1 size-8'
+                    className='absolute right-1 top-1 size-8 max-md:top-0'
                   >
                     <X className='size-5 text-red-500' />
                   </ButtonC>
