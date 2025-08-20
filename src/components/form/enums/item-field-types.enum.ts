@@ -1,5 +1,6 @@
 export enum EItemFieldType {
   INPUT = 'INPUT',
+  INPUT_NUMBER = 'INPUT_NUMBER',
   PASSWORD = 'PASSWORD',
   SELECT = 'SELECT',
   MULTI_SELECT = 'MULTI_SELECT',

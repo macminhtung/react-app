@@ -4,6 +4,7 @@ export * from './Select';
 export * from './MultiSelect';
 export * from './Spinner';
 export * from './Input';
+export * from './InputNumber';
 export * from './Password';
 export * from './Table';
 export * from './Pagination';

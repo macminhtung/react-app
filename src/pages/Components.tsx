@@ -56,8 +56,8 @@ const formSchema = z.object({
     )
     .min(1, 'At least one item is required'),
   object: z.object({
-    key1: z.string().min(1, 'Required'),
-    key2: z.string().optional(),
+    number: z.coerce.number().min(1, 'Required'),
+    textarea: z.string().optional(),
   }),
 });
 
@@ -76,7 +76,7 @@ const ComponentsPage = () => {
     schema: formSchema,
     values: {
       items: [{ input: '', select: 'Option1', multiSelect: [] }],
-      object: { key1: '' },
+      object: { number: 1 },
     },
   });
 
@@ -173,16 +173,16 @@ const ComponentsPage = () => {
           </div>
 
           <ItemField
-            iType={EItemFieldType.INPUT}
-            label={'KEY1'}
-            fieldName={'object.key1'}
-            iProps={{ className: 'w-full' }}
+            iType={EItemFieldType.INPUT_NUMBER}
+            label={'NUMBER'}
+            fieldName={'object.number'}
+            iProps={{ className: 'w-full', decimalLimit: 2 }}
           />
 
           <ItemField
             iType={EItemFieldType.TEXTAREA}
-            label={'KEY2'}
-            fieldName={'object.key2'}
+            label={'TEXTAREA'}
+            fieldName={'object.textarea'}
             iProps={{ className: 'w-full' }}
           />
 

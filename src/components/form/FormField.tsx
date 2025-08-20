@@ -11,6 +11,7 @@ import {
 import { Textarea } from '@/components/ui';
 import {
   InputC,
+  InputNumberC,
   SelectC,
   MultiSelectC,
   PasswordC,
@@ -26,6 +27,7 @@ import { cn } from '@/lib/utils';
 
 type TItemProps =
   | { iType: EItemFieldType.INPUT; iProps?: ComponentProps<typeof InputC> }
+  | { iType: EItemFieldType.INPUT_NUMBER; iProps?: ComponentProps<typeof InputNumberC> }
   | { iType: EItemFieldType.PASSWORD; iProps?: ComponentProps<typeof PasswordC> }
   | { iType: EItemFieldType.SELECT; iProps: ComponentProps<typeof SelectC> }
   | { iType: EItemFieldType.MULTI_SELECT; iProps: ComponentProps<typeof MultiSelectC> }
@@ -39,6 +41,7 @@ type TItemProps =
 
 const ITEM_FIELDS_MAP = {
   [EItemFieldType.INPUT]: InputC,
+  [EItemFieldType.INPUT_NUMBER]: InputNumberC,
   [EItemFieldType.PASSWORD]: PasswordC,
   [EItemFieldType.SELECT]: SelectC,
   [EItemFieldType.MULTI_SELECT]: MultiSelectC,
